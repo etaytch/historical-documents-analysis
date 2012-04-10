@@ -1,0 +1,11 @@
+﻿     0>C:\Program Files (x86)\MSBuild\4.0\Microsoft.Common.Targets\ImportAfter\Microsoft.VisualStudio.SharePoint.SandboxedCompilation.targets(47,5): warning MSB4057: The target "CoreCompile" does not exist in the project.
+     0>C:\Program Files (x86)\MSBuild\4.0\Microsoft.Common.Targets\ImportAfter\Microsoft.VisualStudio.SharePoint.SandboxedCompilation.targets(63,5): warning MSB4057: The target "CoreCompile" does not exist in the project.
+Build started 10/04/2012 19:04:14.
+     1>Project "C:\Users\Vadi\Documents\Visual Studio 2010\Projects\HistoricalDocumentsAnalysis\DocumentsAnalysisGUI\DocumentsAnalysisGUI.vcxproj" on node 2 (clean target(s)).
+     1>_PrepareForClean:
+         Deleting file "Debug\DocumentsAnalysisGUI.lastbuildstate".
+     1>Done Building Project "C:\Users\Vadi\Documents\Visual Studio 2010\Projects\HistoricalDocumentsAnalysis\DocumentsAnalysisGUI\DocumentsAnalysisGUI.vcxproj" (clean target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.06

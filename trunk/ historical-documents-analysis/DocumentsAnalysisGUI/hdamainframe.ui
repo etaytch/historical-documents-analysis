@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HdaMainFrameClass</class>
+ <widget class="QMainWindow" name="HdaMainFrameClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>740</width>
+    <height>727</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>HdaMainFrame</string>
+  </property>
+  <property name="documentMode">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QMdiArea" name="mdiArea"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>740</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionNewManuscript"/>
+    <addaction name="actionOpen_manuscript"/>
+    <addaction name="actionSave_current_file"/>
+    <addaction name="actionSave_alll"/>
+    <addaction name="actionAdd_manuscript"/>
+    <addaction name="actionRemove_manuscript"/>
+    <addaction name="actionAdd_page"/>
+    <addaction name="actionRemove_page"/>
+    <addaction name="actionQuit"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuManuscript">
+    <property name="title">
+     <string>Manuscript</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Tools</string>
+    </property>
+    <addaction name="actionScedual_batch_job"/>
+    <addaction name="actionQuick_Opertion"/>
+    <addaction name="actionSceduler"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionHelp"/>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuManuscript"/>
+   <addaction name="menuView"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="iconSize">
+    <size>
+     <width>24</width>
+     <height>24</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNewManuscript"/>
+   <addaction name="actionOpen_manuscript"/>
+   <addaction name="actionSave_alll"/>
+   <addaction name="actionSave_current_file"/>
+   <addaction name="actionAdd_page"/>
+   <addaction name="actionRemove_page"/>
+   <addaction name="actionQuick_Opertion"/>
+   <addaction name="actionScedual_batch_job"/>
+   <addaction name="actionSceduler"/>
+   <addaction name="actionHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QDockWidget" name="ProjectTree">
+   <property name="windowTitle">
+    <string>Project Tree</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QTreeView" name="treeView"/>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="CurrentManuscriptPages">
+   <property name="features">
+    <set>QDockWidget::DockWidgetFeatureMask</set>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>8</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QListView" name="listView">
+       <property name="flow">
+        <enum>QListView::LeftToRight</enum>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <action name="actionNewManuscript">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-properties-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-properties-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>New Manuscript</string>
+   </property>
+   <property name="toolTip">
+    <string>Create new manuscript</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionOpen_manuscript">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-open-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-open-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open manuscript</string>
+   </property>
+   <property name="toolTip">
+    <string>Open manuscript</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSave_alll">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-save-all-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-save-all-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save alll </string>
+   </property>
+   <property name="toolTip">
+    <string>Save all</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionSave_current_file">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-save-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-save-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>save current file</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionAdd_page">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-new-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-new-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add page</string>
+   </property>
+   <property name="toolTip">
+    <string>Add page</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+A</string>
+   </property>
+  </action>
+  <action name="actionRemove_page">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-close-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-close-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove page</string>
+   </property>
+  </action>
+  <action name="actionAdd_manuscript">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-tab-new-background-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-tab-new-background-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add manuscript</string>
+   </property>
+  </action>
+  <action name="actionRemove_manuscript">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-tab-close-other-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-tab-close-other-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove manuscript</string>
+   </property>
+  </action>
+  <action name="actionQuit">
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="actionQuick_Opertion">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-quickopen-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-quickopen-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Quick Opertion</string>
+   </property>
+  </action>
+  <action name="actionScedual_batch_job">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Categories-applications-system-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Categories-applications-system-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Scedual batch job</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Misc-Help-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Misc-Help-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Help</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-help-about-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-help-about-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionSceduler">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-mail-mark-task-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-mail-mark-task-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Sceduler</string>
+   </property>
+  </action>
+  <action name="actionAlgorithms">
+   <property name="text">
+    <string>Algorithms</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="hdamainframe.qrc"/>
+ </resources>
+ <connections/>
+</ui>
