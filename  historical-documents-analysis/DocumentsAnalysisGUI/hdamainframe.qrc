@@ -1,0 +1,22 @@
+<RCC>
+  <qresource prefix="HdaMainFrame">
+    <file>Resources/toolBarIcons/Actions-help-about-icon.png</file>
+    <file>Resources/toolBarIcons/Actions-mail-mark-task-icon.png</file>
+    <file>Resources/toolBarIcons/Categories-applications-system-icon.png</file>
+    <file>Resources/toolBarIcons/Mimetypes-application-vnd-iccprofile-icon.png</file>
+    <file>Resources/toolBarIcons/Misc-Help-icon.png</file>
+    <file>Resources/toolBarIcons/Actions-mail-mark-task-icon.png</file>
+    <file>Resources/toolBarIcons/Actions-quickopen-icon.png</file>
+    <file>Resources/toolBarIcons/Actions-tab-close-other-icon.png</file>
+    <file>Resources/toolBarIcons/Actions-tab-new-background-icon.png</file>
+    <file>Resources/toolBarIcons/Categories-applications-system-icon.png</file>
+    <file>Resources/toolBarIcons/Mimetypes-application-vnd-iccprofile-icon.png</file>
+    <file>Resources/toolBarIcons/Actions-document-save-icon.png</file>
+    <file>Resources/toolBarIcons/Actions-document-save-all-icon.png</file>
+    <file>Resources/toolBarIcons/Actions-document-close-icon.png</file>
+    <file>Resources/toolBarIcons/Actions-document-new-icon.png</file>
+    <file>Resources/toolBarIcons/Actions-document-open-icon.png</file>
+    <file>Resources/toolBarIcons/Actions-document-properties-icon.png</file>
+    <file>Resources/toolBarIcons/Actions-document-save-as-icon.png</file>
+  </qresource>
+</RCC>
