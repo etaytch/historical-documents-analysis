@@ -50,6 +50,15 @@
     <ClCompile Include="GeneratedFiles\qrc_hdamainframe.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="thumbnailsmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_thumbnailsmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_thumbnailsmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="hdamainframe.h">
@@ -60,6 +69,9 @@
     </CustomBuild>
     <CustomBuild Include="hdamainframe.qrc">
       <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="thumbnailsmodel.h">
+      <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

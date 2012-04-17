@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'hdamainframe.ui'
 **
-** Created: Mon 16. Apr 10:32:49 2012
+** Created: Mon 16. Apr 21:03:03 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -67,7 +67,7 @@ public:
     QDockWidget *CurrentManuscriptPages;
     QWidget *dockWidgetContents_2;
     QVBoxLayout *verticalLayout;
-    QListView *listView;
+    QListView *thumbnailsView;
 
     void setupUi(QMainWindow *HdaMainFrameClass)
     {
@@ -209,11 +209,21 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        listView = new QListView(dockWidgetContents_2);
-        listView->setObjectName(QString::fromUtf8("listView"));
-        listView->setFlow(QListView::LeftToRight);
+        thumbnailsView = new QListView(dockWidgetContents_2);
+        thumbnailsView->setObjectName(QString::fromUtf8("thumbnailsView"));
+        thumbnailsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        thumbnailsView->setTextElideMode(Qt::ElideNone);
+        thumbnailsView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+        thumbnailsView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
+        thumbnailsView->setMovement(QListView::Free);
+        thumbnailsView->setFlow(QListView::LeftToRight);
+        thumbnailsView->setProperty("isWrapping", QVariant(false));
+        thumbnailsView->setResizeMode(QListView::Adjust);
+        thumbnailsView->setViewMode(QListView::IconMode);
+        thumbnailsView->setUniformItemSizes(true);
+        thumbnailsView->setBatchSize(5);
 
-        verticalLayout->addWidget(listView);
+        verticalLayout->addWidget(thumbnailsView);
 
         CurrentManuscriptPages->setWidget(dockWidgetContents_2);
         HdaMainFrameClass->addDockWidget(static_cast<Qt::DockWidgetArea>(8), CurrentManuscriptPages);

@@ -3,6 +3,7 @@
 
 #include <QtGui/QMainWindow>
 #include "ui_hdamainframe.h"
+#include "thumbnailsmodel.h"
 
 class HdaMainFrame : public QMainWindow
 {
@@ -14,6 +15,7 @@ public:
 
 private:
 	Ui::HdaMainFrameClass ui;
+	ThumbNailsModel* manuscriptPagesModel;
 
 };
 
