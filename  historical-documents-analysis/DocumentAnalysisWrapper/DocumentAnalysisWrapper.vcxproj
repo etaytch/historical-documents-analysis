@@ -41,13 +41,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\Manuscript;C:\opencv\build\include;C:\opencv\build\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Manuscript;C:\OpenCV2.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>..\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>C:\opencv\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opencv_imgproc231.lib;opencv_core231.lib;opencv_highgui231.lib;opencv_contrib231.lib;opencv_calib3d231.lib;opencv_objdetect231.lib;opencv_features2d231.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\OpenCV2.3\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_core231d.lib;opencv_highgui231d.lib;opencv_contrib231d.lib;opencv_calib3d231d.lib;opencv_objdetect231d.lib;opencv_imgproc231d.lib;opencv_features2d231d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>..\$(Configuration)\$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>

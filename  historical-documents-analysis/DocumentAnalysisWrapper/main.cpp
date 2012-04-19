@@ -37,6 +37,7 @@ int main() {
 	vector<ConnectedComponent*> components ;
 	Mat img_in = cv::imread("arabic.jpg") ;
 	resize(img_in, img, img_in.size()*2,  2.0, 2.0);
+	display("resized", img_in);
 	image.setMat(img);
 	image.setMat(imread("pentagon.jpg"));
 	DImage* gray = image.rgb2gray();
