@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6D5B98B3-A3B1-414C-B384-BE91DC97F2B7}</ProjectGuid>
+    <RootNamespace>Manuscrip</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\opencv\build\include;C:\opencv\build\include\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>MANUSCRIPT_LIB;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\opencv\build\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opencv_imgproc231.lib;opencv_core231.lib;opencv_highgui231.lib;opencv_contrib231.lib;opencv_calib3d231.lib;opencv_objdetect231.lib;opencv_features2d231.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>..\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>..\$(Configuration)\$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Binarizer.h" />
+    <ClInclude Include="BinaryComponentExtractor.h" />
+    <ClInclude Include="Block.h" />
+    <ClInclude Include="ComponentComparator.h" />
+    <ClInclude Include="ComponentExtractor.h" />
+    <ClInclude Include="ComponentFilter.h" />
+    <ClInclude Include="ConnectedComponent.h" />
+    <ClInclude Include="Contour.h" />
+    <ClInclude Include="DImage.h" />
+    <ClInclude Include="FeatureVector.h" />
+    <ClInclude Include="GlobalBinarizer.h" />
+    <ClInclude Include="LocalBinarizer.h" />
+    <ClInclude Include="Manuscript.h" />
+    <ClInclude Include="manuscript_global.h" />
+    <ClInclude Include="OtsulBinarizer.h" />
+    <ClInclude Include="Page.h" />
+    <ClInclude Include="ProfileFeature.h" />
+    <ClInclude Include="RadialBinarizer.h" />
+    <ClInclude Include="TextLine.h" />
+    <ClInclude Include="TextLineExtractor.h" />
+    <ClInclude Include="WordSpotter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BinaryComponentExtractor.cpp" />
+    <ClCompile Include="Block.cpp" />
+    <ClCompile Include="ComponentComparator.cpp" />
+    <ClCompile Include="ComponentFilter.cpp" />
+    <ClCompile Include="ConnectedComponent.cpp" />
+    <ClCompile Include="Contour.cpp" />
+    <ClCompile Include="DImage.cpp" />
+    <ClCompile Include="GlobalBinarizer.cpp" />
+    <ClCompile Include="LocalBinarizer.cpp" />
+    <ClCompile Include="Manuscript.cpp" />
+    <ClCompile Include="OtsulBinarizer.cpp" />
+    <ClCompile Include="Page.cpp" />
+    <ClCompile Include="ProfileFeature.cpp" />
+    <ClCompile Include="RadialBinarizer.cpp" />
+    <ClCompile Include="TextLine.cpp" />
+    <ClCompile Include="WordSpotter.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
