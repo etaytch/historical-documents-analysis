@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'hdamainframe.ui'
 **
-** Created: Mon 16. Apr 21:03:03 2012
+** Created: Thu 19. Apr 23:01:01 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -219,6 +219,7 @@ public:
         thumbnailsView->setFlow(QListView::LeftToRight);
         thumbnailsView->setProperty("isWrapping", QVariant(false));
         thumbnailsView->setResizeMode(QListView::Adjust);
+        thumbnailsView->setSpacing(5);
         thumbnailsView->setViewMode(QListView::IconMode);
         thumbnailsView->setUniformItemSizes(true);
         thumbnailsView->setBatchSize(5);

@@ -4,7 +4,7 @@
 ThumbNailsModel::ThumbNailsModel(QObject *parent, QString folderPath)
 	: QAbstractListModel(parent)
 {
-	thumbnails = new QMap<QString,QPixmap>();
+	_thumbnails = new QMap<QString,QPixmap>();
 	loadImages(folderPath);
 
 }
@@ -20,7 +20,7 @@ bool ThumbNailsModel::loadImages(QString manuscriptDir)
 		if (!image.load(manuscriptDir+"/"+imageFileName))
 			return false;
 
-		thumbnails->insert(manuscriptDir+"/"+imageFileName,image.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+		_thumbnails->insert(manuscriptDir+"/"+imageFileName,image.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 	}
 	return true;
 }
@@ -28,13 +28,13 @@ bool ThumbNailsModel::loadImages(QString manuscriptDir)
 
 ThumbNailsModel::~ThumbNailsModel()
 {
-	thumbnails->clear();
-	delete thumbnails;
+	_thumbnails->clear();
+	delete _thumbnails;
 }
 
 int ThumbNailsModel::rowCount(const QModelIndex &parent) const
 {		
-	return this->thumbnails->size();	
+	return _thumbnails->size();	
 }
 
 int ThumbNailsModel::columnCount(const QModelIndex &parent) const
@@ -47,7 +47,7 @@ QVariant ThumbNailsModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (index.row() >= thumbnails->size())
+    if (index.row() >= _thumbnails->size())
         return QVariant();
 
 	switch( role )
@@ -55,7 +55,7 @@ QVariant ThumbNailsModel::data(const QModelIndex &index, int role) const
 		case Qt::DecorationRole:	
 		{
 			QMap<QString, QPixmap>::iterator iter;
-			iter = thumbnails->begin();
+			iter = _thumbnails->begin();
 			iter+=index.row();
 			QPixmap  image = iter.value();
 			return image;

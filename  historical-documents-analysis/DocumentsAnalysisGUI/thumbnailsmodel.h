@@ -17,8 +17,7 @@ class ThumbNailsModel : public QAbstractListModel
 	Q_OBJECT
 
 private:
-	QMap<QString,QPixmap>* thumbnails;
-
+	QMap<QString,QPixmap>* _thumbnails;
 public:
 	ThumbNailsModel(QObject *parent,QString folderPath);
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
