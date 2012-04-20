@@ -12,6 +12,8 @@ public:
 	ProjectDoc(QObject *parent);
 	~ProjectDoc();
 	void addManuscript(ManuscriptDoc* manuscript);
+	int getManuscriptCount();
+	ManuscriptDoc* getManuscriptAt(int index);
 
 private:
 	QVector<ManuscriptDoc*>* _manuscripts; 

@@ -15,6 +15,9 @@ public:
 	~ManuscriptDoc();
 	void addPage(QString* path);
 	void setManuscript(Manuscript* manscript);
+	int getPageCount();
+	QString* getPageAt(int index);
+
 
 private:
 	Manuscript* _manuscript;

@@ -22,3 +22,13 @@ void ManuscriptDoc::setManuscript(Manuscript* manuscript)
 {
 	this->_manuscript = manuscript;
 }
+
+int ManuscriptDoc::getPageCount()
+{
+	return this->_pagesPath->size();
+}
+
+QString* ManuscriptDoc::getPageAt(int index)
+{
+	return this->_pagesPath->at(index);
+}

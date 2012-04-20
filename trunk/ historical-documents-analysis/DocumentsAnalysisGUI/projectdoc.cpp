@@ -15,3 +15,14 @@ void ProjectDoc::addManuscript(ManuscriptDoc* manuscript)
 {
 	this->_manuscripts->append(manuscript);
 }
+
+int ProjectDoc::getManuscriptCount()
+{
+	return this->_manuscripts->size();
+}
+
+
+ManuscriptDoc* ProjectDoc::getManuscriptAt(int index)
+{
+	return this->_manuscripts->at(index);
+}
