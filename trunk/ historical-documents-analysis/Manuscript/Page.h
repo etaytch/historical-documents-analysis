@@ -14,7 +14,7 @@
 class MANUSCRIPT_EXPORT Page : DImage {
 protected:
 	int                _index ;
-	vector<Block>  _blocks ;
+	vector<Block>      _blocks ;
 public:
 	Page(void);
 	~Page(void);

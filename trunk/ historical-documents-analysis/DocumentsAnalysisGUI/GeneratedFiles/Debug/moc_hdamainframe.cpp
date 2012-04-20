@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'hdamainframe.h'
 **
-** Created: Thu 19. Apr 23:01:00 2012
+** Created: Fri 20. Apr 18:07:18 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,26 +23,33 @@ static const uint qt_meta_data_HdaMainFrame[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       1,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
+ // slots: signature, parameters, type, tag, flags
+      20,   14,   13,   13, 0x0a,
+
        0        // eod
 };
 
 static const char qt_meta_stringdata_HdaMainFrame[] = {
-    "HdaMainFrame\0"
+    "HdaMainFrame\0\0index\0openImageWindow(QModelIndex)\0"
 };
 
 void HdaMainFrame::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
-    Q_UNUSED(_a);
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        Q_ASSERT(staticMetaObject.cast(_o));
+        HdaMainFrame *_t = static_cast<HdaMainFrame *>(_o);
+        switch (_id) {
+        case 0: _t->openImageWindow((*reinterpret_cast< QModelIndex(*)>(_a[1]))); break;
+        default: ;
+        }
+    }
 }
 
 const QMetaObjectExtraData HdaMainFrame::staticMetaObjectExtraData = {
@@ -76,6 +83,11 @@ int HdaMainFrame::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QMainWindow::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 1)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 1;
+    }
     return _id;
 }
 QT_END_MOC_NAMESPACE

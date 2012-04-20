@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'manuscriptdoc.h'
 **
-** Created: Thu 19. Apr 23:01:01 2012
+** Created: Fri 20. Apr 15:15:13 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!

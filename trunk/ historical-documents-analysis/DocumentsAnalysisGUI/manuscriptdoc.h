@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QVector>
+#include "Manuscript.h"
 
 
 class ManuscriptDoc : public QObject
@@ -10,16 +11,16 @@ class ManuscriptDoc : public QObject
 	Q_OBJECT
 
 private:
-	
-	int _size;
+	Manuscript _manuscript;
 	QVector<QString>* _pagesPath;  //need to be tree
 	QString _dir;
-	QString _name;
+
 	
 
 
 public:
 	ManuscriptDoc(QObject *parent);
+
 	~ManuscriptDoc();
 
 private:

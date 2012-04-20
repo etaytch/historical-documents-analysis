@@ -6,7 +6,6 @@ ThumbNailsModel::ThumbNailsModel(QObject *parent, QString folderPath)
 {
 	_thumbnails = new QMap<QString,QPixmap>();
 	loadImages(folderPath);
-
 }
 
 bool ThumbNailsModel::loadImages(QString manuscriptDir)
@@ -74,6 +73,15 @@ QModelIndex ThumbNailsModel::parent( const QModelIndex &index ) const
 	return QModelIndex();
 }
 
+QString ThumbNailsModel::getPagePath(const QModelIndex &index ) const
+{
+	QMap<QString, QPixmap>::iterator iter;
+	iter = _thumbnails->begin();
+	iter+=index.row();
+	QString  imagePath = iter.key();
+	return imagePath;
+}
+
 QVariant ThumbNailsModel::headerData(int section, Qt::Orientation orientation,
                                      int role) const
 {
@@ -85,12 +93,6 @@ QVariant ThumbNailsModel::headerData(int section, Qt::Orientation orientation,
     else
         return QString("Row %1").arg(section);
 }
-
-
-/*!
-    Returns an appropriate value for the item's flags. Valid items are
-    enabled, selectable, and editable.
-*/
 
 
 Qt::ItemFlags ThumbNailsModel::flags(const QModelIndex &index) const

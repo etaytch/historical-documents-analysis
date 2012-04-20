@@ -20,12 +20,42 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QMdiArea" name="mdiArea">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="font">
        <font>
         <strikeout>false</strikeout>
        </font>
       </property>
+      <property name="cursor" stdset="0">
+       <cursorShape>CrossCursor</cursorShape>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
       <property name="acceptDrops">
+       <bool>true</bool>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAsNeeded</enum>
+      </property>
+      <property name="viewMode">
+       <enum>QMdiArea::SubWindowView</enum>
+      </property>
+      <property name="documentMode">
+       <bool>false</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <property name="tabsMovable">
        <bool>true</bool>
       </property>
      </widget>
@@ -345,15 +375,30 @@
     <string>Sceduler</string>
    </property>
   </action>
-  <action name="actionAlgorithms">
-   <property name="text">
-    <string>Algorithms</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
   <include location="hdamainframe.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>thumbnailsView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>openImageWindow(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>294</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>296</x>
+     <y>487</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>openImageWindow(QModelIndex)</slot>
+ </slots>
 </ui>
