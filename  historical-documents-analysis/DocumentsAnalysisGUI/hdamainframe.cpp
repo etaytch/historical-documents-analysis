@@ -7,8 +7,11 @@ HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 {
 	ui.setupUi(this);
 	//_openPages = new QMap<QString,PageMdiChild>();
-	_manuscriptPagesModel = new ThumbNailsModel(this,"man/Pages"); 
-	ui.thumbnailsView->setModel(_manuscriptPagesModel);	
+	_manuscriptPagesModel = new ThumbNailsModel(this,"man/Pages");
+	ui.thumbnailsView->setModel(_manuscriptPagesModel);
+
+	//tree init:
+
 }
 
 void HdaMainFrame::openImageWindow(QModelIndex index)

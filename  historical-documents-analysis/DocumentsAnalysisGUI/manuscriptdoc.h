@@ -10,21 +10,16 @@ class ManuscriptDoc : public QObject
 {
 	Q_OBJECT
 
-private:
-	Manuscript _manuscript;
-	QVector<QString>* _pagesPath;  //need to be tree
-	QString _dir;
-
-	
-
-
 public:
 	ManuscriptDoc(QObject *parent);
-
 	~ManuscriptDoc();
+	void addPage(QString* path);
+	void setManuscript(Manuscript* manscript);
 
 private:
-	
+	Manuscript* _manuscript;
+	QVector<QString*>* _pagesPath;
+	QString _dir;
 };
 
 #endif // MANUSCRIPTDOC_H
