@@ -83,6 +83,24 @@
     <ClCompile Include="GeneratedFiles\Release\moc_pagemdichild.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="treeviewmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_treeviewmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_treeviewmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="projectdoc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_projectdoc.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_projectdoc.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="hdamainframe.h">
@@ -104,6 +122,12 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="pagemdichild.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="treeviewmodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="projectdoc.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

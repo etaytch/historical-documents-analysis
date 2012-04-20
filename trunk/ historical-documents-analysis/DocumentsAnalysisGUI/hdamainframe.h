@@ -23,6 +23,7 @@ public slots:
 private:
 	Ui::HdaMainFrameClass ui;
 	ThumbNailsModel* _manuscriptPagesModel;
+	
 	//QMap<QString,PageMdiChild*>* _openPages;
 };
 
