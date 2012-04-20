@@ -74,6 +74,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_manuscriptdoc.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="pagemdichild.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_pagemdichild.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_pagemdichild.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="hdamainframe.h">
@@ -92,6 +101,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="manuscriptdoc.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="pagemdichild.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'hdamainframe.ui'
 **
-** Created: Thu 19. Apr 23:01:01 2012
+** Created: Fri 20. Apr 18:07:18 2012
 **      by: Qt User Interface Compiler version 4.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -47,7 +47,6 @@ public:
     QAction *actionHelp;
     QAction *actionAbout;
     QAction *actionSceduler;
-    QAction *actionAlgorithms;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QMdiArea *mdiArea;
@@ -142,8 +141,6 @@ public:
         QIcon icon12;
         icon12.addFile(QString::fromUtf8(":/HdaMainFrame/Resources/toolBarIcons/Actions-mail-mark-task-icon.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionSceduler->setIcon(icon12);
-        actionAlgorithms = new QAction(HdaMainFrameClass);
-        actionAlgorithms->setObjectName(QString::fromUtf8("actionAlgorithms"));
         centralWidget = new QWidget(HdaMainFrameClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -152,10 +149,23 @@ public:
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         mdiArea = new QMdiArea(centralWidget);
         mdiArea->setObjectName(QString::fromUtf8("mdiArea"));
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(mdiArea->sizePolicy().hasHeightForWidth());
+        mdiArea->setSizePolicy(sizePolicy);
         QFont font;
         font.setStrikeOut(false);
         mdiArea->setFont(font);
+        mdiArea->viewport()->setProperty("cursor", QVariant(QCursor(Qt::CrossCursor)));
+        mdiArea->setMouseTracking(false);
         mdiArea->setAcceptDrops(true);
+        mdiArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        mdiArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+        mdiArea->setViewMode(QMdiArea::SubWindowView);
+        mdiArea->setDocumentMode(false);
+        mdiArea->setTabsClosable(true);
+        mdiArea->setTabsMovable(true);
 
         gridLayout->addWidget(mdiArea, 0, 0, 1, 1);
 
@@ -261,6 +271,7 @@ public:
         mainToolBar->addAction(actionHelp);
 
         retranslateUi(HdaMainFrameClass);
+        QObject::connect(thumbnailsView, SIGNAL(doubleClicked(QModelIndex)), HdaMainFrameClass, SLOT(openImageWindow(QModelIndex)));
 
         QMetaObject::connectSlotsByName(HdaMainFrameClass);
     } // setupUi
@@ -299,7 +310,6 @@ public:
         actionHelp->setText(QApplication::translate("HdaMainFrameClass", "Help", 0, QApplication::UnicodeUTF8));
         actionAbout->setText(QApplication::translate("HdaMainFrameClass", "About", 0, QApplication::UnicodeUTF8));
         actionSceduler->setText(QApplication::translate("HdaMainFrameClass", "Sceduler", 0, QApplication::UnicodeUTF8));
-        actionAlgorithms->setText(QApplication::translate("HdaMainFrameClass", "Algorithms", 0, QApplication::UnicodeUTF8));
         menuFile->setTitle(QApplication::translate("HdaMainFrameClass", "File", 0, QApplication::UnicodeUTF8));
         menuEdit->setTitle(QApplication::translate("HdaMainFrameClass", "Edit", 0, QApplication::UnicodeUTF8));
         menuManuscript->setTitle(QApplication::translate("HdaMainFrameClass", "Manuscript", 0, QApplication::UnicodeUTF8));
