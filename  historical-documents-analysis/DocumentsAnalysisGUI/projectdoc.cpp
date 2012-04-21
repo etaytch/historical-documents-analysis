@@ -26,3 +26,13 @@ ManuscriptDoc* ProjectDoc::getManuscriptAt(int index)
 {
 	return this->_manuscripts->at(index);
 }
+
+QString ProjectDoc::getName()
+{
+	return name;
+}
+
+void ProjectDoc::setName(QString pname)
+{
+	name = pname;
+}

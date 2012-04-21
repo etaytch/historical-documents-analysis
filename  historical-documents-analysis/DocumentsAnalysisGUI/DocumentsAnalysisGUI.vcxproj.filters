@@ -95,6 +95,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_treeviewmodel.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="xmlreader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_xmlreader.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_xmlreader.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="hdamainframe.h">
@@ -119,6 +128,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="treeviewmodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="xmlreader.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

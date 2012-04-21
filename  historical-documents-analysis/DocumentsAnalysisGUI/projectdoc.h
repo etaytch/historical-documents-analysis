@@ -13,10 +13,14 @@ public:
 	~ProjectDoc();
 	void addManuscript(ManuscriptDoc* manuscript);
 	int getManuscriptCount();
+	QString getName();
+	void setName(QString pname);
 	ManuscriptDoc* getManuscriptAt(int index);
+
 
 private:
 	QVector<ManuscriptDoc*>* _manuscripts; 
+	QString name;
 };
 
 #endif // PROJECTDOC_H

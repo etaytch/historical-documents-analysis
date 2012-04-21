@@ -13,16 +13,22 @@ class ManuscriptDoc : public QObject
 public:
 	ManuscriptDoc(QObject *parent);
 	~ManuscriptDoc();
-	void addPage(QString* path);
+	void addPage(QString path);
 	void setManuscript(Manuscript* manscript);
 	int getPageCount();
-	QString* getPageAt(int index);
+	QString getPageAt(int index);
+	QString getManDirPath();
+	void setManDirPath(QString manDir);
+	QString getManXmlPath();
+	void setManXmlPath(QString manXml);
 
 
 private:
 	Manuscript* _manuscript;
-	QVector<QString*>* _pagesPath;
-	QString _dir;
+	QVector<QString>* _pagesPath;
+	QString _manDirPath;
+	QString _manXmlPath;
+
 };
 
 #endif // MANUSCRIPTDOC_H
