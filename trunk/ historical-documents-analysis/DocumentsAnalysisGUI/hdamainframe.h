@@ -14,17 +14,16 @@ class GUI_EXPORT HdaMainFrame : public QMainWindow
 
 public:
 	HdaMainFrame(QWidget *parent = 0, Qt::WFlags flags = 0);
-	
 	~HdaMainFrame();
 
 public slots:
 	void openImageWindow(QModelIndex index);
-
+	void loadProjectFromXml(QModelIndex index);	
+	void setChiledToOriginalSize();
+	
 private:
 	Ui::HdaMainFrameClass ui;
 	ThumbNailsModel* _manuscriptPagesModel;
-	
-	//QMap<QString,PageMdiChild*>* _openPages;
 };
 
 #endif // HDAMAINFRAME_H
