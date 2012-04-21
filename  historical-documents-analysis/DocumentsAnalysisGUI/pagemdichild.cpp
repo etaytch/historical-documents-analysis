@@ -1,13 +1,19 @@
-
-
 #include "PageMdiChild.h"
 
-PageMdiChild::PageMdiChild() : _image() 
+PageMdiChild::PageMdiChild(QWidget* parent) : QLabel(parent), _image() 
 {
-     setAttribute(Qt::WA_DeleteOnClose);
+	 setAttribute(Qt::WA_DeleteOnClose);
 	 setBackgroundRole(QPalette::Base);
-     setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+	 setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
      setScaledContents(true);
+}
+int PageMdiChild::getOriginalWidth()
+{
+	return _image.width();
+}
+int PageMdiChild::getOriginalHeight()
+{
+	return _image.height();
 }
 
 bool PageMdiChild::loadFile(const QString &fileName)
@@ -58,17 +64,17 @@ void PageMdiChild::closeEvent(QCloseEvent *p_event)
 
 void PageMdiChild::setOriginalSize()
 {
-	adjustSize();
+	((QMdiSubWindow*)parentWidget())->resize(getOriginalWidth(),getOriginalHeight());
 }
 
 void PageMdiChild::setCurrentFile(const QString &fileName)
 {
     _curFile = QFileInfo(fileName).canonicalFilePath();
     setWindowModified(false);
-    setWindowTitle(userFriendlyCurrentFile() + "[*]");
+    setWindowTitle(friendlyCurrentFile() + "[*]");
 }
 
-QString PageMdiChild::userFriendlyCurrentFile()
+QString PageMdiChild::friendlyCurrentFile()
 {
     return strippedName(_curFile);
 }
