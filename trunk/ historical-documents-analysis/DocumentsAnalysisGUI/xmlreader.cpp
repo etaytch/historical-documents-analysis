@@ -26,7 +26,9 @@ int XmlReader::getFromXml(QString xmlFilePath, ProjectDoc& projDoc)
 		element != NULL; element = element->NextSiblingElement())
 	{
 		string elementName = element->Value();
-		const char* attr;
+		const char* nameAttr;
+		const char* pathAttr;
+
 		if(elementName == "Name")
 		{
 			projDoc.setName(element->GetText());
@@ -36,15 +38,14 @@ int XmlReader::getFromXml(QString xmlFilePath, ProjectDoc& projDoc)
 			for(tinyxml2::XMLElement* manElement = element->FirstChildElement("Manuscript"); 
 				manElement != NULL; manElement = manElement->NextSiblingElement("Manuscript"))
 			{
-				attr = manElement->Attribute("name");
-				if(attr != NULL)
+				nameAttr = manElement->Attribute("name");
+				if(nameAttr != NULL)
 				{
-					//TODO
-				}
-				attr = manElement->Attribute("path");
-				if(attr != NULL)
-				{
-					//TODO
+					pathAttr = manElement->Attribute("path");
+					if(pathAttr != NULL)
+					{
+						projDoc.addManuscriptPath(nameAttr,pathAttr);
+					}
 				}
 			}	
 		}
