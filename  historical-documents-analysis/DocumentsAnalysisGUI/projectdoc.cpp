@@ -3,28 +3,17 @@
 ProjectDoc::ProjectDoc(QObject *parent)
 	: QObject(parent)
 {
-	this->_manuscripts = new QVector<ManuscriptDoc*>();
-}
-
-ProjectDoc::~ProjectDoc()
-{
-	delete this->_manuscripts;
-}
-
-void ProjectDoc::addManuscript(ManuscriptDoc* manuscript)
-{
-	this->_manuscripts->append(manuscript);
+	_manuscripts = new QMap<QPair<QString, QString>,ManuscriptDoc*>();
 }
 
 int ProjectDoc::getManuscriptCount()
 {
-	return this->_manuscripts->size();
+	return _manuscripts->size();
 }
-
 
 ManuscriptDoc* ProjectDoc::getManuscriptAt(int index)
 {
-	return this->_manuscripts->at(index);
+	return *(_manuscripts->begin()+index);
 }
 
 QString ProjectDoc::getName()
@@ -35,4 +24,19 @@ QString ProjectDoc::getName()
 void ProjectDoc::setName(QString pname)
 {
 	name = pname;
+}
+
+void ProjectDoc::addManuscriptPath(QString name, QString path)
+{
+	_manuscripts->insert(QPair<QString,QString>(name,path),0);
+}
+
+ProjectDoc::~ProjectDoc()
+{
+	QMap<QPair<QString,QString>,ManuscriptDoc*>::iterator iter;
+	for(iter=_manuscripts->begin();iter!=_manuscripts->end();iter++)
+	{
+		delete (iter.value());
+	}
+	_manuscripts->clear();
 }

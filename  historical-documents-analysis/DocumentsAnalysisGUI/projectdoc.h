@@ -2,6 +2,9 @@
 #define PROJECTDOC_H
 
 #include <QObject>
+#include <QMap>
+#include <QPair>
+
 #include "manuscriptdoc.h"
 
 class ProjectDoc : public QObject
@@ -16,10 +19,11 @@ public:
 	QString getName();
 	void setName(QString pname);
 	ManuscriptDoc* getManuscriptAt(int index);
+	void addManuscriptPath(QString name, QString path);
 
 
 private:
-	QVector<ManuscriptDoc*>* _manuscripts; 
+	QMap<QPair<QString,QString>,ManuscriptDoc*>* _manuscripts;
 	QString name;
 };
 
