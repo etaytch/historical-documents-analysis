@@ -14,9 +14,16 @@ public:
 	XmlReader(QObject *parent);
 	static int getFromXml(QString xmlFilePath, ProjectDoc& projDoc);
 	static int getFromXml(QString xmlFilePath, ManuscriptDoc& manDoc);
-	~XmlReader();
+	virtual ~XmlReader();
 
 private:
+	static void manuscripParsing(tinyxml2::XMLElement* element,ProjectDoc& projDoc);
+	static void pageParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc);
+	static void blockParsing(tinyxml2::XMLElement* pageElement,ManuscriptDoc& manDoc);
+	static void textLineParsing(tinyxml2::XMLElement* blockElement,ManuscriptDoc& manDoc);
+	static void rectParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc);
+	static void upperPointsParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc);
+	static void lowerPointsParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc);
 	
 };
 
