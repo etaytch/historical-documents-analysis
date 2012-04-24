@@ -20,15 +20,17 @@ protected:
 	string     _title;	
 	string     _author;
 	string     _copyist;
-//	Date       _authoring_date;
 	string     _region;
 	string     _language;
 	string     _font_type;
-//	PaperType  _paper;
+	//Date _authoringDate ;
+	//Date _coptingDate  ;
+	//PaperType  _papertype
+	//PageSize   _pageSize ;
 	vector<Page*> _pages; 
 public:
 	Manuscript(void);
-	~Manuscript(void);
+	virtual ~Manuscript(void);
 
 	vector<Page*>& getPages()       { return _pages; }
 	Page*          getPage(int idx) { return _pages[idx] ;}

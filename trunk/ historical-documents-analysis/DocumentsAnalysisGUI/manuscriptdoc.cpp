@@ -1,16 +1,14 @@
 #include "manuscriptdoc.h"
 
 ManuscriptDoc::ManuscriptDoc(QObject *parent)
-	: QObject(parent)
+	: QObject(parent), Manuscript() 
 {
 	_pagesPath = new QVector<QString>();
-	_manuscript = 0;
 }
 
 ManuscriptDoc::~ManuscriptDoc()
 {
 	delete _pagesPath;
-	delete _manuscript;
 }
 
 void ManuscriptDoc::addPage(QString path)
@@ -18,10 +16,6 @@ void ManuscriptDoc::addPage(QString path)
 	_pagesPath->append(path);
 }
 
-void ManuscriptDoc::setManuscript(Manuscript* manuscript)
-{
-	_manuscript = manuscript;
-}
 
 int ManuscriptDoc::getPageCount()
 {
@@ -47,6 +41,18 @@ QString ManuscriptDoc::getManXmlPath()
 {
 	return _manXmlPath;
 }
+
+void ManuscriptDoc::setProjectXmlPath(QString projXml)
+{
+	_projectXmlPath = projXml;
+}
+
+QString ManuscriptDoc::getProjectXmlPath()
+{
+	return _projectXmlPath; 
+}
+
+
 
 void ManuscriptDoc::setManXmlPath(QString manXml)
 {
