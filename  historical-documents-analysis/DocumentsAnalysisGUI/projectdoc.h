@@ -14,13 +14,13 @@ class ProjectDoc : public QObject
 public:
 	ProjectDoc(QObject *parent);
 	~ProjectDoc();
-	void addManuscript(ManuscriptDoc* manuscript);
+	void addManuscript(ManuscriptDoc* man,QString name, QString path);
 	int getManuscriptCount();
 	QString getName();
 	void setName(QString pname);
 	ManuscriptDoc* getManuscriptAt(int index);
 	void addManuscriptPath(QString name, QString path);
-
+	QMap<QPair<QString,QString>,ManuscriptDoc*>* getManuscripts();
 
 private:
 	QMap<QPair<QString,QString>,ManuscriptDoc*>* _manuscripts;

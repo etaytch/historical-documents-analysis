@@ -31,6 +31,16 @@ void ProjectDoc::addManuscriptPath(QString name, QString path)
 	_manuscripts->insert(QPair<QString,QString>(name,path),0);
 }
 
+void ProjectDoc::addManuscript(ManuscriptDoc* man,QString name, QString path)
+{
+	_manuscripts->insert(QPair<QString,QString>(name,path),man);
+}
+
+QMap<QPair<QString,QString>,ManuscriptDoc*>* ProjectDoc::getManuscripts()
+{
+	return this->_manuscripts;
+}
+
 ProjectDoc::~ProjectDoc()
 {
 	QMap<QPair<QString,QString>,ManuscriptDoc*>::iterator iter;

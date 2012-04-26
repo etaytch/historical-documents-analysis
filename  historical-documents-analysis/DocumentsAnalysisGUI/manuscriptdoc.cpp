@@ -1,30 +1,32 @@
 #include "manuscriptdoc.h"
+#include "PageDoc.h"
 
 ManuscriptDoc::ManuscriptDoc(QObject *parent)
 	: QObject(parent), Manuscript() 
 {
-	_pagesPath = new QVector<QString>();
+	//_pagesPath = new QVector<QString>();
+	_pages = new QVector<PageDoc*>();
 }
 
 ManuscriptDoc::~ManuscriptDoc()
 {
-	delete _pagesPath;
+	delete _pages;
 }
 
-void ManuscriptDoc::addPage(QString path)
+void ManuscriptDoc::addPage(PageDoc* page)
 {
-	_pagesPath->append(path);
+	_pages->append(page);
 }
 
 
 int ManuscriptDoc::getPageCount()
 {
-	return _pagesPath->size();
+	return _pages->size();
 }
 
-QString ManuscriptDoc::getPageAt(int index)
+PageDoc* ManuscriptDoc::getPageAt(int index)
 {
-	return _pagesPath->at(index);
+	return _pages->at(index);
 }
 
 QString ManuscriptDoc::getManDirPath()
@@ -52,9 +54,12 @@ QString ManuscriptDoc::getProjectXmlPath()
 	return _projectXmlPath; 
 }
 
-
-
 void ManuscriptDoc::setManXmlPath(QString manXml)
 {
 	_manXmlPath = manXml;
+}
+
+QVector<PageDoc*>* ManuscriptDoc::getPages()
+{
+	return this->_pages;
 }

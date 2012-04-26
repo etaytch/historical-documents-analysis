@@ -129,6 +129,7 @@
     </ClCompile>
     <ClCompile Include="hdamainframe.cpp" />
     <ClCompile Include="manuscriptdoc.cpp" />
+    <ClCompile Include="PageDoc.cpp" />
     <ClCompile Include="pagemdichild.cpp" />
     <ClCompile Include="projectdoc.cpp" />
     <ClCompile Include="thumbnailsmodel.cpp" />
@@ -164,6 +165,7 @@
   <ItemGroup>
     <ClInclude Include="gui_global.h" />
     <ClInclude Include="GeneratedFiles\ui_hdamainframe.h" />
+    <ClInclude Include="PageDoc.h" />
     <ClInclude Include="tinyxml2.h" />
     <CustomBuild Include="xmlreader.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

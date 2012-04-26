@@ -6,10 +6,13 @@ HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
 	ui.setupUi(this);
+	//tree init:
+	this->_manuscriptTreeModel = new TreeViewModel(this);
+	ui.treeView->setModel(this->_manuscriptTreeModel);
+	ui.treeView->expandAll();
+	//pages init
 	_manuscriptPagesModel = new ThumbNailsModel(this,"man/Pages");
 	ui.thumbnailsView->setModel(_manuscriptPagesModel);
-	//tree init:
-
 }
 
 void HdaMainFrame::openImageWindow(QModelIndex index)
@@ -38,3 +41,4 @@ HdaMainFrame::~HdaMainFrame()
 {
 	QMap<QString, PageMdiChild*>::iterator iter;
 }
+
