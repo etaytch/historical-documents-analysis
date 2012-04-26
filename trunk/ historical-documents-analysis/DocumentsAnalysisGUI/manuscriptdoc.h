@@ -5,13 +5,15 @@
 #include <QVector>
 #include <QString>
 #include "Manuscript.h"
+class PageDoc;
 
 class ManuscriptDoc : public QObject , public Manuscript
 {
 	Q_OBJECT
 
 private:
-	QVector<QString>* _pagesPath;
+	//QVector<QString>* _pagesPath;
+	QVector<PageDoc*>* _pages;
 	QString _manDirPath;
 	QString _manXmlPath;
 	QString _projectXmlPath;
@@ -19,16 +21,16 @@ private:
 public:
 	ManuscriptDoc(QObject *parent);
 	virtual ~ManuscriptDoc();
-	void addPage(QString path);
+	void addPage(PageDoc* page);
 	int getPageCount();
-	QString getPageAt(int index);
-	QString getManDirPath();
+	QVector<PageDoc*>* getPages();
+	PageDoc* getPageAt(int index);	
 	void setManDirPath(QString manDir);
 	QString getManXmlPath();
 	void setManXmlPath(QString manXml);
 	QString getProjectXmlPath();
 	void setProjectXmlPath(QString projXml);
-	
+
 //manuscript getters setters
 public:	
 
@@ -44,7 +46,7 @@ public:
 	void setLanguage(QString language){_language = language.toStdString();}
 	QString getFontType(){return _font_type.c_str();}
 	void setFontType(QString font_type){_font_type= font_type.toStdString();}
-	
+	QString getManDirPath();
 };
 
 #endif // MANUSCRIPTDOC_H

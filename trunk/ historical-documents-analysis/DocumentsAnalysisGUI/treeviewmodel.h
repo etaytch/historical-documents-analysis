@@ -3,7 +3,10 @@
 
 #include <QStandardItemModel>
 #include <QVector>
-#include "manuscriptdoc.h"
+class ManuscriptDoc;
+class ProjectDoc;
+class Page;
+class PageDoc;
 
 class TreeViewModel : public QStandardItemModel
 {
@@ -12,12 +15,17 @@ class TreeViewModel : public QStandardItemModel
 public:
 	TreeViewModel(QObject *parent);
 	~TreeViewModel();
-	void setData(QVector<ManuscriptDoc*>* data);
-	void insert(ManuscriptDoc* manuscripInfo);
+	void setData(ProjectDoc* data);
+	void insertPage(QVector<PageDoc*>* manuscripInfo, QStandardItem* row);
 
 private:
-	QVector<ManuscriptDoc*>* _manuscriptData;
-	
+	ProjectDoc* _manuscriptData;
+	QList<QStandardItem *> prepareRow(const QString &path,
+                                     // const QString &title,
+                                     // const QString &region,
+									  const std::string &pageCount);
+	void IntToString(int i, std::string &s);
+	QVariant headerData ( int section, Qt::Orientation orientation, int role ) const;
 	
 };
 

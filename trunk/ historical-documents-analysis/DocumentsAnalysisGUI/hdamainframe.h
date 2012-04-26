@@ -5,6 +5,7 @@
 #include <QtGui/QMainWindow>
 #include "ui_hdamainframe.h"
 #include "thumbnailsmodel.h"
+#include "treeviewmodel.h"
 #include "pagemdichild.h"
 #include "gui_global.h"
 
@@ -24,6 +25,7 @@ public slots:
 private:
 	Ui::HdaMainFrameClass ui;
 	ThumbNailsModel* _manuscriptPagesModel;
+	TreeViewModel* _manuscriptTreeModel;
 };
 
 #endif // HDAMAINFRAME_H
