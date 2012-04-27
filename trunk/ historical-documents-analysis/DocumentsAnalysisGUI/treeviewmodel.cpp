@@ -29,10 +29,19 @@ TreeViewModel::TreeViewModel(QObject *parent)
 	man->addPage(page);
 	proj->addManuscript(man, "kaki2", man->getManDirPath());
 	setData(proj);
+	
 }
 
 TreeViewModel::~TreeViewModel()
 {
+}
+
+
+Qt::ItemFlags TreeViewModel::flags(const QModelIndex& index)const
+{
+    if(!index.isValid())
+        return Qt::ItemIsEnabled | Qt::ItemIsDropEnabled;
+    return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }
 
 QVariant TreeViewModel::headerData ( int section, Qt::Orientation orientation, int role ) const
@@ -97,6 +106,34 @@ QList<QStandardItem *> TreeViewModel::prepareRow(const QString &path,
     //rowItems << new QStandardItem(region);
 	rowItems << new QStandardItem(QString::fromStdString(pageCount));
     return rowItems;
+}
+
+QString TreeViewModel::getManuscriptPath(QModelIndex index)
+{
+     QString pagePath = index.data(Qt::DisplayRole).toString();
+     //find out the hierarchy level of the selected item
+     //QModelIndex seekRoot = index;
+	 QModelIndex manIndex = index;;
+     while(manIndex.parent() != QModelIndex())//seekRoot.parent() != QModelIndex())
+     {
+		 //manIndex = seekRoot;
+         //seekRoot = seekRoot.parent();
+		 manIndex = manIndex.parent();
+     }
+	 QString manPath = manIndex.data(Qt::DisplayRole).toString();
+	 return manPath;
+	 //open manuscript
+	 if (index != manIndex)
+	 {
+		 //open page aswell
+	 }
+
+
+
+
+     //QString showString = QString("%1, Level %2").arg(selectedText)
+     //                     .arg(hierarchyLevel);
+	 //this->invisibleRootItem()->appendRow(prepareRow(showString,""));     
 }
 
 void TreeViewModel::IntToString(int i, std::string & s)

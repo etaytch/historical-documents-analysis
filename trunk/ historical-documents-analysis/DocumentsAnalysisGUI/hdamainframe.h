@@ -21,6 +21,7 @@ public slots:
 	void openImageWindow(QModelIndex index);
 	void loadProjectFromXml(QModelIndex index);	
 	void setChiledToOriginalSize();
+	void LoadManuscript(QModelIndex index);
 	
 private:
 	Ui::HdaMainFrameClass ui;

@@ -30,9 +30,10 @@ public:
 	virtual QModelIndex parent( const QModelIndex &index ) const;
 	virtual ~ThumbNailsModel();
 	QString getPagePath(const QModelIndex &index ) const;
+	bool loadImages(QString manuscriptDir);
 
 private:
-	bool loadImages(QString manuscriptDir);
+	
 };
 
 #endif // THUMBNAILSMODEL_H
