@@ -422,9 +422,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>treeView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>LoadManuscript()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>120</x>
+     <y>382</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>102</x>
+     <y>493</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openImageWindow(QModelIndex)</slot>
   <slot>setChiledToOriginalSize()</slot>
+  <slot>LoadManuscript()</slot>
  </slots>
 </ui>

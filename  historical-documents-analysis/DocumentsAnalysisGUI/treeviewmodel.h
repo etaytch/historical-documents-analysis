@@ -3,6 +3,7 @@
 
 #include <QStandardItemModel>
 #include <QVector>
+#include <QMap>
 class ManuscriptDoc;
 class ProjectDoc;
 class Page;
@@ -17,6 +18,7 @@ public:
 	~TreeViewModel();
 	void setData(ProjectDoc* data);
 	void insertPage(QVector<PageDoc*>* manuscripInfo, QStandardItem* row);
+	QString getManuscriptPath(QModelIndex index);
 
 private:
 	ProjectDoc* _manuscriptData;
@@ -26,7 +28,7 @@ private:
 									  const std::string &pageCount);
 	void IntToString(int i, std::string &s);
 	QVariant headerData ( int section, Qt::Orientation orientation, int role ) const;
-	
+	Qt::ItemFlags flags(const QModelIndex& index)const;
 };
 
 #endif // TREEVIEWMODEL_H

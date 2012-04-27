@@ -27,7 +27,6 @@ void HdaMainFrame::openImageWindow(QModelIndex index)
 
 void HdaMainFrame::loadProjectFromXml(QModelIndex index)
 {
-
 }
 
 void HdaMainFrame::setChiledToOriginalSize()
@@ -36,6 +35,11 @@ void HdaMainFrame::setChiledToOriginalSize()
 		(ui.mdiArea->currentSubWindow()->widget())->setOriginalSize();
 }
 
+void HdaMainFrame::LoadManuscript(QModelIndex index)
+{
+	QString manPath = this->_manuscriptTreeModel->getManuscriptPath(index);
+	this->_manuscriptPagesModel->loadImages(manPath);
+}
 
 HdaMainFrame::~HdaMainFrame()
 {
