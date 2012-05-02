@@ -7,10 +7,12 @@ PageMdiChild::PageMdiChild(QWidget* parent) : QLabel(parent), _image()
 	 setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
      setScaledContents(true);
 }
+
 int PageMdiChild::getOriginalWidth()
 {
 	return _image.width();
 }
+
 int PageMdiChild::getOriginalHeight()
 {
 	return _image.height();
@@ -83,7 +85,6 @@ QString PageMdiChild::strippedName(const QString &fullFileName)
 {
     return QFileInfo(fullFileName).fileName();
 }
-
 
 PageMdiChild::~PageMdiChild()
 {

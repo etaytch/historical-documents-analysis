@@ -10,9 +10,12 @@ HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 	this->_manuscriptTreeModel = new TreeViewModel(this);
 	ui.treeView->setModel(this->_manuscriptTreeModel);
 	ui.treeView->expandAll();
+
 	//pages init
+	/*
 	_manuscriptPagesModel = new ThumbNailsModel(this,"man/Pages");
 	ui.thumbnailsView->setModel(_manuscriptPagesModel);
+	*/
 }
 
 void HdaMainFrame::openImageWindow(QModelIndex index)
@@ -38,7 +41,9 @@ void HdaMainFrame::setChiledToOriginalSize()
 void HdaMainFrame::LoadManuscript(QModelIndex index)
 {
 	QString manPath = this->_manuscriptTreeModel->getManuscriptPath(index);
-	this->_manuscriptPagesModel->loadImages(manPath);
+	//this->_manuscriptPagesModel->loadImages(manPath);
+	_manuscriptPagesModel = new ThumbNailsModel(this,manPath);
+	ui.thumbnailsView->setModel(_manuscriptPagesModel);
 }
 
 HdaMainFrame::~HdaMainFrame()

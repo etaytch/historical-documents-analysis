@@ -426,7 +426,7 @@
    <sender>treeView</sender>
    <signal>doubleClicked(QModelIndex)</signal>
    <receiver>HdaMainFrameClass</receiver>
-   <slot>LoadManuscript()</slot>
+   <slot>LoadManuscript(QModelIndex)</slot>
    <hints>
     <hint type="sourcelabel">
      <x>120</x>
@@ -442,6 +442,6 @@
  <slots>
   <slot>openImageWindow(QModelIndex)</slot>
   <slot>setChiledToOriginalSize()</slot>
-  <slot>LoadManuscript()</slot>
+  <slot>LoadManuscript(QModelIndex)</slot>
  </slots>
 </ui>
