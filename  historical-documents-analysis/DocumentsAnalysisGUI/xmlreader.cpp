@@ -130,6 +130,7 @@ void XmlReader::pageParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc)
 		if(indexAttr != NULL)
 		{
 			//page index init 
+			
 		}
 		pathAttr = pageElement->Attribute("path");
 		if(indexAttr != NULL)
