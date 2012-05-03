@@ -17,6 +17,15 @@ protected:
 	vector<Block>      _blocks ;
 public:
 	Page(void);
+	
+	void setIndex(int index) {_index = index;}
+	int getIndex(){return _index;}
+	void setBlocks(vector<Block> blocks) {_blocks = blocks;}
+	vector<Block> getBlocks(){return _blocks;}
+	void addBlock(Block b){_blocks.push_back(b);}
+	void removeBlock(int index);
+
+
 	~Page(void);
 };
 

@@ -20,6 +20,7 @@ TreeViewModel::TreeViewModel(QObject *parent)
 	copy->setData(0, new QString("page1copypath") );
 	page->addCopy(copy);
 	proj->addManuscript(man, "kaki1", man->getManDirPath());
+	
 	man = new ManuscriptDoc(this);
 	man->setManDirPath("man2Path");
 	page = new PageDoc(this);

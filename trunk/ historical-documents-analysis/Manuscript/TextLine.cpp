@@ -24,6 +24,26 @@ Point TextLine::getLower(int index){
 	return _lower->at(index);
 }
 
+void TextLine::setUpperPoint(Point upper)
+{
+	_upper->push_back(upper);
+}
+
+void TextLine::removeUpperPoint(int index)
+{
+	_upper->erase(_upper->begin()+index-1);
+}
+
+void TextLine::setLowerPoint(Point lower)
+{
+	_lower->push_back(lower);
+}
+
+void TextLine::removeLowerPoint(int index)
+{
+	_lower->erase(_lower->begin()+index-1);
+}
+
 void TextLine::setRect(int x,int y,int height,int width){
 	_rect.x = x;
 	_rect.y = y;
@@ -33,6 +53,10 @@ void TextLine::setRect(int x,int y,int height,int width){
 
 Rect TextLine::getRect(){
 	return _rect;
+}
+
+void TextLine::setRect(Rect rect){
+	_rect = rect;
 }
 
 
