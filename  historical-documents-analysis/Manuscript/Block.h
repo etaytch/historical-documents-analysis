@@ -17,6 +17,11 @@ public:
 	
 	void setType(byte t)   { _type = t ;    } 
 	byte getType()         { return _type ; }
+	void setTextLines (vector<TextLine> textlines ) {_textlines = textlines;}
+	vector<TextLine> getTextLines (){return _textlines;}
+	void addTextLine(TextLine t){_textlines .push_back(t);}
+	void removeTextLine(int index);
+
 };
 
 #endif 

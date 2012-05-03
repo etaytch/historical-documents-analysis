@@ -12,6 +12,8 @@ using namespace cv ;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class TextLine : public DImage {
+
+protected:
 	Rect   _rect ;
 	vector<Point>* _upper;
 	vector<Point>* _lower;
@@ -23,7 +25,13 @@ public:
 	Point getLower(int index);
 	void setPoints(Point upper,Point lower);
 	void setRect(int x,int y,int height,int width);
+	void setUpperPoint(Point upper);
+	void removeUpperPoint(int index);
+	void setLowerPoint(Point lower);
+	void removeLowerPoint(int index);
 	Rect getRect();
+	void setRect(Rect rect);
+
 };
 
 #endif 
