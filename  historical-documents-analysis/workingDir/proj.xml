@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Project>
+	<Name>Example</Name>
+	<Directory>proj</Directory>
+	<Manuscripts>
+		<Manuscript name="man" path="man.xml"></Manuscript>
+		<Manuscript name="man2" path="man2.xml"></Manuscript>
+	</Manuscripts>
+</Project>
