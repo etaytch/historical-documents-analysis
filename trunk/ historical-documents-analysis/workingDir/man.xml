@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<Manuscript>
+	
+	<ProjectPath>proj.xml</ProjectPath>
+	<Title>title</Title>
+	<Author>author</Author>
+	<Copyist>copyist</Copyist>
+	<Region>region</Region>
+	<Language>language</Language>
+	<FontType>font-type</FontType>
+	<DirectoryPath>man</DirectoryPath>
+	<Pages count="9" path=Pages>
+		<Page index="1" path="1.jpg">
+			<Block type="1">
+				<TextLine>
+					<Rect x="1" y="1" w="20" h="20"></Rect>
+					<UpperPoints>
+						<Point x="1" y="1"></Point>
+						<Point x="2" y="3"></Point>
+					</UpperPoints>
+					<LowerPoints>
+						<Point x="1" y="1"></Point>
+						<Point x="2" y="3"></Point>
+					</LowerPoints>
+				</TextLine>
+				<TextLine>
+					<Rect x="1" y="1" w="20" h="20"></Rect>
+					<UpperPoints>
+						<Point x="1" y="1"></Point>
+						<Point x="2" y="3"></Point>
+					</UpperPoints>
+					<LowerPoints>
+						<Point x="1" y="1"></Point>
+						<Point x="2" y="3"></Point>
+					</LowerPoints>
+				</TextLine>
+			</Block>
+		</Page>
+		<Page index="2" path="2.jpg"></Page>
+		<Page index="3" path="3.jpg"></Page>
+		<Page index="4" path="4.jpg"></Page>
+		<Page index="5" path="5.jpg"></Page>
+		<Page index="6" path="6.jpg"></Page>
+		<Page index="7" path="7.jpg"></Page>
+		<Page index="8" path="8.jpg"></Page>
+		<Page index="9" path="f1r.jpg"></Page>
+	</Pages>
+</Manuscript>
