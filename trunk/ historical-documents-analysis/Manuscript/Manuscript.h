@@ -4,6 +4,7 @@
 #include <list>
 #include <opencv/cv.h>
 #include <opencv2/core/core.hpp>
+#include "manuscript_global.h" 
 
 #include "Page.h" 
 
@@ -15,7 +16,7 @@ using namespace std ;
 /// <remarks>	El Sana, 2/15/2012. </remarks>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class Manuscript {
+class MANUSCRIPT_EXPORT Manuscript {
 protected:
 	string     _title;	
 	string     _author;

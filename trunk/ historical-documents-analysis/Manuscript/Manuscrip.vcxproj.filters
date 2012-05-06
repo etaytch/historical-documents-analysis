@@ -84,6 +84,9 @@
     <ClInclude Include="ImageTransformation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SignedDistanceTransform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BinaryComponentExtractor.cpp">
@@ -134,7 +137,7 @@
     <ClCompile Include="Block.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ImageTransform.cpp">
+    <ClCompile Include="SignedDistanceTransform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
