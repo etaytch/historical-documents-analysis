@@ -3,7 +3,7 @@
 
 #include "binarizer.h"
 
-class MANUSCRIPT_EXPORT RadialBinarizer : public Binarizer{
+class RadialBinarizer : public Binarizer{
 	cv::Mat _radial_map;
 
 public:

@@ -77,6 +77,8 @@
     <ClInclude Include="DImage.h" />
     <ClInclude Include="FeatureVector.h" />
     <ClInclude Include="GlobalBinarizer.h" />
+    <ClInclude Include="ImageOperation.h" />
+    <ClInclude Include="ImageTransformation.h" />
     <ClInclude Include="LocalBinarizer.h" />
     <ClInclude Include="Manuscript.h" />
     <ClInclude Include="manuscript_global.h" />
@@ -97,6 +99,7 @@
     <ClCompile Include="Contour.cpp" />
     <ClCompile Include="DImage.cpp" />
     <ClCompile Include="GlobalBinarizer.cpp" />
+    <ClCompile Include="ImageTransform.cpp" />
     <ClCompile Include="LocalBinarizer.cpp" />
     <ClCompile Include="Manuscript.cpp" />
     <ClCompile Include="OtsulBinarizer.cpp" />

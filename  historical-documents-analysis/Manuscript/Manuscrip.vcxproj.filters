@@ -78,6 +78,12 @@
     <ClInclude Include="manuscript_global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ImageOperation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageTransformation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BinaryComponentExtractor.cpp">
@@ -126,6 +132,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageTransform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

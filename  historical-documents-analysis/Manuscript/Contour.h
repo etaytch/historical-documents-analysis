@@ -4,14 +4,13 @@
 #include <vector>
 #include <opencv\cv.h> 
 #include <opencv2\core\core.hpp>
-#include "manuscript_global.h"
 
 using namespace std ;
 using namespace cv ;
 
 typedef pair<int, float> VertexWeight;
 
-class MANUSCRIPT_EXPORT Contour {
+class Contour {
 protected:
 	vector<cv::Point> _points ;
 	cv::Rect          _brect  ;

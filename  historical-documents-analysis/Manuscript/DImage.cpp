@@ -3,7 +3,8 @@
 #include "Binarizer.h"
 #include "ComponentExtractor.h"
 #include "TextLineExtractor.h"
-
+#include "ImageTransformation.h"
+#include "ImageOperation.h"
 
 DImage::DImage(void){
 }
@@ -28,64 +29,6 @@ DImage* DImage::rgb2gray(){
 	DImage *gray_image = new DImage(_mat);
 	cvtColor(_mat, gray_image->getMat(),CV_BGR2GRAY);
 	return gray_image ;
-}
-
-
-
-void DImage::updateSignedDistaceMap(Mat map, int row, int col, int step, int delta){
-	char min_val, max_val ;
-	if ( map.at<char>(row, col) > 0 ){
-		if ( map.at<char>(row-step, col) > map.at<char>(row, col-step) ){
-			if ( map.at<char>(row, col-step) < map.at<char>(row, col)) {
-				map.at<char>(row, col) = map.at<char>(row, col-step) + delta ;
-				if ( map.at<char>(row, col) < map.at<char>(row-step, col))
-					map.at<char>(row-step, col) = map.at<char>(row, col) + delta ;
-			}
-		}
-		else {
-			if ( map.at<char>(row-step, col) < map.at<char>(row, col)) {
-				map.at<char>(row, col) = map.at<char>(row-step, col) + delta ;
-				if ( map.at<char>(row, col) < map.at<char>(row, col-step))
-					map.at<char>(row, col-step) = map.at<char>(row, col) + delta ;
-			}
-		}
-	}
-	if ( map.at<char>(row, col) < 0 ){
-	    if ( map.at<char>(row-step, col) > map.at<char>(row, col-step) ){
-			if ( map.at<char>(row-step, col) > map.at<char>(row, col)) {
-				map.at<char>(row, col) = map.at<char>(row-step, col) - delta ;
-				if ( map.at<char>(row, col) > map.at<char>(row, col-step))
-					map.at<char>(row, col-step) = map.at<char>(row, col) - delta ;
-			}
-		}
-		else {
-			if ( map.at<char>(row, col-step) > map.at<char>(row, col)) {
-				map.at<char>(row, col) = map.at<char>(row, col-step) - delta ;
-				if ( map.at<char>(row, col) > map.at<char>(row-step, col))
-					map.at<char>(row-step, col) = map.at<char>(row, col) - delta ;
-			}
-		}
-	}
-}
-
-
-Mat DImage::computeSignedDistaceTransform(vector<ConnectedComponent*>& components){
-	int col, row ;
-	Mat map(_mat.size(), CV_8S, Scalar(127));
-	vector<ConnectedComponent*>::iterator iter = components.begin() ;
-	while ( iter != components.end() ){
-		(*iter)->getContour().drawOnImage(map, 0);
-		(*iter)->fillComponentOnMat(map, 0, -127);
-		iter++ ;
-	}
-	// Forward traversal 
-	for ( col = 1 ; col < map.cols ; col++ )
-		for ( row = 1 ; row < map.rows ; row++ )
-			updateSignedDistaceMap(map, row, col, 1, 1);
-	for ( col = map.cols-2 ; col >= 0  ; col-- )
-		for ( row = map.rows-2 ; row >= 0 ; row-- )
-			updateSignedDistaceMap(map, row, col, -1, 1);
-	return map ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,4 +99,14 @@ void DImage::print(Mat mat){
 		printf("\n");
 	}
 
+}
+
+Mat DImage::transform(ImageTransformation& transformation, Mat mat){
+	transformation.set(mat);
+	return transformation.transform();
+}
+
+MatND DImage::project(ImageOperation& operation, Mat mat){
+	operation.set(mat);
+	return operation.project();
 }
