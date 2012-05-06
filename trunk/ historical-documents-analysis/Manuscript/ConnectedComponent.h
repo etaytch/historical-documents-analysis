@@ -10,7 +10,7 @@
 /// <remarks>	El Sana, 2/9/2012. </remarks>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class MANUSCRIPT_EXPORT ConnectedComponent {
+class ConnectedComponent {
 	const static int ABOVE =  1 ;
 	const static int BELOW = -1 ;
 	const static int BORDER = 1 ;

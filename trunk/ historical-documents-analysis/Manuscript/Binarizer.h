@@ -12,7 +12,7 @@
 /// <remarks>	El Sana, 2/9/2012. </remarks>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class MANUSCRIPT_EXPORT Binarizer {
+class Binarizer {
 protected:
 	DImage _image ;
 

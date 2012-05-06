@@ -11,7 +11,8 @@ class ComponentExtractor ;
 class TextLineExtractor ;
 class TextLine ;
 class ConnectedComponent ;
-
+class ImageTransformation ;
+class ImageOperation ;
 using namespace cv ;
 
 class MANUSCRIPT_EXPORT DImage {
@@ -33,11 +34,14 @@ public:
 
 	cv::MatND  getHistogram(int channel[], int bin[], const float* range[]);
 	DImage*    binarize(Binarizer& binarizer);
-	Mat        computeSignedDistaceTransform(vector<ConnectedComponent*>& components);
-	void extractComponents(ComponentExtractor& extractor, vector<ConnectedComponent*>& components); 
-	void extractTextLine(TextLineExtractor& extractor, vector<TextLine*>& textlines); 
+	void       extractComponents(ComponentExtractor& extractor, vector<ConnectedComponent*>& components); 
+	void       extractTextLine(TextLineExtractor& extractor, vector<TextLine*>& textlines); 
 
-	void print(Mat mat);
+	// A transformation operate on an image (Mat) and return an Image 
+	Mat        transform(ImageTransformation& transformation, Mat mat);
+	MatND      project(ImageOperation& op, Mat mat);
+
+	void       print(Mat mat);
 };
 
 #endif 

@@ -9,7 +9,7 @@
 
 using namespace cv ;
 
-class MANUSCRIPT_EXPORT ComponentExtractor{
+class ComponentExtractor{
 protected:
 	DImage _image ;
 

@@ -15,22 +15,20 @@ using namespace std ;
 /// <remarks>	El Sana, 2/15/2012. </remarks>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class  MANUSCRIPT_EXPORT Manuscript {
+class Manuscript {
 protected:
 	string     _title;	
 	string     _author;
 	string     _copyist;
+//	Date       _authoring_date;
 	string     _region;
 	string     _language;
 	string     _font_type;
-	//Date _authoringDate ;
-	//Date _coptingDate  ;
-	//PaperType  _papertype
-	//PageSize   _pageSize ;
+//	PaperType  _paper;
 	vector<Page*> _pages; 
 public:
 	Manuscript(void);
-	virtual ~Manuscript(void);
+	~Manuscript(void);
 
 	vector<Page*>& getPages()       { return _pages; }
 	Page*          getPage(int idx) { return _pages[idx] ;}
