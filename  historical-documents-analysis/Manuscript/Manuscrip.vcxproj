@@ -86,6 +86,7 @@
     <ClInclude Include="Page.h" />
     <ClInclude Include="ProfileFeature.h" />
     <ClInclude Include="RadialBinarizer.h" />
+    <ClInclude Include="SignedDistanceTransform.h" />
     <ClInclude Include="TextLine.h" />
     <ClInclude Include="TextLineExtractor.h" />
     <ClInclude Include="WordSpotter.h" />
@@ -99,13 +100,13 @@
     <ClCompile Include="Contour.cpp" />
     <ClCompile Include="DImage.cpp" />
     <ClCompile Include="GlobalBinarizer.cpp" />
-    <ClCompile Include="ImageTransform.cpp" />
     <ClCompile Include="LocalBinarizer.cpp" />
     <ClCompile Include="Manuscript.cpp" />
     <ClCompile Include="OtsulBinarizer.cpp" />
     <ClCompile Include="Page.cpp" />
     <ClCompile Include="ProfileFeature.cpp" />
     <ClCompile Include="RadialBinarizer.cpp" />
+    <ClCompile Include="SignedDistanceTransform.cpp" />
     <ClCompile Include="TextLine.cpp" />
     <ClCompile Include="WordSpotter.cpp" />
   </ItemGroup>

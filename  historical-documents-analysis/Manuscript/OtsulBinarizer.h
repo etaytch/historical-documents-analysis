@@ -9,7 +9,7 @@
 /// <remarks>	El Sana, 2/15/2012. </remarks>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class OtsulBinarizer : public Binarizer {
+class MANUSCRIPT_EXPORT OtsulBinarizer : public Binarizer {
 
 public:
 	OtsulBinarizer(void);
