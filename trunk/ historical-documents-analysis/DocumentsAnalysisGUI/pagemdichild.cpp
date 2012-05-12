@@ -1,11 +1,12 @@
 #include "PageMdiChild.h"
 
-PageMdiChild::PageMdiChild(QWidget* parent) : QLabel(parent), _image() 
+PageMdiChild::PageMdiChild(QString path, QWidget* parent) : QLabel(parent), _image() 
 {
 	 setAttribute(Qt::WA_DeleteOnClose);
 	 setBackgroundRole(QPalette::Base);
 	 setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
      setScaledContents(true);
+	 _path = path;
 }
 
 int PageMdiChild::getOriginalWidth()
@@ -23,10 +24,11 @@ bool PageMdiChild::loadFile(const QString &fileName)
 	QApplication::setOverrideCursor(Qt::WaitCursor);
     if (!_image.load(fileName)) 
 	{
-        QMessageBox::warning(this, tr("MDI"),
+        QMessageBox::warning(this, tr("Error"),
                              tr("Cannot read image %1")
                              .arg(fileName));
-        return false;
+		QApplication::restoreOverrideCursor();
+		return false;
     }
 	setPixmap(_image);
     QApplication::restoreOverrideCursor();

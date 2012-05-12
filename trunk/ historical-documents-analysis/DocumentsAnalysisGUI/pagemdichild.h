@@ -17,10 +17,11 @@ class PageMdiChild : public QLabel
 
 private:
 	QString _curFile;
+	QString _path;
 	QPixmap _image;
 
 public:
-	PageMdiChild(QWidget* parent);
+	PageMdiChild(QString path, QWidget* parent);
 	int getOriginalWidth();
 	int getOriginalHeight();
     bool loadFile(const QString &fileName);
@@ -30,7 +31,11 @@ public:
     bool saveFile(const QString &fileName);
 	QPixmap getImage();
     QString friendlyCurrentFile();
-    QString currentFile() { return _curFile; }
+    QString currentFile()		{ return _curFile; }
+	QString getPath()			{return _path;}
+    void setPath(QString path)	{ _path = path; }
+
+
 	virtual ~PageMdiChild();
 
 private:

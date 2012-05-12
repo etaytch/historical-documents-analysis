@@ -1,39 +1,65 @@
 #include "thumbnailsmodel.h"
 
 
-ThumbNailsModel::ThumbNailsModel(QObject *parent, QString folderPath)
+ThumbNailsModel::ThumbNailsModel(ManuscriptDoc& man,QObject *parent)
 	: QAbstractListModel(parent)
 {
-	_thumbnails = new QMap<QString,QPixmap>();
-	loadImages(folderPath);
+	_man = man;
+	loadImages();
 }
 
-bool ThumbNailsModel::loadImages(QString manuscriptDir)
+bool ThumbNailsModel::loadImages()
 {
+	
+	QDir manPagesDir(_man.getPagesDirPath());
+	QDir manThumbsDir(_man.getThumbnailsDirPath());
 
-	QDir manDir(manuscriptDir);
-	QStringList imageList = manDir.entryList(QDir::Files); //put all the images names in the folder into a vector  
+	//create thumnails folder if it doesnt exist
+	if (!manThumbsDir.exists())
+	{
+		QDir().mkdir(_man.getThumbnailsDirPath());
+	}
+
+	QStringList imageList = manPagesDir.entryList(QDir::Files); //put all the images names in the folder into a vector  
 	foreach(QString imageFileName, imageList)	
 	{
-		QPixmap image  = QPixmap();
-		if (!image.load(manuscriptDir+"/"+imageFileName))
-			return false;
+		QPixmap image = QPixmap();
+		QString thumbPath = _man.getThumbnailsDirPath()+"/"+imageFileName; 
+		thumbPath = thumbPath.split(".")[0]+".png";
+		QString realPath = _man.getPagesDirPath()+"/"+imageFileName; 
 
-		_thumbnails->insert(manuscriptDir+"/"+imageFileName,image.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+		QFile thumbfile(thumbPath);
+		if (thumbfile.exists())
+		{
+			if (!image.load(thumbPath))
+				return false;
+			_thumbnails.insert(realPath,image);
+		}
+		else
+		{
+			if (!image.load(realPath))
+				return false;		
+			image = image.scaled(150, 150, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+			saveThumbnail(thumbPath,image);
+			_thumbnails.insert(realPath,image);
+		}
 	}
 	return true;
 }
 
+void ThumbNailsModel::saveThumbnail(QString thumbPath,QPixmap& thumbPixMap)
+{
+	thumbPixMap.save(thumbPath,"PNG");
+}
 
 ThumbNailsModel::~ThumbNailsModel()
 {
-	_thumbnails->clear();
-	delete _thumbnails;
+	_thumbnails.clear();
 }
 
 int ThumbNailsModel::rowCount(const QModelIndex &parent) const
 {		
-	return _thumbnails->size();	
+	return _thumbnails.size();	
 }
 
 int ThumbNailsModel::columnCount(const QModelIndex &parent) const
@@ -46,23 +72,21 @@ QVariant ThumbNailsModel::data(const QModelIndex &index, int role) const
     if (!index.isValid())
         return QVariant();
 
-    if (index.row() >= _thumbnails->size())
+    if (index.row() >= _thumbnails.size())
         return QVariant();
 
 	switch( role )
 	{
 		case Qt::DecorationRole:	
 		{
-			QMap<QString, QPixmap>::iterator iter;
-			iter = _thumbnails->begin();
-			iter+=index.row();
-			QPixmap  image = iter.value();
+			QPixmap  image = (_thumbnails.begin()+index.row()).value();
 			return image;
 		}
-		case Qt::DisplayRole:
-		{      
-			
+		case Qt::UserRole:
+		{
+			return  (_thumbnails.begin()+index.row()).key();
 		}
+		
 		default:
 			return QVariant();
 	}
@@ -75,10 +99,7 @@ QModelIndex ThumbNailsModel::parent( const QModelIndex &index ) const
 
 QString ThumbNailsModel::getPagePath(const QModelIndex &index ) const
 {
-	QMap<QString, QPixmap>::iterator iter;
-	iter = _thumbnails->begin();
-	iter+=index.row();
-	QString  imagePath = iter.key();
+	QString  imagePath = (_thumbnails.begin()+index.row()).key();
 	return imagePath;
 }
 
