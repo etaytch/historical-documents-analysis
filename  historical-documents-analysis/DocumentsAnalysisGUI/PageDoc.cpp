@@ -1,39 +1,20 @@
 #include "PageDoc.h"
-#include "Page.h"
 
 PageDoc::PageDoc(QObject *parent)
 {
-	this->_copies = new QVector<PageDoc*>();
+	_page = 0;
 }
 
-void PageDoc::setData(Page* page, QString* path)
+PageDoc::PageDoc(Page* page,QString man,QObject *parent)
 {
-	this->_page = page;
-	this->_path = path;
+	_page = page;
+	_man = man;
 }
 
-
-PageDoc::~PageDoc(void)
+PageDoc::PageDoc(const PageDoc &p)
 {
-	delete this->_page;
+	_page = p._page;
+	_man = p._man;
 }
 
-Page* PageDoc::getPage()
-{
-	return this->_page;
-}
 
-QString* PageDoc::getPath()
-{
-	return this->_path;
-}
-
-QVector<PageDoc*>* PageDoc::getCopies()
-{
-	return this->_copies;
-}
-
-void PageDoc::addCopy(PageDoc* copy)
-{
-	this->_copies->push_back(copy);
-}

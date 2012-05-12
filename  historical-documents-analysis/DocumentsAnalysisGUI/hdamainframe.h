@@ -3,11 +3,14 @@
 #pragma once
 
 #include <QtGui/QMainWindow>
+#include <QString>
 #include "ui_hdamainframe.h"
 #include "thumbnailsmodel.h"
 #include "treeviewmodel.h"
 #include "pagemdichild.h"
+#include "xmlreader.h"
 #include "gui_global.h"
+
 
 class GUI_EXPORT HdaMainFrame : public QMainWindow
 {
@@ -18,14 +21,19 @@ public:
 	~HdaMainFrame();
 
 public slots:
-	void openImageWindow(QModelIndex index);
-	void loadProjectFromXml(QModelIndex index);	
+	void openImageWindowFromThumbView(QModelIndex index);
+	void openImageWindowFromTreeView(QModelIndex index);
+	void openProject();	
 	void setChiledToOriginalSize();
+	void cascadePages();
+	void tilePages();
 	void LoadManuscript(QModelIndex index);
+
 	
 private:
 	Ui::HdaMainFrameClass ui;
 	ThumbNailsModel* _manuscriptPagesModel;
+	ProjectDoc _project;
 	TreeViewModel* _manuscriptTreeModel;
 };
 

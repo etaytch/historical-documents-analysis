@@ -11,7 +11,7 @@ using namespace cv ;
 /// <remarks>	El Sana, 2/9/2012. </remarks>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class TextLine : public DImage {
+class MANUSCRIPT_EXPORT TextLine : public DImage {
 
 protected:
 	Rect   _rect ;
@@ -26,7 +26,9 @@ public:
 	void setPoints(Point upper,Point lower);
 	void setRect(int x,int y,int height,int width);
 	void setUpperPoint(Point upper);
+	void setUpperPoint(int x,int y);
 	void removeUpperPoint(int index);
+	void setLowerPoint(int x,int y);
 	void setLowerPoint(Point lower);
 	void removeLowerPoint(int index);
 	Rect getRect();

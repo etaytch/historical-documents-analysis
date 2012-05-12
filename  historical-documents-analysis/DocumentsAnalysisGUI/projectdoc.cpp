@@ -1,52 +1,26 @@
 #include "projectdoc.h"
 
-ProjectDoc::ProjectDoc(QObject *parent)
-	: QObject(parent)
+ProjectDoc::ProjectDoc()
 {
-	_manuscripts = new QMap<QPair<QString, QString>,ManuscriptDoc*>();
-}
-
-int ProjectDoc::getManuscriptCount()
-{
-	return _manuscripts->size();
-}
-
-ManuscriptDoc* ProjectDoc::getManuscriptAt(int index)
-{
-	return *(_manuscripts->begin()+index);
-}
-
-QString ProjectDoc::getName()
-{
-	return name;
-}
-
-void ProjectDoc::setName(QString pname)
-{
-	name = pname;
 }
 
 void ProjectDoc::addManuscriptPath(QString name, QString path)
 {
-	_manuscripts->insert(QPair<QString,QString>(name,path),0);
+	_paths.insert(name,path);
+	_manuscripts.insert(name,ManuscriptDoc());
 }
 
-void ProjectDoc::addManuscript(ManuscriptDoc* man,QString name, QString path)
+QMap<QString,QString>& ProjectDoc::getPaths()
 {
-	_manuscripts->insert(QPair<QString,QString>(name,path),man);
+	return _paths;
 }
 
-QMap<QPair<QString,QString>,ManuscriptDoc*>* ProjectDoc::getManuscripts()
+QMap<QString,ManuscriptDoc>& ProjectDoc::getManuscripts()
 {
-	return this->_manuscripts;
+	return _manuscripts;
 }
 
 ProjectDoc::~ProjectDoc()
 {
-	QMap<QPair<QString,QString>,ManuscriptDoc*>::iterator iter;
-	for(iter=_manuscripts->begin();iter!=_manuscripts->end();iter++)
-	{
-		delete (iter.value());
-	}
-	_manuscripts->clear();
+	_manuscripts.clear();
 }

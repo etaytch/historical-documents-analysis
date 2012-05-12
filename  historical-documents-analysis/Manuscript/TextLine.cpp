@@ -29,6 +29,11 @@ void TextLine::setUpperPoint(Point upper)
 	_upper->push_back(upper);
 }
 
+void TextLine::setUpperPoint(int x,int y)
+{
+	_upper->push_back(Point(x,y));
+}
+
 void TextLine::removeUpperPoint(int index)
 {
 	_upper->erase(_upper->begin()+index-1);
@@ -37,6 +42,11 @@ void TextLine::removeUpperPoint(int index)
 void TextLine::setLowerPoint(Point lower)
 {
 	_lower->push_back(lower);
+}
+
+void TextLine::setLowerPoint(int x,int y)
+{
+	_lower->push_back(Point(x,y));
 }
 
 void TextLine::removeLowerPoint(int index)

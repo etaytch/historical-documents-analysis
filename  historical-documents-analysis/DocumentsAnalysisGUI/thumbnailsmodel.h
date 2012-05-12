@@ -5,10 +5,13 @@
 #include <QMap>
 #include <QString>
 #include <QPixmap>
+#include <QFile>
+#include <QBuffer>
 #include <QAbstractListModel>
 #include <QObject>
 #include <QDir>
 #include <QStandardItem>
+#include "manuscriptdoc.h"
 
 
 
@@ -17,10 +20,11 @@ class ThumbNailsModel : public QAbstractListModel
 	Q_OBJECT
 
 private:
-	QMap<QString,QPixmap>* _thumbnails;
+	ManuscriptDoc _man;
+	QMap<QString,QPixmap> _thumbnails;
 
 public:
-	ThumbNailsModel(QObject *parent,QString folderPath);
+	ThumbNailsModel(ManuscriptDoc& man,QObject *parent=0);
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
@@ -30,10 +34,10 @@ public:
 	virtual QModelIndex parent( const QModelIndex &index ) const;
 	virtual ~ThumbNailsModel();
 	QString getPagePath(const QModelIndex &index ) const;
-	bool loadImages(QString manuscriptDir);
 
-private:
-	
+private: //metods
+	bool loadImages();
+	void saveThumbnail(QString thumbPath,QPixmap&);
 };
 
 #endif // THUMBNAILSMODEL_H

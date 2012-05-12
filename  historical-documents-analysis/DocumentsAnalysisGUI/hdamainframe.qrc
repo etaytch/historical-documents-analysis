@@ -1,5 +1,9 @@
 <RCC>
   <qresource prefix="HdaMainFrame">
+    <file>Resources/toolBarIcons/Actions-project-open-icon.png</file>
+    <file>Resources/toolBarIcons/application-cascade-icon.png</file>
+    <file>Resources/toolBarIcons/application-tile-horizontal-icon.png</file>
+    <file>Resources/toolBarIcons/application-tile-vertical-icon.png</file>
     <file>Resources/toolBarIcons/Actions-help-about-icon.png</file>
     <file>Resources/toolBarIcons/Actions-mail-mark-task-icon.png</file>
     <file>Resources/toolBarIcons/Categories-applications-system-icon.png</file>

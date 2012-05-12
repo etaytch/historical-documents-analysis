@@ -12,4 +12,9 @@ void Block::removeTextLine(int index)
 
 Block::~Block(void)
 {
+	vector<TextLine*>::iterator it;
+	for(it = _textlines.begin(); it!=_textlines.end();it++)
+	{
+		delete *it;
+	}
 }

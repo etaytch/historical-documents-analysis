@@ -51,8 +51,6 @@ int main() {
 	binary->extractComponents(extractor, components);
 	drawConnectedComponents(image, components);
 	display("Components", image);
-	Mat map = binary->computeSignedDistaceTransform(components);
-	display("Distance", map);
 	cv::waitKey();
 	return 1;
 }

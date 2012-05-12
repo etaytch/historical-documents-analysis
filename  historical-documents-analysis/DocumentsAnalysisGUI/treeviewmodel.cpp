@@ -1,160 +1,218 @@
 #include "treeviewmodel.h"
-#include "projectdoc.h"
-#include "manuscriptdoc.h"
-#include "projectdoc.h"
-#include "Page.h"
-#include <cmath>
-#include "PageDoc.h"
 
-TreeViewModel::TreeViewModel(QObject *parent)
-	: QStandardItemModel(parent)
+TreeViewModel::TreeViewModel(ProjectDoc& pd, QObject *parent)
+	:QAbstractItemModel(parent)
 {
-	ProjectDoc* proj = new ProjectDoc(this);
-	ManuscriptDoc* man = new ManuscriptDoc(this);
-
-	man->setManDirPath("man/Pages");
-	PageDoc* page = new PageDoc(this);
-	page->setData(0, new QString("page1path") );
-	man->addPage(page);
-	PageDoc* copy = new PageDoc(this);
-	copy->setData(0, new QString("page1copypath") );
-	page->addCopy(copy);
-	proj->addManuscript(man, "kaki1", man->getManDirPath());
-	
-	man = new ManuscriptDoc(this);
-	man->setManDirPath("man2Path");
-	page = new PageDoc(this);
-	page->setData(0, new QString("page2path") );
-	man->addPage(page);
-	page = new PageDoc(this);
-	page->setData(0, new QString("page3path") );
-	man->addPage(page);
-	proj->addManuscript(man, "kaki2", man->getManDirPath());
-	setData(proj);
-
+	_project=pd;
+	QVector<QVariant> rootData;
+	rootData << _project.getName();
+	_rootItem = new TreeItem(rootData);
+	setupModel(_rootItem);
 }
+
+int TreeViewModel::columnCount(const QModelIndex &parent) const
+{
+    return _rootItem->columnCount();
+}
+
+int TreeViewModel::rowCount(const QModelIndex &parent) const
+{
+    TreeItem *parentItem = getItem(parent);
+
+    return parentItem->childCount();
+}
+
+bool TreeViewModel::insertColumns(int position, int columns, const QModelIndex &parent)
+{
+    bool success;
+
+    beginInsertColumns(parent, position, position + columns - 1);
+    success = _rootItem->insertColumns(position, columns);
+    endInsertColumns();
+
+    return success;
+}
+
+bool TreeViewModel::insertRows(int position, int rows, const QModelIndex &parent)
+{
+    TreeItem *parentItem = getItem(parent);
+    bool success;
+    beginInsertRows(parent, position, position + rows - 1);
+    success = parentItem->insertChildren(position, rows, _rootItem->columnCount());
+    endInsertRows();
+    return success;
+}
+
+bool TreeViewModel::removeColumns(int position, int columns, const QModelIndex &parent)
+{
+    bool success;
+    beginRemoveColumns(parent, position, position + columns - 1);
+    success = _rootItem->removeColumns(position, columns);
+    endRemoveColumns();
+    if (_rootItem->columnCount() == 0)
+        removeRows(0, rowCount());
+    return success;
+}
+
+bool TreeViewModel::removeRows(int position, int rows, const QModelIndex &parent)
+{
+    TreeItem *parentItem = getItem(parent);
+    bool success = true;
+    beginRemoveRows(parent, position, position + rows - 1);
+    success = parentItem->removeChildren(position, rows);
+    endRemoveRows();
+    return success;
+}
+
+QVariant TreeViewModel::headerData(int section, Qt::Orientation orientation,
+                               int role) const
+{
+    if (orientation == Qt::Horizontal && role == Qt::DisplayRole)
+        return _rootItem->data(section);
+    return QVariant();
+}
+
+QVariant TreeViewModel::data(const QModelIndex &index, int role) const
+{
+
+	if (!index.isValid())
+		return QVariant();
+
+	TreeItem *item = getItem(index);
+	if (role == Qt::DisplayRole)
+	{
+		if (qVariantCanConvert<PageDoc> (item->data(index.column())))
+		{
+			PageDoc pd = qVariantValue<PageDoc>(item->data(index.column()));
+			return  QString(pd.getPage()->getName().c_str());
+		}
+		return item->data(index.column());
+	}
+	if (role == Qt::UserRole)
+	{
+		return item->data(index.column());
+	}
+
+	return QVariant();	
+}
+
+bool TreeViewModel::setData(const QModelIndex &index, const QVariant &value,
+                        int role)
+{
+    if (role != Qt::EditRole)
+        return false;
+    TreeItem *item = getItem(index);
+    bool result = item->setData(index.column(), value);
+    return result;
+}
+
+bool TreeViewModel::setHeaderData(int section, Qt::Orientation orientation,
+                              const QVariant &value, int role)
+{
+    if (role != Qt::EditRole || orientation != Qt::Horizontal)
+        return false;
+    bool result = _rootItem->setData(section, value);
+    if (result)
+        emit headerDataChanged(orientation, section, section);
+    return result;
+}
+
+Qt::ItemFlags TreeViewModel::flags(const QModelIndex & index) const
+{
+	 if (!index.isValid())
+		return 0;
+	return	Qt::ItemIsSelectable
+			| Qt::ItemIsEnabled
+			| Qt::ItemIsUserCheckable;
+}
+
+QModelIndex TreeViewModel::parent(const QModelIndex &index) const
+{
+    if (!index.isValid())
+        return QModelIndex();
+    TreeItem *childItem = getItem(index);
+    TreeItem *parentItem = childItem->parent();
+    if (parentItem == _rootItem)
+        return QModelIndex();
+    return createIndex(parentItem->childNumber(), 0, parentItem);
+}
+
+QModelIndex TreeViewModel::index(int row, int column, const QModelIndex &parent) const
+{
+    if (parent.isValid() && parent.column() != 0)
+        return QModelIndex();
+    TreeItem *parentItem = getItem(parent);
+    TreeItem *childItem = parentItem->child(row);
+    if (childItem)
+        return createIndex(row, column, childItem);
+    else
+        return QModelIndex();
+}
+
+TreeItem *TreeViewModel::getItem(const QModelIndex &index) const
+{
+    if (index.isValid()) {
+        TreeItem *item = static_cast<TreeItem*>(index.internalPointer());
+        if (item) return item;
+    }
+    return _rootItem;
+}
+
+void TreeViewModel::setupModel(TreeItem *parent) 
+{
+	QVector<TreeItem*> Parents;
+	QMap<QString,QString>::iterator manPathIter;
+	parent->insertChildren(parent->childCount(), _project.getManuscriptCount(), 1);
+	int manCount = 0;
+
+	for(manPathIter=_project.getPaths().begin();
+		manPathIter!= _project.getPaths().end();
+		manPathIter++)
+	{
+		QString manName = manPathIter.key();
+		parent->child(manCount)->setData(0,manName);
+		Parents.append(parent->child(manCount));
+		manCount++;
+	}
+
+	foreach(TreeItem* treeitem,Parents)
+	{
+		QString manName = qVariantValue<QString>(treeitem->data(0));
+		ManuscriptDoc man = _project.getManuscriptAt(manName);
+		vector<Page*>::iterator pageIter;
+		int pageCount = 0;
+		treeitem->insertChildren(treeitem->childCount(), man.getPages().size(), 1);
+		for(pageIter = man.getPages().begin(); pageIter!= man.getPages().end(); pageIter++)
+		{
+			treeitem->child(pageCount)->setData(0,QVariant::fromValue(PageDoc(*pageIter,manName,0)));				
+			setUpPages(*pageIter,manName,treeitem->child(pageCount));
+			pageCount++;
+		}
+	}
+}
+
+void TreeViewModel::setUpPages (Page* page ,QString manName ,TreeItem* treeitem)
+{
+	if (qVariantCanConvert<PageDoc> (treeitem->data(0)))
+	{
+		PageDoc pd = qVariantValue<PageDoc>(treeitem->data(0));
+		if (pd.getPage()->getPages().size()>0)
+		{
+			int pageCount = 0;
+			treeitem->insertChildren(treeitem->childCount(), page->getPages().size(), 1);
+			vector<Page*>::iterator pageIter;
+			for(pageIter = page->getPages().begin(); pageIter!= page->getPages().end(); pageIter++)
+			{
+				treeitem->child(pageCount)->setData(0,QVariant::fromValue(PageDoc(*pageIter,manName,0)));				
+				setUpPages(*pageIter,manName,treeitem->child(pageCount));
+				pageCount++;
+			}
+		}
+	}
+}
+
 
 TreeViewModel::~TreeViewModel()
 {
-}
-
-
-Qt::ItemFlags TreeViewModel::flags(const QModelIndex& index)const
-{
-	if(!index.isValid())
-		return Qt::ItemIsEnabled | Qt::ItemIsDropEnabled;
-	return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
-}
-
-QVariant TreeViewModel::headerData ( int section, Qt::Orientation orientation, int role ) const
-{
-	if (orientation == Qt::Horizontal) {
-		if (role != Qt::DisplayRole)
-			return QVariant();
-		switch (section) {
-		case 0: return tr("Manuscript");
-		case 1: return tr("Page Count");
-		default: return QVariant();
-		}
-	}
-	return QAbstractItemModel::headerData(section, orientation, role);
-}
-
-void TreeViewModel::setData(ProjectDoc* data)
-{
-
-	string pageCount = "";
-	this->_manuscriptData = data;
-	//clear data
-	this->clear();
-	//get root level
-	QStandardItem* root = this->invisibleRootItem();
-	//iterate on all manuscripts and add them to tree
-	QMap<QPair<QString,QString>,ManuscriptDoc*>::iterator iter;
-	for(iter=data->getManuscripts()->begin();iter!=data->getManuscripts()->end();iter++)
-	{
-		ManuscriptDoc* manuscriptDoc = *iter;
-		IntToString(manuscriptDoc->getPageCount(), pageCount);
-		QList<QStandardItem *> manRow = prepareRow(manuscriptDoc->getManDirPath(), pageCount);
-		root->appendRow(manRow);
-		//insert manuscripts page data recursively		
-		this->insertPage(manuscriptDoc->getPages(), manRow.first());
-	}
-}
-
-void TreeViewModel::insertPage(QVector<PageDoc*>* pages, QStandardItem* row)
-{
-	//iterate on the same level and call recursively on children pages
-	for(int i = 0 ; i < pages->size(); i++)
-	{
-		PageDoc* page = pages->at(i);
-		QList<QStandardItem *> pageRow = prepareRow(*(page->getPath()), "test");
-		row->appendRow(pageRow);
-		this->insertPage(page->getCopies(), pageRow.first());
-
-
-	}
-}
-
-QList<QStandardItem *> TreeViewModel::prepareRow(const QString &path,
-	//  const QString &title,
-	//  const QString &region,
-	const string &pageCount)
-{
-	QList<QStandardItem *> rowItems;
-	rowItems << new QStandardItem(path);
-	//rowItems << new QStandardItem(title);
-	//rowItems << new QStandardItem(region);
-	rowItems << new QStandardItem(QString::fromStdString(pageCount));
-	return rowItems;
-}
-
-QString TreeViewModel::getManuscriptPath(QModelIndex index)
-{
-	QString pagePath = index.data(Qt::DisplayRole).toString();
-	//find out the hierarchy level of the selected item
-	//QModelIndex seekRoot = index;
-	QModelIndex manIndex = index;;
-	while(manIndex.parent() != QModelIndex())//seekRoot.parent() != QModelIndex())
-	{
-		//manIndex = seekRoot;
-		//seekRoot = seekRoot.parent();
-		manIndex = manIndex.parent();
-	}
-	QString manPath = manIndex.data(Qt::DisplayRole).toString();
-	return manPath;
-	//open manuscript
-	if (index != manIndex)
-	{
-		//open page aswell
-	}
-
-
-
-
-	//QString showString = QString("%1, Level %2").arg(selectedText)
-	//                     .arg(hierarchyLevel);
-	//this->invisibleRootItem()->appendRow(prepareRow(showString,""));     
-}
-
-void TreeViewModel::IntToString(int i, std::string & s)
-{
-	s = "";
-	if (i == 0)
-	{
-		s = "0";
-		return;
-	}
-	if (i < 0)
-	{
-		s += '-';
-		i = -i;
-	}
-	int count = log10((double) i);
-	while (count >= 0)
-	{
-		s += ('0' + i/pow(10.0, count));
-		i -= static_cast<int>(i/pow(10.0,count)) * static_cast<int>(pow(10.0,count));
-		count--;
-	}
+	delete _rootItem;	
 }

@@ -1,14 +1,8 @@
 #include "xmlreader.h"
 using namespace tinyxml2;
 
-XmlReader::XmlReader(QObject *parent)
-	: QObject(parent)
-{
 
-}
-
-
-int XmlReader::getFromXml(QString xmlFilePath, ProjectDoc& projDoc)
+int XmlReader::getProjectFromXml(QString xmlFilePath, ProjectDoc& projDoc)
 {
 	tinyxml2::XMLDocument xmlDoc;
 	if (xmlDoc.LoadFile(xmlFilePath.toStdString().c_str())!=XML_NO_ERROR)
@@ -46,6 +40,7 @@ void XmlReader::manuscripParsing(tinyxml2::XMLElement* element,ProjectDoc& projD
 {
 	const char* nameAttr;
 	const char* pathAttr;
+
 	for(tinyxml2::XMLElement* manElement = element->FirstChildElement("Manuscript"); 
 		manElement != NULL; manElement = manElement->NextSiblingElement("Manuscript"))
 	{
@@ -61,7 +56,7 @@ void XmlReader::manuscripParsing(tinyxml2::XMLElement* element,ProjectDoc& projD
 	}
 }
 
-int XmlReader::getFromXml(QString xmlFilePath, ManuscriptDoc& manDoc)
+int XmlReader::getManuscriptFromXml(QString xmlFilePath, ManuscriptDoc& manDoc)
 {
 	tinyxml2::XMLDocument xmlDoc;	
 	if (xmlDoc.LoadFile(xmlFilePath.toStdString().c_str())!=XML_NO_ERROR)
@@ -94,6 +89,10 @@ int XmlReader::getFromXml(QString xmlFilePath, ManuscriptDoc& manDoc)
 		{
 			manDoc.setCopyist(element->GetText());
 		}
+		else if(elementName == "Region")
+		{
+			manDoc.setRegion(element->GetText());
+		}
 		else if(elementName == "Language")
 		{
 			manDoc.setLanguage(element->GetText());
@@ -120,76 +119,116 @@ int XmlReader::getFromXml(QString xmlFilePath, ManuscriptDoc& manDoc)
 
 void XmlReader::pageParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc)
 {
+	Page* page = 0;
+
 	for(tinyxml2::XMLElement* pageElement = element->FirstChildElement("Page"); 
 		pageElement != NULL; pageElement = pageElement->NextSiblingElement("Page"))
 	{
+		page = new Page(); 
+
 		const char* indexAttr;
 		const char* pathAttr;
 		//page init
 		indexAttr = pageElement->Attribute("index");
 		if(indexAttr != NULL)
 		{
-			//page index init 
-			
+			page->setIndex(atoi(indexAttr));		
 		}
 		pathAttr = pageElement->Attribute("path");
 		if(indexAttr != NULL)
 		{
-			//page path init 					
+			page->setName(pathAttr);
 		}
-		blockParsing(pageElement,manDoc);
-	}
+		blockParsing(pageElement,page); 
+		manDoc.addPage(page);
+		pageParsing(pageElement,page);
+	}	
 }
 
-void XmlReader::blockParsing(tinyxml2::XMLElement* pageElement,ManuscriptDoc& manDoc)
+void XmlReader::pageParsing(tinyxml2::XMLElement* element,Page* parentPage)
 {
+	Page* page = 0;
+
+	for(tinyxml2::XMLElement* pageElement = element->FirstChildElement("Page"); 
+		pageElement != NULL; pageElement = pageElement->NextSiblingElement("Page"))
+	{
+		page = new Page(); 
+
+		const char* indexAttr;
+		const char* pathAttr;
+		//page init
+		indexAttr = pageElement->Attribute("index");
+		if(indexAttr != NULL)
+		{
+			page->setIndex(atoi(indexAttr));		
+		}
+		pathAttr = pageElement->Attribute("path");
+		if(indexAttr != NULL)
+		{
+			page->setName(pathAttr);
+		}
+		blockParsing(pageElement,page); 
+		parentPage->addPage(page);
+		pageParsing(pageElement,page);
+	}	
+}
+
+void XmlReader::blockParsing(tinyxml2::XMLElement* pageElement,Page* page)
+{
+	
+
 	for(tinyxml2::XMLElement* blockElement = pageElement->FirstChildElement("Block"); 
 		blockElement != NULL; blockElement = blockElement->NextSiblingElement("Block"))
 	{
+		Block* block = new Block();
 		const char* typeAttr;
-		//block init
-		typeAttr = pageElement->Attribute("type");
+		typeAttr = blockElement->Attribute("type");
 		if(typeAttr != NULL)
 		{
-			//block type init
+			block->setType(atoi(typeAttr));
 		}
-		textLineParsing(blockElement,manDoc);
-		
+		textLineParsing(blockElement,block);	
+		page->addBlock(block);
 	}
+
+	
 }
 
-void XmlReader::textLineParsing(tinyxml2::XMLElement* blockElement,ManuscriptDoc& manDoc)
+void XmlReader::textLineParsing(tinyxml2::XMLElement* blockElement,Block* block)
 {
 	for(tinyxml2::XMLElement* textLineElement = blockElement->FirstChildElement("TextLine"); 
 		textLineElement != NULL; textLineElement = textLineElement->NextSiblingElement("TextLine"))
 	{
+		TextLine* textline = new TextLine();
 		for(tinyxml2::XMLElement* element = textLineElement ->FirstChildElement(); 
 			element != NULL; element = element->NextSiblingElement())
 		{
 			string elementName = element->Value();
 			if(elementName == "Rect")
 			{
-				rectParsing(element,manDoc);
+				rectParsing(element,textline);
 			}
 			else if(elementName == "UpperPoints")
 			{
-				upperPointsParsing(element,manDoc);
+				upperPointsParsing(element,textline);
 			}
 			else if(elementName == "LowerPoints")
 			{
-				lowerPointsParsing(element,manDoc);
+				lowerPointsParsing(element,textline);
 			}
 		}
+		block->addTextLine(textline);
 	}
+	
 }
 
-void XmlReader::rectParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc)
+void XmlReader::rectParsing(tinyxml2::XMLElement* element,TextLine* textline)
 {
 	const char* xAttr;
 	const char* yAttr;
 	const char* wAttr;
 	const char* hAttr;
-
+	
 	xAttr = element->Attribute("x");
 	if(xAttr != NULL)
 	{
@@ -202,13 +241,34 @@ void XmlReader::rectParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc)
 				hAttr = element->Attribute("h");
 				if(hAttr != NULL)
 				{
-					//textline rect init
+					textline->setRect(atoi(xAttr),atoi(yAttr),atoi(wAttr),atoi(hAttr));
 				}
 			}
 		}
 	}
 }
-void XmlReader::upperPointsParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc)
+
+void XmlReader::upperPointsParsing(tinyxml2::XMLElement* element,TextLine* textline)
+{
+	for(tinyxml2::XMLElement* pointElement = element ->FirstChildElement("Point"); 
+		pointElement != NULL; pointElement= pointElement->NextSiblingElement("Point"))
+	{
+		const char* xAttr;
+		const char* yAttr;
+		
+		xAttr = pointElement->Attribute("x");
+		if(xAttr != NULL)
+		{
+			yAttr = pointElement->Attribute("y");
+			if(yAttr != NULL)
+			{
+				textline->setUpperPoint(atoi(xAttr),atoi(yAttr));
+			}
+		}
+	}
+}
+
+void XmlReader::lowerPointsParsing(tinyxml2::XMLElement* element,TextLine* textline)
 {
 	for(tinyxml2::XMLElement* pointElement = element ->FirstChildElement("Point"); 
 		pointElement != NULL; pointElement= pointElement->NextSiblingElement("Point"))
@@ -216,40 +276,14 @@ void XmlReader::upperPointsParsing(tinyxml2::XMLElement* element,ManuscriptDoc& 
 		const char* xAttr;
 		const char* yAttr;
 
-		xAttr = element->Attribute("x");
+		xAttr = pointElement->Attribute("x");
 		if(xAttr != NULL)
 		{
-			yAttr = element->Attribute("y");
+			yAttr = pointElement->Attribute("y");
 			if(yAttr != NULL)
 			{
-				//text line upper point init
+				textline->setLowerPoint(atoi(xAttr),atoi(yAttr));
 			}
 		}
 	}
-}
-
-
-void XmlReader::lowerPointsParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc)
-{
-	for(tinyxml2::XMLElement* pointElement = element ->FirstChildElement("Point"); 
-		pointElement != NULL; pointElement= pointElement->NextSiblingElement("Point"))
-	{
-		const char* xAttr;
-		const char* yAttr;
-
-		xAttr = element->Attribute("x");
-		if(xAttr != NULL)
-		{
-			yAttr = element->Attribute("y");
-			if(yAttr != NULL)
-			{
-				//text line upper point init
-			}
-		}
-	}
-}
-
-XmlReader::~XmlReader()
-{
-
 }

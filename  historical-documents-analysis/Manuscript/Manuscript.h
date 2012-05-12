@@ -30,7 +30,7 @@ protected:
 public:
 	Manuscript(void);
 	~Manuscript(void);
-
+	void addPage(Page* p)			{_pages.push_back(p);}
 	vector<Page*>& getPages()       { return _pages; }
 	Page*          getPage(int idx) { return _pages[idx] ;}
 };

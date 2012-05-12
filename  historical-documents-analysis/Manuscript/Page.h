@@ -4,6 +4,7 @@
 #include "DImage.h"
 #include "Block.h"
 #include "manuscript_global.h"
+#include "string.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 /// <summary>	Page class maintains the properties of one page in a manuscript </summary>
@@ -14,19 +15,26 @@
 class MANUSCRIPT_EXPORT Page : DImage {
 protected:
 	int                _index ;
-	vector<Block>      _blocks ;
+	vector<Block*>      _blocks;
+	vector<Page*>	   _pages;
+	string			   _name;
+
 public:
 	Page(void);
-	
 	void setIndex(int index) {_index = index;}
 	int getIndex(){return _index;}
-	void setBlocks(vector<Block> blocks) {_blocks = blocks;}
-	vector<Block> getBlocks(){return _blocks;}
-	void addBlock(Block b){_blocks.push_back(b);}
+	string getName(){return _name;}
+	void setBlocks(vector<Block*> blocks) {_blocks = blocks;}
+	vector<Block*> getBlocks(){return _blocks;}
+	void setName(string name){_name = name;}
+	void addBlock(Block* b){_blocks.push_back(b);}
 	void removeBlock(int index);
+	void addPage(Page* p)			{_pages.push_back(p);} 
+	vector<Page*>& getPages()       { return _pages; }
+	Page*          getPage(int idx) { return _pages[idx] ;}
+	
 
-
-	~Page(void);
+	virtual ~Page(void);
 };
 
 #endif 

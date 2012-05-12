@@ -3,10 +3,10 @@
 #include "DImage.h" 
 #include "TextLine.h"
 
-class Block : DImage {
+class MANUSCRIPT_EXPORT Block : DImage {
 protected:
 	byte   _type   ;
-	vector<TextLine> _textlines ; 
+	vector<TextLine*> _textlines ; 
 public:
 	Block(void);
 	~Block(void);
@@ -17,9 +17,9 @@ public:
 	
 	void setType(byte t)   { _type = t ;    } 
 	byte getType()         { return _type ; }
-	void setTextLines (vector<TextLine> textlines ) {_textlines = textlines;}
-	vector<TextLine> getTextLines (){return _textlines;}
-	void addTextLine(TextLine t){_textlines .push_back(t);}
+	void setTextLines (vector<TextLine*> textlines ) {_textlines = textlines;}
+	vector<TextLine*> getTextLines (){return _textlines;}
+	void addTextLine(TextLine* t){_textlines.push_back(t);}
 	void removeTextLine(int index);
 
 };
