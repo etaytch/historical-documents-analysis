@@ -21,20 +21,34 @@ public:
 	~HdaMainFrame();
 
 public slots:
+	void LoadManuscript(QModelIndex index);
 	void openImageWindowFromThumbView(QModelIndex index);
 	void openImageWindowFromTreeView(QModelIndex index);
+
+	//Actions slots 
 	void openProject();	
+	void openManuscript();	
+	void removeManuscript();
+	void addManuscript();
+	void addPage();
+	void removePage();
+	void save();
+	void saveAll();
+	void quit();
+	void help();
 	void setChiledToOriginalSize();
 	void cascadePages();
 	void tilePages();
-	void LoadManuscript(QModelIndex index);
 
-	
 private:
 	Ui::HdaMainFrameClass ui;
-	ThumbNailsModel* _manuscriptPagesModel;
 	ProjectDoc _project;
+	ThumbNailsModel* _manuscriptPagesModel;
 	TreeViewModel* _manuscriptTreeModel;
+
+private: //methods
+	void modelsInit();
+	void cleanProject();
 };
 
 #endif // HDAMAINFRAME_H

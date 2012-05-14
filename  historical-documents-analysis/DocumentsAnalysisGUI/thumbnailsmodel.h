@@ -25,6 +25,7 @@ private:
 
 public:
 	ThumbNailsModel(ManuscriptDoc& man,QObject *parent=0);
+	ThumbNailsModel(QObject *parent=0);
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
     virtual QVariant data(const QModelIndex &index, int role) const;

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>740</width>
+    <width>675</width>
     <height>727</height>
    </rect>
   </property>
@@ -23,57 +23,61 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QMdiArea" name="mdiArea">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="font">
-       <font>
-        <strikeout>false</strikeout>
-       </font>
-      </property>
-      <property name="cursor" stdset="0">
-       <cursorShape>ArrowCursor</cursorShape>
-      </property>
-      <property name="mouseTracking">
-       <bool>false</bool>
-      </property>
-      <property name="acceptDrops">
-       <bool>true</bool>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAsNeeded</enum>
-      </property>
-      <property name="horizontalScrollBarPolicy">
-       <enum>Qt::ScrollBarAsNeeded</enum>
-      </property>
-      <property name="viewMode">
-       <enum>QMdiArea::SubWindowView</enum>
-      </property>
-      <property name="documentMode">
-       <bool>false</bool>
-      </property>
-      <property name="tabsClosable">
-       <bool>true</bool>
-      </property>
-      <property name="tabsMovable">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <widget class="QMdiArea" name="mdiArea">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>9</y>
+      <width>473</width>
+      <height>460</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="cursor" stdset="0">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="mouseTracking">
+     <bool>false</bool>
+    </property>
+    <property name="acceptDrops">
+     <bool>true</bool>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="viewMode">
+     <enum>QMdiArea::SubWindowView</enum>
+    </property>
+    <property name="documentMode">
+     <bool>false</bool>
+    </property>
+    <property name="tabsClosable">
+     <bool>true</bool>
+    </property>
+    <property name="tabsMovable">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>740</width>
+     <width>675</width>
      <height>21</height>
     </rect>
    </property>
@@ -81,15 +85,37 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="actionOpen_Project"/>
+    <widget class="QMenu" name="menuOpen">
+     <property name="title">
+      <string>Open</string>
+     </property>
+     <property name="icon">
+      <iconset resource="hdamainframe.qrc">
+       <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-open-folder-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-open-folder-icon.png</iconset>
+     </property>
+     <addaction name="actionOpen_Project"/>
+     <addaction name="actionOpen_manuscript"/>
+    </widget>
+    <widget class="QMenu" name="menuAdd">
+     <property name="title">
+      <string>Add</string>
+     </property>
+     <addaction name="actionAdd_manuscript"/>
+     <addaction name="actionAdd_page"/>
+    </widget>
+    <widget class="QMenu" name="menuRemove">
+     <property name="title">
+      <string>Remove</string>
+     </property>
+     <addaction name="actionRemove_manuscript"/>
+     <addaction name="actionRemove_page"/>
+    </widget>
     <addaction name="actionNewManuscript"/>
-    <addaction name="actionOpen_manuscript"/>
+    <addaction name="menuOpen"/>
+    <addaction name="menuAdd"/>
+    <addaction name="menuRemove"/>
     <addaction name="actionSave_current_file"/>
-    <addaction name="actionSave_alll"/>
-    <addaction name="actionAdd_manuscript"/>
-    <addaction name="actionRemove_manuscript"/>
-    <addaction name="actionAdd_page"/>
-    <addaction name="actionRemove_page"/>
+    <addaction name="actionSave_all"/>
     <addaction name="actionQuit"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
@@ -149,18 +175,17 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionOpen_Project"/>
-   <addaction name="actionNewManuscript"/>
    <addaction name="actionOpen_manuscript"/>
-   <addaction name="actionSave_alll"/>
+   <addaction name="actionAdd_manuscript"/>
+   <addaction name="actionRemove_manuscript"/>
+   <addaction name="actionNewManuscript"/>
+   <addaction name="actionSave_all"/>
    <addaction name="actionSave_current_file"/>
-   <addaction name="actionAdd_page"/>
-   <addaction name="actionRemove_page"/>
    <addaction name="actionQuick_Opertion"/>
    <addaction name="actionScedual_batch_job"/>
    <addaction name="actionSceduler"/>
    <addaction name="actionHelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
   <widget class="QDockWidget" name="ProjectTree">
    <property name="sizePolicy">
     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -217,7 +242,7 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>113</width>
+     <width>127</width>
      <height>170</height>
     </size>
    </property>
@@ -292,6 +317,11 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="locale">
+    <locale language="English" country="UnitedStates"/>
+   </property>
+  </widget>
   <action name="actionNewManuscript">
    <property name="icon">
     <iconset resource="hdamainframe.qrc">
@@ -322,13 +352,13 @@
     <string>Ctrl+O</string>
    </property>
   </action>
-  <action name="actionSave_alll">
+  <action name="actionSave_all">
    <property name="icon">
     <iconset resource="hdamainframe.qrc">
      <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-save-all-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-save-all-icon.png</iconset>
    </property>
    <property name="text">
-    <string>Save alll </string>
+    <string>Save all</string>
    </property>
    <property name="toolTip">
     <string>Save all</string>
@@ -392,6 +422,10 @@
    </property>
   </action>
   <action name="actionQuit">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-system-shutdown-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-system-shutdown-icon.png</iconset>
+   </property>
    <property name="text">
     <string>Quit</string>
    </property>
@@ -594,6 +628,150 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionAdd_manuscript</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>addManuscript()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>369</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSave_all</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>saveAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>369</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSave_current_file</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>save()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>369</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAdd_page</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>addPage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>369</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRemove_page</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>removePage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>369</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRemove_manuscript</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>removeManuscript()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>369</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionQuit</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>369</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionHelp</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>help()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>369</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionOpen_manuscript</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>openManuscript()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>369</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openImageWindowFromThumbView(QModelIndex)</slot>
@@ -603,5 +781,13 @@
   <slot>tilePages()</slot>
   <slot>cascadePages()</slot>
   <slot>openProject()</slot>
+  <slot>openManuscript()</slot>
+  <slot>addManuscript()</slot>
+  <slot>addPage()</slot>
+  <slot>removePage()</slot>
+  <slot>removeManuscript()</slot>
+  <slot>save()</slot>
+  <slot>saveAll()</slot>
+  <slot>help()</slot>
  </slots>
 </ui>
