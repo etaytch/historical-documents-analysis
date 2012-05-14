@@ -8,6 +8,11 @@ ThumbNailsModel::ThumbNailsModel(ManuscriptDoc& man,QObject *parent)
 	loadImages();
 }
 
+ThumbNailsModel::ThumbNailsModel(QObject *parent)
+	: QAbstractListModel(parent)
+{
+}
+
 bool ThumbNailsModel::loadImages()
 {
 	

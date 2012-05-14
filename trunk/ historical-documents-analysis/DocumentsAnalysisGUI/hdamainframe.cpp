@@ -5,7 +5,9 @@
 HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
-	ui.setupUi(this);	
+	ui.setupUi(this);
+	_project.setName("Default Project");
+	modelsInit();
 }
 
 
@@ -75,19 +77,24 @@ void HdaMainFrame::LoadManuscript(QModelIndex index)
 }
 
 
+/***************************/
+/********  ACTIONS *********/
+/***************************/
+
 void HdaMainFrame::openProject()
 {
+	cleanProject();
 	QString fileName = QFileDialog::getOpenFileName(this,"Open project","","Project File (*.xml)");
-	
+	if (fileName.isEmpty() || fileName.isNull()) return;
+
 	//project parsing
 	if (XmlReader::getProjectFromXml(fileName,_project)!= tinyxml2::XML_NO_ERROR)
 	{
-		QMessageBox::warning(this, "Error",
+		QMessageBox::critical(this, "Error",
                              QString("%1 isn't a project file, or it is corrupted.")
 							 .arg(QFileInfo(fileName).fileName()));
 		return;
 	}
-	
 	//manuscripts parsing
 	QMap<QString,QString>::iterator manPathIter;
 	for(manPathIter=_project.getPaths().begin();
@@ -98,17 +105,77 @@ void HdaMainFrame::openProject()
 		QString name = manPathIter.key();
 		XmlReader::getManuscriptFromXml(path,_project.getManuscripts()[name]);
 	}
+	modelsInit();
+}
 
-	//tree init:
-	this->_manuscriptTreeModel = new TreeViewModel(_project,ui.treeView);
-	ui.treeView->setModel(this->_manuscriptTreeModel);
+void HdaMainFrame::openManuscript()
+{
+	cleanProject();
+	addManuscript();
+}
+
+void HdaMainFrame::removeManuscript()
+{
 
 }
 
+void HdaMainFrame::addManuscript()
+{
+	QString fileName = QFileDialog::getOpenFileName(this,"Open Manuscript","","Manuscript File (*.xml)");
+	if (fileName.isEmpty() || fileName.isNull()) return;
 
-/***************************/
-/********  ACTIONS *********/
-/***************************/
+	//create a default project for the manuscript
+	_project.setName("Default Project");
+	_project.addManuscriptPath(fileName,fileName);
+	//manuscript parsing
+	if (XmlReader::getManuscriptFromXml(fileName,_project.getManuscripts()[fileName])!= tinyxml2::XML_NO_ERROR)
+	{
+		QMessageBox::critical(this, "Error",
+                             QString("%1 isn't a manuscript file, or it is corrupted.")
+							 .arg(QFileInfo(fileName).fileName()));
+		_project.removeManuscript(fileName);
+		return;
+	}
+	//manuscript name update
+	QString manTitle = _project.getManuscripts()[fileName].getTitle();
+	if (_project.renameManuscript(fileName,_project.getManuscripts()[fileName].getTitle())!=NO_PROJ_ERROR)
+	{
+		QMessageBox::warning(this, "Error", "The project already contains \""+manTitle+"\",\n the operation wil be ignored.");
+		_project.removeManuscript(fileName);
+	}
+
+	modelsInit();
+}
+
+void HdaMainFrame::addPage()
+{
+
+}
+
+void HdaMainFrame::removePage()
+{
+
+}
+	 
+void HdaMainFrame::save()
+{
+
+}
+
+void HdaMainFrame::saveAll()
+{
+
+}
+
+void HdaMainFrame::help()
+{
+
+}
+
+void HdaMainFrame::quit()
+{
+
+}
 
 void HdaMainFrame::setChiledToOriginalSize()
 {
@@ -127,8 +194,42 @@ void HdaMainFrame::tilePages()
 	ui.mdiArea->tileSubWindows();
 }
 
+
+/***********************************/
+/********  PRIVATE METHODS *********/
+/***********************************/
+
+void HdaMainFrame::modelsInit()
+{
+	if (!_manuscriptTreeModel)
+	{
+		delete _manuscriptTreeModel;
+	}
+	this->_manuscriptTreeModel = new TreeViewModel(_project,ui.treeView);
+	ui.treeView->setModel(this->_manuscriptTreeModel);
+	if (_project.getManuscriptCount()>0)
+	{
+		_manuscriptPagesModel = new ThumbNailsModel(_project.getManuscriptAt(0),ui.thumbnailsView);
+	}
+	else
+	{
+		_manuscriptPagesModel = new ThumbNailsModel(ui.thumbnailsView);
+	}
+	ui.thumbnailsView->setModel(_manuscriptPagesModel);
+}
+
+void HdaMainFrame::cleanProject()
+{
+	_project = ProjectDoc();
+	_manuscriptTreeModel = 0;
+	_manuscriptPagesModel = 0;
+}
+
 HdaMainFrame::~HdaMainFrame()
 {
-	QMap<QString, PageMdiChild*>::iterator iter;
+	if (!_manuscriptPagesModel)
+		delete _manuscriptPagesModel;
+	if (!_manuscriptPagesModel)
+		delete _manuscriptTreeModel;
 }
 
