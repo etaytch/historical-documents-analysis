@@ -32,7 +32,6 @@ void HdaMainFrame::openImageWindowFromThumbView(QModelIndex index)
 		ui.mdiArea->addSubWindow(p);
 		p->loadFile(pagePath);
 		p->show();
-
 	}
 
 }
