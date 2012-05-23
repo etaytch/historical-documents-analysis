@@ -136,6 +136,9 @@
     <CustomBuild Include="PageDoc.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="flowdialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_hdamainframe.h">
@@ -149,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="treeitem.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_flowdialog.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
