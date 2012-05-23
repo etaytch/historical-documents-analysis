@@ -226,7 +226,10 @@ void HdaMainFrame::cleanProject()
 
 void HdaMainFrame::openFlowDialog()
 {
-
+	Ui::FlowDialog* f = new Ui::FlowDialog();
+	QDialog* D = new QDialog();
+	f->setupUi(D);
+	D->show();
 }
 
 HdaMainFrame::~HdaMainFrame()
