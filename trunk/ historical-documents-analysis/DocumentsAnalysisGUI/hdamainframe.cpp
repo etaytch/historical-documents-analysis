@@ -224,6 +224,11 @@ void HdaMainFrame::cleanProject()
 	_manuscriptPagesModel = 0;
 }
 
+void HdaMainFrame::openFlowDialog()
+{
+
+}
+
 HdaMainFrame::~HdaMainFrame()
 {
 	if (!_manuscriptPagesModel)

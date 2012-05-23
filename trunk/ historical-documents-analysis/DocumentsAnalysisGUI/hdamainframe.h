@@ -39,6 +39,7 @@ public slots:
 	void setChiledToOriginalSize();
 	void cascadePages();
 	void tilePages();
+	void openFlowDialog();	
 
 private:
 	Ui::HdaMainFrameClass ui;
