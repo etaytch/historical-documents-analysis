@@ -5,6 +5,7 @@
 #include <QtGui/QMainWindow>
 #include <QString>
 #include "ui_hdamainframe.h"
+#include "ui_flowdialog.h"
 #include "thumbnailsmodel.h"
 #include "treeviewmodel.h"
 #include "pagemdichild.h"
