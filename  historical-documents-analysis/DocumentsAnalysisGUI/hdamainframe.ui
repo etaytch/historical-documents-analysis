@@ -949,8 +949,8 @@
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>35</x>
-     <y>98</y>
+     <x>29</x>
+     <y>102</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>
@@ -997,12 +997,28 @@
    <slot>trigger()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>80</x>
-     <y>88</y>
+     <x>113</x>
+     <y>102</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>
      <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionScedual_batch_job</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>openFlowDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>341</x>
+     <y>363</y>
     </hint>
    </hints>
   </connection>
@@ -1023,5 +1039,6 @@
   <slot>save()</slot>
   <slot>saveAll()</slot>
   <slot>help()</slot>
+  <slot>openFlowDialog()</slot>
  </slots>
 </ui>
