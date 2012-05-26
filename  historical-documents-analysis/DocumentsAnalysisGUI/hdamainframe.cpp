@@ -8,6 +8,8 @@ HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 	ui.setupUi(this);
 	_project.setName("Default Project");
 	modelsInit();
+	_flowManager = new HdaFlowManager(this);
+	//connect(_flowManager,SIGNAL(addWidget(HdaOperationThread*)),_flowSchedulerDialog,SLOT(addWidget(HdaOperationThread*)));
 }
 
 
@@ -225,12 +227,16 @@ void HdaMainFrame::cleanProject()
 }
 
 void HdaMainFrame::openFlowDialog()
-{
-	Ui::FlowDialog* f = new Ui::FlowDialog();
-	QDialog* D = new QDialog();
-	f->setupUi(D);
-	D->show();
+{	
+	_flowSchedulerDialog = new FlowSchedulerDialog(this,this->_manuscriptTreeModel);
+	_flowSchedulerDialog->show();
 }
+
+HdaFlowManager* HdaMainFrame::getFlowManager()
+{
+	return _flowManager;
+}
+
 
 HdaMainFrame::~HdaMainFrame()
 {
@@ -238,5 +244,7 @@ HdaMainFrame::~HdaMainFrame()
 		delete _manuscriptPagesModel;
 	if (!_manuscriptPagesModel)
 		delete _manuscriptTreeModel;
+	if (!_flowManager)
+		delete _flowManager;	
 }
 
