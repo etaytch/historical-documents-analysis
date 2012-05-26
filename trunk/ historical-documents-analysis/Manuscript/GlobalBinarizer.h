@@ -9,7 +9,7 @@
 /// <remarks>	El Sana, 2/15/2012. </remarks>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class GlobalBinarizer : public Binarizer {
+class MANUSCRIPT_EXPORT GlobalBinarizer : public Binarizer {
 	float  _thershold ;
 
 public:

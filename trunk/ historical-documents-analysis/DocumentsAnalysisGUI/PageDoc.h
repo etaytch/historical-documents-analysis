@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QString>
 #include <QMetaType>
+#include "treeitem.h"
 
 class PageDoc : public QObject
 {
@@ -13,16 +14,19 @@ class PageDoc : public QObject
 public:
 	PageDoc(QObject *parent=0);
 	PageDoc(const PageDoc &p);
-	PageDoc(Page* page,QString man,QObject *parent=0);
+	PageDoc(Page* page,QString man,TreeItem* treeitem, QObject *parent=0);
 	void setPage(Page* page)				{_page = page;}
 	Page* getPage()							{return _page;}
 	void setManuscriptName(QString man)		{_man = man;}
 	QString getManuscriptName()				{return _man;}
+	TreeItem* getTreeItem();
+
 	virtual ~PageDoc(void){}
 
 private:
 	Page* _page;
 	QString _man; 
+	TreeItem* _treeItem;
 };
 
 Q_DECLARE_METATYPE(PageDoc);

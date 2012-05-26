@@ -1,5 +1,5 @@
 #include "Page.h"
-
+#include <opencv2/opencv.hpp>
 
 Page::Page(void)
 {
@@ -8,6 +8,14 @@ Page::Page(void)
 void Page::removeBlock(int index)
 {
 	_blocks.erase(_blocks.begin()+index-1);
+}
+
+void Page::loadMat()
+{
+	if((getMat().cols==0)&&(getMat().rows==0))
+	{
+		setMat(cv::imread(_name,1));
+	}	
 }
 
 Page::~Page(void)

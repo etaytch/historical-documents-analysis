@@ -1,5 +1,5 @@
 #include "treeviewmodel.h"
-
+#include <QFileInfo.h>
 TreeViewModel::TreeViewModel(ProjectDoc& pd, QObject *parent)
 	:QAbstractItemModel(parent)
 {
@@ -84,7 +84,7 @@ QVariant TreeViewModel::data(const QModelIndex &index, int role) const
 		if (qVariantCanConvert<PageDoc> (item->data(index.column())))
 		{
 			PageDoc pd = qVariantValue<PageDoc>(item->data(index.column()));
-			return  QString(pd.getPage()->getName().c_str());
+			return QFileInfo(QString(pd.getPage()->getName().c_str())).fileName();
 		}
 		return item->data(index.column());
 	}
@@ -184,7 +184,7 @@ void TreeViewModel::setupModel(TreeItem *parent)
 		treeitem->insertChildren(treeitem->childCount(), man.getPages().size(), 1);
 		for(pageIter = man.getPages().begin(); pageIter!= man.getPages().end(); pageIter++)
 		{
-			treeitem->child(pageCount)->setData(0,QVariant::fromValue(PageDoc(*pageIter,manName,0)));				
+			treeitem->child(pageCount)->setData(0,QVariant::fromValue(PageDoc(*pageIter,manName,treeitem,0)));				
 			setUpPages(*pageIter,manName,treeitem->child(pageCount));
 			pageCount++;
 		}
@@ -203,7 +203,7 @@ void TreeViewModel::setUpPages (Page* page ,QString manName ,TreeItem* treeitem)
 			vector<Page*>::iterator pageIter;
 			for(pageIter = page->getPages().begin(); pageIter!= page->getPages().end(); pageIter++)
 			{
-				treeitem->child(pageCount)->setData(0,QVariant::fromValue(PageDoc(*pageIter,manName,0)));				
+				treeitem->child(pageCount)->setData(0,QVariant::fromValue(PageDoc(*pageIter,manName,treeitem,0)));
 				setUpPages(*pageIter,manName,treeitem->child(pageCount));
 				pageCount++;
 			}

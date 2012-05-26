@@ -5,11 +5,12 @@ HdaFlowManager::HdaFlowManager(QObject *parent)
 {	
 }
 
-void HdaFlowManager::addThread(Page* page,QStringList operations)
-{
+void HdaFlowManager::addThread(Page* page,QStringList operations,HdaProgressBar* probar)
+{	
 	HdaOperationThread* hdaot = new HdaOperationThread(this,page,operations);
+	connect(hdaot,SIGNAL(setValue(int)),probar,SLOT(setValue(int)));
 	_threads.push_back(hdaot);
-	hdaot->run();
+	hdaot->start();
 }
 
 QVector<HdaOperationThread*> HdaFlowManager::getThreads()

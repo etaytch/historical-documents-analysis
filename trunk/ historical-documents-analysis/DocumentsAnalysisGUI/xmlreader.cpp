@@ -137,15 +137,15 @@ void XmlReader::pageParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc)
 		pathAttr = pageElement->Attribute("path");
 		if(indexAttr != NULL)
 		{
-			page->setName(pathAttr);
+			page->setName(manDoc.getPagesDirPath().toStdString()+"/"+pathAttr);
 		}
 		blockParsing(pageElement,page); 
 		manDoc.addPage(page);
-		pageParsing(pageElement,page);
+		pageParsing(pageElement,page,manDoc);
 	}	
 }
 
-void XmlReader::pageParsing(tinyxml2::XMLElement* element,Page* parentPage)
+void XmlReader::pageParsing(tinyxml2::XMLElement* element,Page* parentPage,ManuscriptDoc& manDoc)
 {
 	Page* page = 0;
 
@@ -165,11 +165,12 @@ void XmlReader::pageParsing(tinyxml2::XMLElement* element,Page* parentPage)
 		pathAttr = pageElement->Attribute("path");
 		if(indexAttr != NULL)
 		{
-			page->setName(pathAttr);
+			page->setName(manDoc.getPagesDirPath().toStdString()+"/"+pathAttr);
 		}
+
 		blockParsing(pageElement,page); 
 		parentPage->addPage(page);
-		pageParsing(pageElement,page);
+		pageParsing(pageElement,page,manDoc);
 	}	
 }
 

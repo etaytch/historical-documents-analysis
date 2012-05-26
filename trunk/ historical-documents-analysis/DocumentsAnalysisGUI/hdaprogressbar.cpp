@@ -6,7 +6,7 @@ HdaProgressBar::HdaProgressBar(QWidget *parent)
 	ui.setupUi(this);
 }
 
-void HdaProgressBar::setProgressBarValue(int value)
+void HdaProgressBar::setValue(int value)
 {
 	ui.progressBar->setValue(value);
 }

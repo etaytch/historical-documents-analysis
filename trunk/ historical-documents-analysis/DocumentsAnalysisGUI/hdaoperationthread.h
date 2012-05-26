@@ -20,6 +20,12 @@ public:
 private:
 	Page* _page;
 	QStringList _operations;
+
+public slots:
+	void onDone();
+
+signals:
+	void setValue(int);
 };
 
 #endif // HDAOPERATIONTHREAD_H

@@ -9,12 +9,14 @@ class HdaProgressBar : public QWidget
 	Q_OBJECT
 
 public:
-	HdaProgressBar(QWidget *parent = 0);
-	void setProgressBarValue(int value);
+	HdaProgressBar(QWidget *parent = 0);	
 	~HdaProgressBar();
 
 private:
 	Ui::HdaProgressBar ui;
+
+public slots:
+	void setValue(int);
 };
 
 #endif // HDAPROGRESSBAR_H
