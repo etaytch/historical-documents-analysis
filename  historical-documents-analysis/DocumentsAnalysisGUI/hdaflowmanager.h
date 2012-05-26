@@ -5,6 +5,7 @@
 #include <QVector>
 #include "HdaOperationThread.h"
 #include "Page.h"
+#include "HdaProgressBar.h"
 
 class HdaFlowManager : public QObject
 {
@@ -12,7 +13,7 @@ class HdaFlowManager : public QObject
 
 public:
 	HdaFlowManager(QObject *parent);
-	void addThread(Page* page,QStringList operations);
+	void addThread(Page* page,QStringList operations,HdaProgressBar* probar);
 	QVector<HdaOperationThread*> getThreads();
 	~HdaFlowManager();
 

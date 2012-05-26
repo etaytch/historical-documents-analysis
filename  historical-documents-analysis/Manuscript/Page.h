@@ -6,13 +6,14 @@
 #include "manuscript_global.h"
 #include "string.h"
 
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 /// <summary>	Page class maintains the properties of one page in a manuscript </summary>
 ///
 /// <remarks>	El Sana, 2/15/2012. </remarks>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class MANUSCRIPT_EXPORT Page : DImage {
+class MANUSCRIPT_EXPORT Page : public DImage {
 protected:
 	int                _index ;
 	vector<Block*>      _blocks;
@@ -34,6 +35,7 @@ public:
 	Page*          getPage(int idx) { return _pages[idx] ;}
 	
 
+	void loadMat();
 	virtual ~Page(void);
 };
 

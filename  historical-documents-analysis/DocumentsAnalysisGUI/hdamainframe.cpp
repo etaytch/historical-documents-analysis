@@ -43,8 +43,7 @@ void HdaMainFrame::openImageWindowFromTreeView(QModelIndex index)
 	if (qVariantCanConvert<PageDoc> (index.data(Qt::UserRole)))
 	{
 		PageDoc page = qVariantValue<PageDoc>(index.data(Qt::UserRole));
-		QString pagePath = _project.getManuscriptAt(page.getManuscriptName()).getPagesDirPath()+
-															"/"+page.getPage()->getName().c_str();
+		QString pagePath = page.getPage()->getName().c_str();
 		
 		foreach (QMdiSubWindow *window, ui.mdiArea->subWindowList())
 		{

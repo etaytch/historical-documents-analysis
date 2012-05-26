@@ -14,9 +14,6 @@ FlowSchedulerDialog::FlowSchedulerDialog(QWidget *parent,TreeViewModel* model)
 	_flowSelectedOperationsListModel = new FlowOperationsModel(this,1);
 	_manuscriptTreeModel = model;
 	ui.flowPagesTreeView->setModel(_manuscriptTreeModel);
-	HdaProgressBar* probar1 = new HdaProgressBar();
-	probar1->setProgressBarValue(20);
-	ui.verticalLayout->addWidget(probar1);
 
 	ui.flowOperationsListView->setModel(_flowOperationsListModel);
 	ui.flowSelectedOperationsListView->setModel(_flowSelectedOperationsListModel);
@@ -80,8 +77,15 @@ void FlowSchedulerDialog::startFlow()
 		QVariant currentPage = currentIndex.data(Qt::UserRole);				
 		PageDoc pd = qVariantValue<PageDoc>(currentPage);
 		HdaMainFrame* mainFrame = (static_cast<HdaMainFrame*>(parent())); 		
-		mainFrame->getFlowManager()->addThread(pd.getPage(),selectedOperations);
+		Page* page = pd.getPage();
+		page->loadMat();
 
+		HdaProgressBar* probar = new HdaProgressBar();
+		probar->setValue(0);
+		ui.verticalLayout->addWidget(probar);
+
+		mainFrame->getFlowManager()->addThread(pd.getPage(),selectedOperations,probar);
+		pd.parent();
 	}
 }
 void FlowSchedulerDialog::cancelFlow()
