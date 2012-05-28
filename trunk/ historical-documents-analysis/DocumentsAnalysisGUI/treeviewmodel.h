@@ -37,16 +37,18 @@ public:
     Qt::ItemFlags flags(const QModelIndex & index) const;
 	QModelIndex parent(const QModelIndex &index) const;
 	QModelIndex index(int row, int column, const QModelIndex &parent) const;
-
-private:
+	TreeItem *getItem(const QModelIndex &index) const;
 
 	ProjectDoc _project;
+private:
+
+	
 	TreeItem   *_rootItem;
 
 private: //methods
 	void setupModel (TreeItem *parent);
 	void setUpPages (Page* page ,QString manName,TreeItem* treeItem);
-	TreeItem *getItem(const QModelIndex &index) const;
+	
 	
 signals:
     void editCompleted(const QString &);

@@ -1,6 +1,7 @@
 #include "hdamainframe.h"
 #include <QMdiSubWindow>
-
+#include <QDebug>
+#include "xmlwriter.h"
 
 HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
@@ -9,7 +10,7 @@ HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 	_project.setName("Default Project");
 	modelsInit();
 	_flowManager = new HdaFlowManager(this);
-	//connect(_flowManager,SIGNAL(addWidget(HdaOperationThread*)),_flowSchedulerDialog,SLOT(addWidget(HdaOperationThread*)));
+	
 }
 
 
@@ -164,7 +165,9 @@ void HdaMainFrame::save()
 
 void HdaMainFrame::saveAll()
 {
-
+	ProjectDoc pr = _manuscriptTreeModel->_project;
+	XmlWriter::saveToFile(pr);
+		
 }
 
 void HdaMainFrame::help()
@@ -228,6 +231,7 @@ void HdaMainFrame::cleanProject()
 void HdaMainFrame::openFlowDialog()
 {	
 	_flowSchedulerDialog = new FlowSchedulerDialog(this,this->_manuscriptTreeModel);
+	connect(_flowManager,SIGNAL(updatePage(Page*)),_flowSchedulerDialog,SLOT(updatePage(Page*)));
 	_flowSchedulerDialog->show();
 }
 

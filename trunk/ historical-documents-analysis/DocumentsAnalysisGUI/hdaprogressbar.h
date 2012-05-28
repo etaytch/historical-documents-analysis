@@ -11,6 +11,7 @@ class HdaProgressBar : public QWidget
 public:
 	HdaProgressBar(QWidget *parent = 0);	
 	~HdaProgressBar();
+	int getValue();
 
 private:
 	Ui::HdaProgressBar ui;

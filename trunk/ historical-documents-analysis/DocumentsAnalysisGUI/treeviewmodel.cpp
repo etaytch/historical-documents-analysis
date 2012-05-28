@@ -86,6 +86,11 @@ QVariant TreeViewModel::data(const QModelIndex &index, int role) const
 			PageDoc pd = qVariantValue<PageDoc>(item->data(index.column()));
 			return QFileInfo(QString(pd.getPage()->getName().c_str())).fileName();
 		}
+		/*else if (qVariantCanConvert<ManuscriptDoc> (item->data(index.column())))
+		{
+			ManuscriptDoc md = qVariantValue<ManuscriptDoc>(item->data(index.column()));
+
+		}*/
 		return item->data(index.column());
 	}
 	if (role == Qt::UserRole)
@@ -162,6 +167,7 @@ void TreeViewModel::setupModel(TreeItem *parent)
 {
 	QVector<TreeItem*> Parents;
 	QMap<QString,QString>::iterator manPathIter;
+
 	parent->insertChildren(parent->childCount(), _project.getManuscriptCount(), 1);
 	int manCount = 0;
 
