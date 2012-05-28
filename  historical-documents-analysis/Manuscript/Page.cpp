@@ -12,7 +12,8 @@ void Page::removeBlock(int index)
 
 void Page::loadMat()
 {
-	if((getMat().cols==0)&&(getMat().rows==0))
+	Mat mat = getMat();
+	if((mat.cols==0)&&(mat.rows==0))
 	{
 		setMat(cv::imread(_name,1));
 	}	
