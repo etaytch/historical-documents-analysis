@@ -8,7 +8,7 @@
 /// <remarks>	El Sana, 2/15/2012. </remarks>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class LocalBinarizer : Binarizer {
+class MANUSCRIPT_EXPORT LocalBinarizer : Binarizer {
 
 public:
 	LocalBinarizer(void);
