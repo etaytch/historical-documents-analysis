@@ -131,6 +131,12 @@
      <stylestrategy>PreferAntialias</stylestrategy>
     </font>
    </property>
+   <property name="selectionMode">
+    <enum>QAbstractItemView::MultiSelection</enum>
+   </property>
+   <property name="selectionBehavior">
+    <enum>QAbstractItemView::SelectItems</enum>
+   </property>
   </widget>
   <widget class="QScrollArea" name="scrollArea">
    <property name="geometry">
@@ -153,29 +159,16 @@
       <height>359</height>
      </rect>
     </property>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>371</width>
-       <height>341</height>
+       <x>0</x>
+       <y>0</y>
+       <width>401</width>
+       <height>361</height>
       </rect>
      </property>
-     <property name="title">
-      <string>GroupBox</string>
-     </property>
-     <widget class="QWidget" name="verticalLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>10</y>
-        <width>331</width>
-        <height>311</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout"/>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout"/>
     </widget>
    </widget>
   </widget>
@@ -203,6 +196,19 @@
    </property>
    <property name="text">
     <string>Cancel</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="clearDoneButton">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>410</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Clear Done</string>
    </property>
   </widget>
  </widget>
@@ -257,10 +263,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>clearDoneButton</sender>
+   <signal>clicked()</signal>
+   <receiver>FlowSchedulerDialog</receiver>
+   <slot>clearDone()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>667</x>
+     <y>421</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>506</x>
+     <y>248</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>addOperation()</slot>
   <slot>startFlow()</slot>
   <slot>cancelFlow()</slot>
+  <slot>clearDone()</slot>
  </slots>
 </ui>

@@ -21,7 +21,9 @@ private:
 	QVector<HdaOperationThread*> _threads;
 
 signals:
-	void addWidget(HdaOperationThread*);
+	void updatePage(Page*);
+public slots:
+	void removeThread(HdaOperationThread*);
 };
 
 #endif // HDAFLOWMANAGER_H

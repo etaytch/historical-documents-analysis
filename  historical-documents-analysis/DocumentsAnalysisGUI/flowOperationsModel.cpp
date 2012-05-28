@@ -4,11 +4,10 @@
 	{
 		if(type==0)
 		{
-			stringList.push_back(QString("a"));
-			stringList.push_back(QString("b"));
-			stringList.push_back(QString("c"));
-			stringList.push_back(QString("d"));
-			stringList.push_back(QString("e"));
+			stringList.push_back(QString("Global Binarizer"));
+			//stringList.push_back(QString("Local Binarizer"));
+			stringList.push_back(QString("Radial Binarizer"));
+			stringList.push_back(QString("Otsul Binarizer"));			
 		}
 		
 	}
