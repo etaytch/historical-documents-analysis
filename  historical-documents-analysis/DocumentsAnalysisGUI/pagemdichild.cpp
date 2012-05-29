@@ -1,11 +1,14 @@
 #include "PageMdiChild.h"
+#include <QGraphicsPixmapItem>
+#include <QPixmap>
+#include <QRect>
 
-PageMdiChild::PageMdiChild(QString path, QWidget* parent) : QLabel(parent), _image() 
+PageMdiChild::PageMdiChild(QString path, QWidget* parent) : QGraphicsView(), _image(), _imageScene(this), _imagePixMap(), _lastRect(0), rectDraw(false)
 {
 	 setAttribute(Qt::WA_DeleteOnClose);
 	 setBackgroundRole(QPalette::Base);
 	 setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-     setScaledContents(true);
+	 this->setScene(&this->_imageScene);
 	 _path = path;
 }
 
@@ -30,7 +33,15 @@ bool PageMdiChild::loadFile(const QString &fileName)
 		QApplication::restoreOverrideCursor();
 		return false;
     }
-	setPixmap(_image);
+	this->_imagePixMap.setPixmap(_image);
+	this->_imageScene.addItem(&_imagePixMap);
+
+	
+	//test
+	this->_lastDraw = new FrameDraw(&_imageScene);
+	this->_imageScene.addItem(this->_lastDraw);
+	this->_lastDraw = new FrameDraw(&_imageScene);
+	this->_imageScene.addItem(this->_lastDraw);
     QApplication::restoreOverrideCursor();
     setCurrentFile(fileName);
 	setOriginalSize();
