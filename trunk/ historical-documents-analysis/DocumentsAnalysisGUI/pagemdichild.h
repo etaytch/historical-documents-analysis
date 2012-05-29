@@ -6,12 +6,15 @@
 #include <QMessageBox>
 #include <QApplication>
 #include <QPixmap>
-#include <QLabel>
+#include <QGraphicsView>
 #include <QFileDialog>
 #include <QCloseEvent>
+#include <QGraphicsView>
+#include <QGraphicsPixmapItem>
+#include <QGraphicsRectItem>
+#include "framedraw.h"
 
-
-class PageMdiChild : public QLabel 
+class PageMdiChild : public QGraphicsView 
 {
     Q_OBJECT
 
@@ -19,6 +22,11 @@ private:
 	QString _curFile;
 	QString _path;
 	QPixmap _image;
+	QGraphicsScene _imageScene;
+	QGraphicsPixmapItem _imagePixMap;
+	QGraphicsRectItem* _lastRect;
+	FrameDraw* _lastDraw;
+	bool rectDraw;
 
 public:
 	PageMdiChild(QString path, QWidget* parent);
@@ -34,14 +42,17 @@ public:
     QString currentFile()		{ return _curFile; }
 	QString getPath()			{return _path;}
     void setPath(QString path)	{ _path = path; }
-
-
+	/*
+	void mousePressEvent(QMouseEvent* ev);
+	void mouseMoveEvent(QMouseEvent* ev);
+	void mouseReleaseEvent(QMouseEvent* ev);
+	 */
 	virtual ~PageMdiChild();
 
 private:
 	void setCurrentFile(const QString &fileName);
 	QString strippedName(const QString &fullFileName);
-
+	
 protected:
     void closeEvent(QCloseEvent *event);
 
