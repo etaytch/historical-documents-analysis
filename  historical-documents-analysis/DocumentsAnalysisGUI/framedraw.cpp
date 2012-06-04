@@ -68,6 +68,7 @@ void FrameDraw::mouseMoveEvent (QGraphicsSceneMouseEvent* event)
 		this->setPos(_location);
 		
 	}
+	this->scene()->update();
 }
 
 void FrameDraw::mouseMoveEvent(QGraphicsSceneDragDropEvent* event){ event->setAccepted(false); }

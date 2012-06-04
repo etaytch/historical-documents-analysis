@@ -13,6 +13,7 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsRectItem>
 #include "framedraw.h"
+#include "mdiPageScene.h"
 
 class PageMdiChild : public QGraphicsView 
 {
@@ -22,7 +23,7 @@ private:
 	QString _curFile;
 	QString _path;
 	QPixmap _image;
-	QGraphicsScene _imageScene;
+	mdiPageScene _imageScene;
 	QGraphicsPixmapItem _imagePixMap;
 	QGraphicsRectItem* _lastRect;
 	FrameDraw* _lastDraw;
@@ -42,11 +43,11 @@ public:
     QString currentFile()		{ return _curFile; }
 	QString getPath()			{return _path;}
     void setPath(QString path)	{ _path = path; }
-	/*
-	void mousePressEvent(QMouseEvent* ev);
-	void mouseMoveEvent(QMouseEvent* ev);
-	void mouseReleaseEvent(QMouseEvent* ev);
-	 */
+	
+	//void mousePressEvent(QMouseEvent* ev);
+	//void mouseMoveEvent(QMouseEvent* ev);
+	//void mouseReleaseEvent(QMouseEvent* ev);
+	 
 	virtual ~PageMdiChild();
 
 private:

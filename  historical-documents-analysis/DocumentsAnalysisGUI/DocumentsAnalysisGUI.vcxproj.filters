@@ -158,6 +158,18 @@
     <ClCompile Include="GeneratedFiles\Release\moc_xmlwriter.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="framedraw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_framedraw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_framedraw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mdiPageScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="hdamainframe.h">
@@ -214,6 +226,9 @@
     <CustomBuild Include="xmlwriter.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="framedraw.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_hdamainframe.h">
@@ -233,6 +248,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_hdaprogressbar.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mdiPageScene.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
