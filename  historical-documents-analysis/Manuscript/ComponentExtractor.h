@@ -4,12 +4,13 @@
 #include <opencv/cv.h>
 #include <opencv2/core/core.hpp>
 
+#include "manuscript_global.h" 
 #include "DImage.h"
 #include "ConnectedComponent.h"
 
 using namespace cv ;
 
-class ComponentExtractor{
+class MANUSCRIPT_EXPORT ComponentExtractor{
 protected:
 	DImage _image ;
 
