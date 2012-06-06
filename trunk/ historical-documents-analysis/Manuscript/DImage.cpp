@@ -5,6 +5,7 @@
 #include "TextLineExtractor.h"
 #include "ImageTransformation.h"
 #include "ImageOperation.h"
+#include "ImageCombiner.h"
 
 DImage::DImage(void){
 }
@@ -104,6 +105,13 @@ void DImage::print(Mat mat){
 Mat DImage::transform(ImageTransformation& transformation, Mat mat){
 	transformation.set(mat);
 	return transformation.transform();
+}
+
+
+Mat DImage::combine(ImageCombiner& combiner, Mat a, Mat b){
+	Mat result ;
+	combiner.combine(a,b, result);
+	return result ;
 }
 
 MatND DImage::project(ImageOperation& operation, Mat mat){

@@ -13,6 +13,8 @@ class TextLine ;
 class ConnectedComponent ;
 class ImageTransformation ;
 class ImageOperation ;
+class ImageCombiner ;
+
 using namespace cv ;
 
 class MANUSCRIPT_EXPORT DImage {
@@ -28,7 +30,7 @@ public:
 	~DImage(void);
 
 	Mat&       getMat()         { return _mat ; }
-	void       setMat(Mat& mat) { _mat = mat ; } 
+	void       setMat(Mat& mat) { _mat = mat  ; } 
 
 	DImage*    rgb2gray();
 
@@ -39,6 +41,7 @@ public:
 
 	// A transformation operate on an image (Mat) and return an Image 
 	Mat        transform(ImageTransformation& transformation, Mat mat);
+	Mat        combine(ImageCombiner& combiner, Mat a, Mat b);
 	MatND      project(ImageOperation& op, Mat mat);
 
 	void       print(Mat mat);
