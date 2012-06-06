@@ -16,7 +16,7 @@ public:
 	~ImageOperation(void)   { _mat.release() ; }
 
 	void    set(Mat mat)    { _mat = mat ; }
-	virtual Mat project()   { return _mat.clone() ; }
+	virtual MatND project()   { return _mat.clone() ; }
 };
 
 #endif
