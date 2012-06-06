@@ -1,34 +1,36 @@
-#include "SeprateLine.h"
+
+
+#include "seprateLine.h"
 
 using namespace cv;
 
-SeprateLine::SeprateLine(){
+seprateLine::seprateLine(){
 
 }
 // constructor
-SeprateLine::SeprateLine(int left,int right){
+seprateLine::seprateLine(int left,int right){
 	_left = left;
 	_right = right;
 	_length = _right - _left;
 	_sumWeight = 0;
 }
 //copy constructor
-SeprateLine::SeprateLine(SeprateLine*& other){
+seprateLine::seprateLine(seprateLine*& other){
 	_left = other->getLeft();
 	_right = other->getRight();
 	_length = other->getLength();
 }
-//  ************************************  //
+ //  ************************************  //
 // getters 
-int SeprateLine::getLeft(){
+int seprateLine::getLeft(){
 	return _left;
 }
 
-int SeprateLine::getRight(){
+int seprateLine::getRight(){
 	return _right;
 }
 
-int SeprateLine::getLength(){
+int seprateLine::getLength(){
 	return _length;
 }
 
@@ -39,19 +41,16 @@ double seprateLine::getSumWeight(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 /// <summary>	Sets the sum weight of the distance between seprate seed and the medial line. </summary>
 ///
-/// <remarks>	Mohamad, 3/22/12. </remarks>
+/// <remarks>	Mohamad Khateeb & Nabeel Saabna, 3/22/12. </remarks>
 ///
-/// <param name="SeamMap">	 the seam map. </param>
+/// <param name="distacne">	 distance map. </param>
 /// <param name="seprate">	 the seprate Seed. </param>
 /// <param name="medial"> 	the medial . </param>
-/// <param name="height"> 	The height image. </param>
-/// <param name="width">  	The width image. </param>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void SeprateLine::setSumWeight(double** SeamMap,int* seprate,int* medial,int height,int width){
-	int i=0;
-	for (i=_left+1;i<=_right;i++){
-		double weight = SeamMap[seprate[i]][i]-SeamMap[medial[i]][i];
+void seprateLine::setSumWeight(Mat Distance,int* seprate,int* medial){
+	for (int i = _left; i <= _right; i++){
+		int weight = Distance.at<char>(seprate[i],i) - Distance.at<char>(medial[i],i);
 		if (weight < 0)
 			weight = weight*-1.0;
 		_sumWeight = _sumWeight + weight ;
@@ -64,125 +63,94 @@ void SeprateLine::setSumWeight(double** SeamMap,int* seprate,int* medial,int hei
 ///
 /// <remarks>	Mohamad Khateeb & Nabeel Saabna 3/22/12. </remarks>
 ///
-/// <param name="image">	  	The image. </param>
-/// <param name="SeamMap">	  	seam map. </param>
+/// <param name="distacne">	  	distacne map. </param>
 /// <param name="seprateSeed">	the seprate seed. </param>
-/// <param name="final">	  	the final that will contain the seprate Line. </param>
-/// <param name="medial">	  	 medial Line. </param>
-/// <param name="height">	  	The height of image. </param>
-/// <param name="width">	  	The width of image. </param>
-/// <param name="pos">		  	The position if Seprate UP == 1 or Seprate Down == -1. </param>
+/// <param name="seprate Seem">	  	seprate Seem. </param>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void SeprateLine::findLine(Mat image,double** SeamMap,int* seprateSeed,int * final,int * medial ,int height,int width,int pos){
-	int i=0;
-//////////////////////////////////////////////
+void seprateLine::extendSeedToSeam(Mat distance,int* seprateSeed,int* seprateSeem){
+
 	//copy seprate Seed to final
-	for (i=_left;i<=_right;i++){
-		image.at<uchar>(seprateSeed[i],i) = 100;
-		final[i] = seprateSeed[i];
+	for (int i =_left ; i <= _right ; i++){
+		seprateSeem[i] = seprateSeed[i];
 	}
-/////////////////////////////////////////
-	int iprev=seprateSeed[_right];
-	int max =0;
-	int j=0;
-	int end=0;
-	if (pos == -1)
-		end = height -1;
-////////////////////////////////////////
+
+	int row = seprateSeed[_right];
+
 // extend the seprate Seed to right by finding the maximum Path to the right
-	for (j=_right+1;j<width;j++){
-		if (iprev<height-1 && iprev>0){
-			max = findMax(SeamMap[iprev][j],SeamMap[(iprev-1)][j],SeamMap[(iprev+1)][j],pos);
-			if (max == 1)	iprev = iprev -1;
-			if (max == 2)   iprev = iprev +1;
-			image.at<uchar>(iprev,j) = 200;
-			final[j] = iprev;
-		}
-		else if (iprev == 0){
-			max = findMax(SeamMap[iprev][j],SeamMap[(iprev+1)][j],SeamMap[(iprev+1)][j],pos);
-			if (max == 1)	iprev = iprev +1;
-			if (max == 2)   iprev = iprev +1;
-			image.at<uchar>(iprev,j) = 200;	
-			final[j] = iprev;
-		}
-		else{
-			max = findMax(SeamMap[iprev][j],SeamMap[(iprev-1)][j],SeamMap[(iprev-1)][j],pos);
-			if (max == 1)	iprev = iprev -1;
-			if (max == 2)   iprev = iprev -1;
-			image.at<uchar>(iprev,j) = 200;	
-			final[j] = iprev;
-		}
-		if (j==width-1){
-			end = iprev;
-			image.at<uchar>(iprev,j) = 200;
-			final[j] = iprev;
-		}
-			
+	for (int col =_right + 1; col < distance.cols ; col++){
+		row = extendSeedToSeamCol(distance,row,col,seprateSeem);
 	}
-/////////////////////////////////////////
 // extend the seprate Seed to Left by finding the maximum Path to the Left
-	iprev=seprateSeed[_left];
-	max = 0;
-	for (j=_left-1;j>=0;j--){
-		if (iprev<height-1 && iprev>0){
-			max = findMax(SeamMap[iprev][j],SeamMap[(iprev-1)][j],SeamMap[(iprev+1)][j],pos);
-			if (max == 1)	iprev = iprev -1;
-			if (max == 2)   iprev = iprev +1;
-			image.at<uchar>(iprev,j) = 200;
-			final[j] = iprev;
-		}
-		else if (iprev == 0){
-			max = findMax(SeamMap[iprev][j],SeamMap[(iprev+1)][j],SeamMap[(iprev+1)][j],pos);
-			if (max == 1)	iprev = iprev +1;
-			if (max == 2)   iprev = iprev +1;
-			image.at<uchar>(iprev,j) = 200;
-			final[j] = iprev;
-		}
-		else{
-			max = findMax(SeamMap[iprev][j],SeamMap[(iprev-1)][j],SeamMap[(iprev-1)][j], pos);
-			if (max == 1)	iprev = iprev - 1;
-			if (max == 2)   iprev = iprev - 1;
-			image.at<uchar>(iprev,j) = 200;
-			final[j] = iprev;
-		}
+	row = seprateSeed[_left];
+	for (int col =_left-1 ;col >=0 ; col--){
+		row = extendSeedToSeamCol(distance,row,col,seprateSeem);
 	}
-///////////////////////////////////////
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-/// <summary>	Searches for the first maximum. </summary>
+/// <summary>	finds the next row in the seprate Seam for a given column . </summary>
+///
+/// <remarks>	Mohamad Khateeb & Nabeel Saabna 3/22/12. </remarks>
+///
+/// <param name="distance"> 	distance map </param>
+/// <param name="row"> 	the previous row. </param>
+/// <param name="col"> 	column. </param>
+/// <param name="seprateSeem"> 	seprate Seem. </param>
+///
+/// <returns>	return the next row . </returns>
+////////////////////////////////////////////////////////////////////////////////////////////////////
+int seprateLine::extendSeedToSeamCol(Mat distance,int row,int col,int* seprateSeem){
+		char max = 0;
+		if (row < distance.rows-1 && row>0){
+			max = MaxIndex(distance.at<char>(row,col),distance.at<char>(row - 1,col),distance.at<char>(row + 1,col));
+			if (max == 1)	row = row -1;
+			if (max == 2)   row = row +1;
+			seprateSeem[col] = row;
+		}
+		else if (row == 0){
+			max = MaxIndex(distance.at<char>(row,col),distance.at<char>(row + 1,col),distance.at<char>(row + 1,col));
+			if (max != 0)	row = row +1;
+			seprateSeem[col] = row;
+		}
+		else{
+			max = MaxIndex(distance.at<char>(row,col),distance.at<char>(row - 1,col),distance.at<char>(row - 1,col));
+			if (max != 0)	row = row - 1;
+			seprateSeem[col] = row;
+		}
+		return row;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/// <summary>	Searches for the first maximum index . </summary>
 ///
 /// <remarks>	Mohamad Khateeb & Nabeel Saabna 3/22/12. </remarks>
 ///
 /// <param name="i1"> 	Zero-based index of the 1. </param>
 /// <param name="i2"> 	Zero-based index of the 2. </param>
 /// <param name="i3"> 	Zero-based index of the 3. </param>
-/// <param name="pos">	The position. </param>
 ///
-/// <returns>	The found maximum. </returns>
+/// <returns>	The first maximum index. </returns>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int SeprateLine::findMax(double i1,double i2,double i3,int pos){
-	int i=0,ans = 0;
-	double max=-10000;
-	double arr[] = {i1,i2,i3};
-		for (i=0;i<3;i++){
-			if (arr[i]>max){
+char seprateLine::MaxIndex(char i1,char i2,char i3){
+	int i=0;
+	char ans = 0;
+	char arr[] = {i1,i2,i3};
+	char max = arr[0];
+		for (i = 1; i < 3; i++){
+			if (arr[i] > max){
 				max = arr[i];
 				ans = i;
 			}
 		}
 	if (i2==i3 && ans!=0){
-			if (pos == 1){
-				ans = 0;
-			}
-			else{
-				ans = 0; 
-			}
-		}
+		ans=0;	
+	}
 	return ans;
 }
 
-SeprateLine::~SeprateLine(){
+seprateLine::~seprateLine(){
+	
 }

@@ -1,11 +1,13 @@
 #ifndef _SEAMLINEEXTRACTOR_H 
 #define _SEAMLINEEXTRACTOR_H 
 
-#include "cv.h"
-#include "highgui.h"
-#include "SeparateLine.h"
+#include <opencv\cv.h>
+#include <opencv\highgui.h>
+
+#include "seprateLine.h"
 #include "TextLine.h"
 #include "TextLineExtractor.h"
+
 using namespace cv;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -15,30 +17,38 @@ using namespace cv;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class SeamLineExtractor : public TextLineExtractor{
-
 private:
-	int  distanceTransform(int row,int col,int height,int width,Mat imageData);
-	void SeamFromRightToLeft(int height,int width,double** Seam,Mat distance);
-	void SeamFromLeftToRight(int height,int width,double** Seam,Mat distance);
-	void seamMapBlending(int height,int width,double** SeamMap,double** SeamLToR,double** SeamRToL);
-	double findMinDouble(double i1,double i2,double i3);
-	bool isInBound(int row, int col,int height,int width);
-	bool isContour(int row,int col,int height,int width,Mat image);
-	void findMedialSeam(int height,int width,double** SeamMap,Mat imageData,int* medial,double** SeamMapCopy);
-	int  findMinMedial(int height,int width,double** SeamMapCopy);
-	int  findMin(double i1,double i2,double i3);
-	void sepratingSeamDown(int height,int width,int i1,int j1,double** SeamMap,Mat image,int* seprateDown);
-	void sepratingSeamUp(int height,int width,int i1,int j1,double** SeamMap,Mat image,int* seprateUp);
-	void findSepratingSeam(int height,int width,int* seprateUp,int* seprateDown,double** SeamMap,int* medial,Mat image
-					   ,int* finalUp,int* finalDown);
-	int finish(int height,int width,double** SeamMapCopy);
-	int estimateLinesNum(Mat binary);
-	void LinearConvolution(double X[],double Y[], double Z[], int lenx, int leny);
-	int lmax(double histogram[],int filt,int m);
+	   Mat _image;
+	   Mat _distanceMap;
+	   Mat _seamMap;
+	   int _lines;
+	   double _seedFilterThreshold;
+protected:
+
+	TextLine* removeLineAndAddPoints(Mat seamMap, int* seprateUpSeem, int* seprateDownSeem,float setMax);
+	void buildSeamMap();
+	void buildSeamMapCol(Mat seam,int col,int pos);
+	void findMedialSeam(int* medial,Mat temoSeamMap);
+	void sepratingSeeds(int row,int col, int* seprate,int pos);
+	void sepratingSeedsBorder(int row,int col,int* seprate,int pos, int dir);
+	int  getLongestSeed(vector<seprateLine*>& seperate_seeds );
+	seprateLine* findSepratingSeed(int* seperateSeedCols, int* medialCols);
+
+	void  mergeContinuosSeeds(int* seprateSeedCols, vector<seprateLine*>& seprateSeeds);
+	void  filterShortSeeds(vector<seprateLine*>& seprateSeeds);
+	void  filterLightSeeds(vector<seprateLine*>& seprateSeeds);
+	float getRowMax(Mat m, int row) ;
+
 public:
 	SeamLineExtractor(void) {;}
 	~SeamLineExtractor(void) {;}
+	
 	void extract(vector<TextLine*>& textLine);
+	void setDistance(Mat& dist){_distanceMap = dist.clone();};
+	void setImage(Mat& image){_image = image.clone();};
+	void setLinesNumber(int linesNumber){_lines = linesNumber;};
+	void setThreshold(double threshold) {_seedFilterThreshold = threshold;};
+	
 };
 
 #endif
