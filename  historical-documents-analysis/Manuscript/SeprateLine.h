@@ -4,9 +4,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <cmath>
+#include <vector>
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include "manuscript_global.h" 
 
 using namespace cv;
 
@@ -16,26 +18,26 @@ using namespace cv;
 /// <remarks>	Mohamad Khateeb & Nabeel Saabna 3/22/12. </remarks>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class SeprateLine {
+class MANUSCRIPT_EXPORT seprateLine {
 private:
 	int _left;
 	int _right;
 	int _length;
 	double _sumWeight;
-	int findMax(double i1,double i2,double i3,int pos);	
+	char MaxIndex(char i1,char i2,char i3);	
 
 public:
-	SeprateLine();
-	SeprateLine(int left, int right);//row, column
-	SeprateLine(SeprateLine*& other);
-	
+	seprateLine();
+	seprateLine(int left, int right);//row, column
+	seprateLine(seprateLine*& other);
 	int getLeft();
 	int getRight();
 	int getLength();
-	void setSumWeight(double** imageData,int* seprate,int* medial,int height,int width);
+	void setSumWeight(Mat Distance,int* seprate,int* medial);
 	double getSumWeight();
-	void findLine(Mat image,double** SeamMap,int* seprateSeed,int * final,int * medial ,int height,int width,int pos);
-	virtual ~SeprateLine();
+	void extendSeedToSeam(Mat distance,int* seprateSeed,int* seprateSeem);
+	int extendSeedToSeamCol(Mat distance,int row,int col,int* seprateSeem);
+	virtual ~seprateLine();
 };
 
 #endif
