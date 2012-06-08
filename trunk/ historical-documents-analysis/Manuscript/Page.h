@@ -31,10 +31,8 @@ public:
 	void addBlock(Block* b)    {_blocks.push_back(b);}
 	void removeBlock(int index);
 	void addPage(Page* p)			{_pages.push_back(p);} 
-	void loadMat()                  {;}  // ^^ TODO 
 	vector<Page*>& getPages()       { return _pages; }
 	Page*          getPage(int idx) { return _pages[idx] ;}
-	
 	void loadMat();
 	virtual ~Page(void);
 };
