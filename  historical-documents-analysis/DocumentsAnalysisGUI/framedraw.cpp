@@ -72,6 +72,7 @@ void FrameDraw::mouseMoveEvent (QGraphicsSceneMouseEvent* event)
 }
 
 void FrameDraw::mouseMoveEvent(QGraphicsSceneDragDropEvent* event){ event->setAccepted(false); }
+
 void FrameDraw::mousePressEvent (QGraphicsSceneMouseEvent* event)
 {
 	event->setAccepted(true);
@@ -93,6 +94,7 @@ void FrameDraw::mousePressEvent (QGraphicsSceneMouseEvent* event)
 }
 
 void FrameDraw::mousePressEvent(QGraphicsSceneDragDropEvent* event){ event->setAccepted(false); }
+
 void FrameDraw::mouseReleaseEvent (QGraphicsSceneMouseEvent* event)
 {
 	event->setAccepted(true);

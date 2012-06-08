@@ -36,7 +36,6 @@ void HdaMainFrame::openImageWindowFromThumbView(QModelIndex index)
 		p->loadFile(pagePath);
 		p->show();
 	}
-
 }
 
 void HdaMainFrame::openImageWindowFromTreeView(QModelIndex index)
@@ -166,7 +165,7 @@ void HdaMainFrame::save()
 void HdaMainFrame::saveAll()
 {
 	ProjectDoc pr = _manuscriptTreeModel->_project;
-	XmlWriter::saveToFile(pr);
+	//XmlWriter::saveToFile(pr);
 		
 }
 

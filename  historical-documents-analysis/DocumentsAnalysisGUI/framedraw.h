@@ -4,7 +4,8 @@
 #include <QObject>
 #include <QGraphicsItem>
 #include <QGraphicsScene>
-#include <qpen.h>
+#include <QPen>
+#include <QMetaobject>
 
 class FrameDraw : public QObject, public QGraphicsItem
 {
