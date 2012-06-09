@@ -3,6 +3,7 @@
 #include <QPainter>
 #include <QRectF>
 #include <QPolygonF>
+#include <algorithm>
 
 
 FrameDraw::FrameDraw(QGraphicsScene* scene)	: 
@@ -15,7 +16,7 @@ FrameDraw::FrameDraw(QGraphicsScene* scene)	:
     _width(100),
     _height(50)
 {
-	action = 1; // resize by default
+	action = MOVE; // move by default
 	_scene = scene;
 
 	_borderPen.setWidth(2);
@@ -52,21 +53,60 @@ void FrameDraw::paint (QPainter *painter, const QStyleOptionGraphicsItem *option
 
 void FrameDraw::mouseMoveEvent (QGraphicsSceneMouseEvent* event)
 {
-	//resize
-	if (action == 1){
-		qreal dx = event->pos().x() - _dragStart.x();
-		qreal dy = event->pos().y() - _dragStart.y();
+	//move by default
+	qreal dx = event->scenePos().x() - _dragStart.x();
+	qreal dy = event->scenePos().y() - _dragStart.y();
+	QPointF newPos = event->scenePos() ;
+	switch(action)
+	{
+	case RESIZEBR:
 		this->_width += dx ;
 		this->_height += dy;
-		this->update(3,3,_width,_height);
-		_dragStart = event->pos();
-	}
-	//move
-	if (action == 2){
-		QPointF newPos = event->pos() ;
+		this->_width = std::max((float)this->_width, (float)15);
+		this->_height = std::max((float)this->_height, (float)15);
+		this->update(0,0,_width,_height);
+		_dragStart = event->scenePos();
+		break;
+	case RESIZEBL:
+		//that will zero y.
+		newPos.setY(_dragStart.y());
+		_location += (newPos - _dragStart);
+		this->_height += dy;
+		this->_width -= dx;
+		this->_width = std::max((float)this->_width, (float)15);
+		this->_height = std::max((float)this->_height, (float)15);
+		this->update(0,0,_width,_height);
+		this->setPos(_location);
+		_dragStart = event->scenePos();
+		break;
+	case RESIZETR:
+		//that will zero x.
+		newPos.setX(_dragStart.x());
+		_location += (newPos - _dragStart);
+		this->_height -= dy;
+		this->_width += dx;
+		this->_width = std::max((float)this->_width, (float)15);
+		this->_height = std::max((float)this->_height, (float)15);
+		this->update(0,0,_width,_height);
+		this->setPos(_location);
+		_dragStart = event->scenePos();
+		break;
+	case RESIZETL:
+		_location += (newPos - _dragStart);
+		this->_height -= dy;
+		this->_width -= dx;
+		this->_width = std::max((float)this->_width, (float)15);
+		this->_height = std::max((float)this->_height, (float)15);
+		this->update(0,0,_width,_height);
+		this->setPos(_location);
+		_dragStart = event->scenePos();
+		break;
+	default:
+		//move
+		newPos = event->pos() ;
 		_location += (newPos - _dragStart);
 		this->setPos(_location);
-		
+		break;
 	}
 	this->scene()->update();
 }
@@ -76,21 +116,27 @@ void FrameDraw::mouseMoveEvent(QGraphicsSceneDragDropEvent* event){ event->setAc
 void FrameDraw::mousePressEvent (QGraphicsSceneMouseEvent* event)
 {
 	event->setAccepted(true);
-	_dragStart = event->pos();
-	QPointF tleft = this->boundingRect().topLeft();
-	int dx = abs(_dragStart.x());
-	int dy = abs(_dragStart.y());
-	if ((dx < _width*0.5) &&
-		(dy < _height*0.5)) 
-	{
-		//move
-		action = 2;
+	_dragStart = event->scenePos();
+	//QPointF tleft = this->boundingRect().topLeft();
+	//int dx = abs(_dragStart.x());
+	//int dy = abs(_dragStart.y());
+	if (closeTo(this->boundingRect().bottomRight() , event->pos()))		{ 	action = RESIZEBR;	}
+	else if (closeTo(this->boundingRect().topRight() , event->pos()))		{	action = RESIZETR;	}
+	else if (closeTo(this->boundingRect().bottomLeft() , event->pos()))	{	action = RESIZEBL;	}
+	else if (closeTo(this->boundingRect().topLeft() , event->pos()))		{ 	action = RESIZETL;	}
+	else 	{	
+		_dragStart = event->pos();
+		action = MOVE;	
 	}
-	else 
-	{
-		//resize
-		action = 1;
-	}
+}
+
+bool FrameDraw::closeTo(QPointF p1, QPointF p2)
+{
+	int dx = abs(p1.x() - p2.x());
+	int dy = abs(p1.y() - p2.y());
+	if ((dx < _width*0.25) && (dy < _height*0.25)) return true;
+	
+	return false;
 }
 
 void FrameDraw::mousePressEvent(QGraphicsSceneDragDropEvent* event){ event->setAccepted(false); }
