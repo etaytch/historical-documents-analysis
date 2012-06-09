@@ -4,9 +4,10 @@
 #include <QRectF>
 #include <QPolygonF>
 #include <algorithm>
+#include "mdiPageScene.h"
 
 
-FrameDraw::FrameDraw(QGraphicsScene* scene, QPointF point)	: 
+FrameDraw::FrameDraw(mdiPageScene* scene, QPointF point)	: 
 	QObject(),
 	QGraphicsItem(),
 	_borderColor(Qt::black),
@@ -104,10 +105,13 @@ void FrameDraw::mouseMoveEvent(QGraphicsSceneDragDropEvent* event){ event->setAc
 void FrameDraw::mousePressEvent (QGraphicsSceneMouseEvent* event)
 {
 	event->setAccepted(true);
+	if (this->_scene->_action == mdiPageScene::REMOVE) 
+	{
+		this->_scene->_action = mdiPageScene::NONE;
+		this->removeFromScene();
+		return;
+	}
 	_dragStart = event->scenePos();
-	//QPointF tleft = this->boundingRect().topLeft();
-	//int dx = abs(_dragStart.x());
-	//int dy = abs(_dragStart.y());
 	if (closeTo(this->boundingRect().bottomRight() , event->pos()))		{ 	action = RESIZEBR;	}
 	else if (closeTo(this->boundingRect().topRight() , event->pos()))		{	action = RESIZETR;	}
 	else if (closeTo(this->boundingRect().bottomLeft() , event->pos()))	{	action = RESIZEBL;	}
@@ -161,6 +165,11 @@ int FrameDraw::getWidth()
 int FrameDraw::getHeight()
 {
 	return this->_height;
+}
+
+void FrameDraw::removeFromScene()
+{
+	this->_scene->removeRect(this);
 }
 
 FrameDraw::~FrameDraw()

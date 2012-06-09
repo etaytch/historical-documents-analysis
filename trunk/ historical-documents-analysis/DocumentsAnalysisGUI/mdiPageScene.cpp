@@ -18,5 +18,11 @@ void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 	QGraphicsScene::mousePressEvent(mouseEvent);
 }
 
+void mdiPageScene::removeRect(FrameDraw* toRemove)
+{
+	this->removeItem((QGraphicsItem*) toRemove);
+	delete toRemove;
+}
+
 mdiPageScene::~mdiPageScene(void)
 {}
