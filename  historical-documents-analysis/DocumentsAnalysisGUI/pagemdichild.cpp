@@ -3,7 +3,12 @@
 #include <QPixmap>
 #include <QRect>
 
-PageMdiChild::PageMdiChild(QString path, QWidget* parent) : QGraphicsView(), _image(), _imageScene(this), _imagePixMap(), _lastRect(0), rectDraw(false)
+PageMdiChild::PageMdiChild(QString path, QWidget* parent) : 
+QGraphicsView(), 
+	_image(), 
+	_imageScene(this), 
+	_imagePixMap(), 
+	rectDraw(false)
 {
 	 setAttribute(Qt::WA_DeleteOnClose);
 	 setBackgroundRole(QPalette::Base);
@@ -36,13 +41,7 @@ bool PageMdiChild::loadFile(const QString &fileName)
 	this->_imagePixMap.setPixmap(_image);
 	this->_imageScene.addItem(&_imagePixMap);
 
-	
-	//test
-	this->_lastDraw = new FrameDraw(&_imageScene);
-	this->_imageScene.addItem(this->_lastDraw);
-	this->_lastDraw = new FrameDraw(&_imageScene);
-	this->_imageScene.addItem(this->_lastDraw);
-    QApplication::restoreOverrideCursor();
+	QApplication::restoreOverrideCursor();
     setCurrentFile(fileName);
 	setOriginalSize();
 	return true;

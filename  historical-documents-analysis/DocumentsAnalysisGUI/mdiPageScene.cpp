@@ -1,13 +1,20 @@
 #include "mdiPageScene.h"
+#include "framedraw.h"
 #include <QGraphicsSceneMouseEvent>
 
 mdiPageScene::mdiPageScene(QObject* parent):
-QGraphicsScene(parent)
-{}
+QGraphicsScene(parent), _action(NONE)
+{
+	_action = ADD;
+}
 
 void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
 	QPointF mouseOnPoint = mouseEvent->scenePos();
+
+	if (_action == ADD) this->addItem(new FrameDraw(this, mouseOnPoint));
+	_action = NONE;
+
 	QGraphicsScene::mousePressEvent(mouseEvent);
 }
 
