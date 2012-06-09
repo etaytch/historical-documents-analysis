@@ -23,6 +23,7 @@ public:
     virtual void mouseReleaseEvent (QGraphicsSceneMouseEvent * event );
 	virtual void hoverEnterEvent ( QGraphicsSceneHoverEvent * event ); 
     virtual void hoverLeaveEvent ( QGraphicsSceneHoverEvent * event ); 
+	bool closeTo(QPointF p1, QPointF p2);
 	void movePosition(int x, int y);
 	QGraphicsScene* _scene;
 	QColor  _borderColor; 
@@ -31,7 +32,9 @@ public:
     QPointF _dragStart;
     qreal   _width;
     qreal   _height;
-	int action; // 1 is resize, 2 is move
+	//move, resize top right, resize top left, resize bottom right, resize bottom left
+	enum mouseAction { MOVE, RESIZETR, RESIZETL, RESIZEBR, RESIZEBL};
+	mouseAction action; // 1 is resize, 2 is move
 	~FrameDraw();
 
 private:
