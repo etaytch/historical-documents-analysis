@@ -6,13 +6,14 @@
 #include <QGraphicsScene>
 #include <QPen>
 #include <QMetaobject>
+class mdiPageScene;
 
 class FrameDraw : public QObject, public QGraphicsItem
 {
 	Q_OBJECT
 
 public:
-	FrameDraw(QGraphicsScene* scene, QPointF point);
+	FrameDraw(mdiPageScene* scene, QPointF point);
 	void setGridSpace(int space);
 	virtual QRectF boundingRect() const; 
     virtual void paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget); 
@@ -28,9 +29,10 @@ public:
 	QPointF getPos();
 	int getWidth();
 	int getHeight();
+	void removeFromScene();
 	~FrameDraw();
 
-	QGraphicsScene* _scene;
+	mdiPageScene* _scene;
 	QColor  _borderColor; 
     QPen    _borderPen; 
     QPointF _location;
