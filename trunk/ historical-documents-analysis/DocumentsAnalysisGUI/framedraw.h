@@ -12,7 +12,7 @@ class FrameDraw : public QObject, public QGraphicsItem
 	Q_OBJECT
 
 public:
-	FrameDraw(QGraphicsScene* scene);
+	FrameDraw(QGraphicsScene* scene, QPointF point);
 	void setGridSpace(int space);
 	virtual QRectF boundingRect() const; 
     virtual void paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget); 
@@ -25,6 +25,11 @@ public:
     virtual void hoverLeaveEvent ( QGraphicsSceneHoverEvent * event ); 
 	bool closeTo(QPointF p1, QPointF p2);
 	void movePosition(int x, int y);
+	QPointF getPos();
+	int getWidth();
+	int getHeight();
+	~FrameDraw();
+
 	QGraphicsScene* _scene;
 	QColor  _borderColor; 
     QPen    _borderPen; 
@@ -34,8 +39,8 @@ public:
     qreal   _height;
 	//move, resize top right, resize top left, resize bottom right, resize bottom left
 	enum mouseAction { MOVE, RESIZETR, RESIZETL, RESIZEBR, RESIZEBL};
-	mouseAction action; // 1 is resize, 2 is move
-	~FrameDraw();
+	mouseAction action; 
+	
 
 private:
 	

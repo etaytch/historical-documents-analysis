@@ -6,16 +6,16 @@
 #include <algorithm>
 
 
-FrameDraw::FrameDraw(QGraphicsScene* scene)	: 
+FrameDraw::FrameDraw(QGraphicsScene* scene, QPointF point)	: 
 	QObject(),
 	QGraphicsItem(),
 	_borderColor(Qt::black),
 	_borderPen(),
-    _location(30,30),
     _dragStart(30,30),
-    _width(100),
-    _height(50)
+    _width(25),
+    _height(25)
 {
+	_location = point;
 	action = MOVE; // move by default
 	_scene = scene;
 
@@ -146,6 +146,21 @@ void FrameDraw::hoverLeaveEvent ( QGraphicsSceneHoverEvent * event )
 {
 	_borderColor = Qt::black;
     this->update(0,0,_width,_height);
+}
+
+QPointF FrameDraw::getPos()
+{
+	return this->_location;
+}
+
+int FrameDraw::getWidth()
+{
+	return this->_width;
+}
+
+int FrameDraw::getHeight()
+{
+	return this->_height;
 }
 
 FrameDraw::~FrameDraw()

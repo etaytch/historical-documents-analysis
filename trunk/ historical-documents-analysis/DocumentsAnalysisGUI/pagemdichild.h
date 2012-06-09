@@ -44,10 +44,6 @@ public:
 	QString getPath()			{return _path;}
     void setPath(QString path)	{ _path = path; }
 	
-	//void mousePressEvent(QMouseEvent* ev);
-	//void mouseMoveEvent(QMouseEvent* ev);
-	//void mouseReleaseEvent(QMouseEvent* ev);
-	 
 	virtual ~PageMdiChild();
 
 private:
