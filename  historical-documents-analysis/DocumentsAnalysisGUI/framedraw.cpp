@@ -62,9 +62,6 @@ void FrameDraw::mouseMoveEvent (QGraphicsSceneMouseEvent* event)
 	case RESIZEBR:
 		this->_width += dx ;
 		this->_height += dy;
-		this->_width = std::max((float)this->_width, (float)15);
-		this->_height = std::max((float)this->_height, (float)15);
-		this->update(0,0,_width,_height);
 		_dragStart = event->scenePos();
 		break;
 	case RESIZEBL:
@@ -73,10 +70,6 @@ void FrameDraw::mouseMoveEvent (QGraphicsSceneMouseEvent* event)
 		_location += (newPos - _dragStart);
 		this->_height += dy;
 		this->_width -= dx;
-		this->_width = std::max((float)this->_width, (float)15);
-		this->_height = std::max((float)this->_height, (float)15);
-		this->update(0,0,_width,_height);
-		this->setPos(_location);
 		_dragStart = event->scenePos();
 		break;
 	case RESIZETR:
@@ -85,29 +78,24 @@ void FrameDraw::mouseMoveEvent (QGraphicsSceneMouseEvent* event)
 		_location += (newPos - _dragStart);
 		this->_height -= dy;
 		this->_width += dx;
-		this->_width = std::max((float)this->_width, (float)15);
-		this->_height = std::max((float)this->_height, (float)15);
-		this->update(0,0,_width,_height);
-		this->setPos(_location);
 		_dragStart = event->scenePos();
 		break;
 	case RESIZETL:
 		_location += (newPos - _dragStart);
 		this->_height -= dy;
 		this->_width -= dx;
-		this->_width = std::max((float)this->_width, (float)15);
-		this->_height = std::max((float)this->_height, (float)15);
-		this->update(0,0,_width,_height);
-		this->setPos(_location);
 		_dragStart = event->scenePos();
 		break;
 	default:
 		//move
 		newPos = event->pos() ;
 		_location += (newPos - _dragStart);
-		this->setPos(_location);
 		break;
 	}
+	this->_width = std::max((float)this->_width, (float)10);
+	this->_height = std::max((float)this->_height, (float)10);
+	this->update(0,0,_width,_height);
+	this->setPos(_location);
 	this->scene()->update();
 }
 
