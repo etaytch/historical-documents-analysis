@@ -1,16 +1,15 @@
-<?xml version="1.0"?>
 <Manuscript>
-	<ProjectPath>proj.xml</ProjectPath>
-	<Title>my manuscript</Title>
-	<Author>Vadi</Author>
-	<Copyist>copyist</Copyist>
-	<Region>region</Region>
-	<Language>language</Language>
-	<FontType>font-type</FontType>
-	<DirectoryPath>man2</DirectoryPath>
-	<Pages count="3" path="Pages">
-		<Page index="1" path="map.jpg"></Page>
-		<Page index="2" path="Negev.JPG"></Page>
-		<Page index="3" path="vadi.jpg"></Page>
-	</Pages>
+    <ProjectPath>proj.xml</ProjectPath>
+    <Title>my manuscript</Title>
+    <Author>Vadi</Author>
+    <Copyist>copyist</Copyist>
+    <Region>region</Region>
+    <Language>language</Language>
+    <FontType>font-type</FontType>
+    <DirectoryPath>man2</DirectoryPath>
+    <Pages count="3" path="man2/Pages">
+        <Page index="1" path="man2/Pages/map.jpg"/>
+        <Page index="2" path="man2/Pages/Negev.JPG"/>
+        <Page index="3" path="man2/Pages/vadi.jpg"/>
+    </Pages>
 </Manuscript>
