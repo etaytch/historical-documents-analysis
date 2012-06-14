@@ -10,7 +10,6 @@ HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 	_project.setName("Default Project");
 	modelsInit();
 	_flowManager = new HdaFlowManager(this);
-	
 }
 
 
@@ -164,10 +163,38 @@ void HdaMainFrame::save()
 
 void HdaMainFrame::saveAll()
 {
-	ProjectDoc pr = _manuscriptTreeModel->_project;
-	//XmlWriter::saveToFile(pr);
-		
+	QMap<QString,QString>::iterator manPathIter;
+	saveProject();
+	for(manPathIter=_project.getPaths().begin();
+		manPathIter!= _project.getPaths().end();
+		manPathIter++)
+	{
+
+		QString path = manPathIter.value();
+		QString name = manPathIter.key();
+		saveManuscript(path,name);
+	}
 }
+
+void HdaMainFrame::saveProjectAs(QString name)
+{
+	/*
+	ProjectDoc pr = _manuscriptTreeModel->_project;
+	XmlWriter::saveProjectToXml("test.xml",pr);
+	*/
+}
+
+void HdaMainFrame::saveProject()
+{
+	ProjectDoc pr = _manuscriptTreeModel->_project;
+	XmlWriter::saveProjectToXml(pr.getName()+".xml",pr);
+}
+
+void HdaMainFrame::saveManuscript(QString path,QString manName)
+{
+	XmlWriter::saveManuscriptToXml(path,_project.getManuscripts()[manName]);
+}
+
 
 void HdaMainFrame::help()
 {

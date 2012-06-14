@@ -6,8 +6,8 @@
 #include <QString>
 #include "Manuscript.h"
 
-#define PAGES "/pages"
-#define THUMBNAILS "/thumbnails"
+#define PAGES "/Pages"
+#define THUMBNAILS "/Thumbnails"
 
 
 class ManuscriptDoc : public Manuscript

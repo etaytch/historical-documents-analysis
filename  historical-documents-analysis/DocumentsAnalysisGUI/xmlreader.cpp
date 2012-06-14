@@ -137,7 +137,7 @@ void XmlReader::pageParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc)
 		pathAttr = pageElement->Attribute("path");
 		if(indexAttr != NULL)
 		{
-			page->setName(manDoc.getPagesDirPath().toStdString()+"/"+pathAttr);
+			page->setName(pathAttr);
 		}
 		blockParsing(pageElement,page); 
 		manDoc.addPage(page);
@@ -165,7 +165,7 @@ void XmlReader::pageParsing(tinyxml2::XMLElement* element,Page* parentPage,Manus
 		pathAttr = pageElement->Attribute("path");
 		if(indexAttr != NULL)
 		{
-			page->setName(manDoc.getPagesDirPath().toStdString()+"/"+pathAttr);
+			page->setName(pathAttr);
 		}
 
 		blockParsing(pageElement,page); 

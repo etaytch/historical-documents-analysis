@@ -33,6 +33,8 @@ public:
 	void removeLowerPoint(int index);
 	Rect getRect();
 	void setRect(Rect rect);
+	vector<Point>* getUpperPoints(){return _upper;}
+	vector<Point>* getLowerPoints(){return _lower;}
 
 };
 

@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<Project>
-	<Name>Project</Name>
-	<Manuscripts>
-		<Manuscript name="Diana's Manuscrip" path="man.xml"></Manuscript>
-		<Manuscript name="my manuscript" path="man2.xml"></Manuscript>
-	</Manuscripts>
-</Project>

@@ -14,6 +14,7 @@
 #include "HdaFlowManager.h"
 
 class FlowSchedulerDialog;
+
 class GUI_EXPORT HdaMainFrame : public QMainWindow
 {
 	Q_OBJECT
@@ -49,14 +50,16 @@ private:
 	FlowSchedulerDialog* _flowSchedulerDialog;
 	ProjectDoc _project;
 	ThumbNailsModel* _manuscriptPagesModel;
-	TreeViewModel* _manuscriptTreeModel;
-	
+	TreeViewModel* _manuscriptTreeModel;	
 	HdaFlowManager* _flowManager;
 	
 
 private: //methods
 	void modelsInit();
 	void cleanProject();
+	void saveProject();
+	void saveProjectAs(QString name);
+	void saveManuscript(QString path,QString manName);
 };
 
 #endif // HDAMAINFRAME_H

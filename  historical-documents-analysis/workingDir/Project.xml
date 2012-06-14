@@ -1,0 +1,7 @@
+<Project>
+    <Name>Project</Name>
+    <Manuscripts>
+        <Manuscript name="Diana Manuscrip" path="man.xml"/>
+        <Manuscript name="my manuscript" path="man2.xml"/>
+    </Manuscripts>
+</Project>

@@ -5,286 +5,195 @@ using namespace tinyxml2;
 int XmlWriter::saveProjectToXml(QString xmlFilePath, ProjectDoc& projDoc)
 {
 	tinyxml2::XMLDocument xmlDoc;
-	if (xmlDoc.LoadFile(xmlFilePath.toStdString().c_str())!=XML_NO_ERROR)
-	{
-		return xmlDoc.ErrorID(); 
-	}
-	
-	XMLElement* root = xmlDoc.FirstChildElement("Project");
-	if(root == NULL)
-	{
-		return XML_ERROR_ELEMENT_MISMATCH;
-	}
-
-	for(tinyxml2::XMLElement* element = root->FirstChildElement(); 
-		element != NULL; element = element->NextSiblingElement())
-	{
-		string elementName = element->Value();
-		if(elementName == "Name")
-		{
-			projDoc.setName(element->GetText());
-		}
-		else if(elementName == "Manuscripts")
-		{
-			manuscripGen(element,projDoc);	
-		}
-		else
-		{
-			return XML_ERROR_IDENTIFYING_TAG;
-		}
-	}
-	return XML_NO_ERROR;
+	XMLNode* projNode = xmlDoc.InsertEndChild(xmlDoc.NewElement("Project"));
+	XMLElement* nameElement = xmlDoc.NewElement("Name");
+	nameElement->InsertFirstChild(xmlDoc.NewText(projDoc.getName().toStdString().c_str()));
+	projNode->InsertEndChild(nameElement);
+	manuscripGen(projNode,xmlDoc,projDoc);	
+	return xmlDoc.SaveFile(xmlFilePath.toStdString().c_str());
 }
 
-void XmlWriter::manuscripGen(tinyxml2::XMLElement* element,ProjectDoc& projDoc)
+void XmlWriter::manuscripGen(tinyxml2::XMLNode* projNode, 
+							 tinyxml2::XMLDocument& xmlDoc, 
+							 ProjectDoc& projDoc)
 {
-	const char* nameAttr;
-	const char* pathAttr;
+	XMLNode* mansNode = projNode->InsertEndChild(xmlDoc.NewElement("Manuscripts"));
 
-	for(tinyxml2::XMLElement* manElement = element->FirstChildElement("Manuscript"); 
-		manElement != NULL; manElement = manElement->NextSiblingElement("Manuscript"))
+	int manCount = projDoc.getManuscriptCount();
+	QMap<QString,QString> paths = projDoc.getPaths();		    //<name> ----> <Path>	
+
+	for(int i = 0; i<manCount; i++)
 	{
-		nameAttr = manElement->Attribute("name");
-		if(nameAttr != NULL)
-		{
-			pathAttr = manElement->Attribute("path");
-			if(pathAttr != NULL)
-			{
-				projDoc.addManuscriptPath(nameAttr,pathAttr);
-			}
-		}
+		XMLElement* manElement = xmlDoc.NewElement("Manuscript");
+		manElement->SetAttribute("name",paths.keys()[i].toStdString().c_str());
+		manElement->SetAttribute("path",paths.values()[i].toStdString().c_str());
+		mansNode->InsertEndChild(manElement);
 	}
 }
 
 int XmlWriter::saveManuscriptToXml(QString xmlFilePath, ManuscriptDoc& manDoc)
 {
-	tinyxml2::XMLDocument xmlDoc;	
-	if (xmlDoc.LoadFile(xmlFilePath.toStdString().c_str())!=XML_NO_ERROR)
-	{
-		return xmlDoc.ErrorID(); 
-	}
-	XMLElement* root = xmlDoc.FirstChildElement("Manuscript");
-	if(root == NULL)
-	{
-		return XML_ERROR_ELEMENT_MISMATCH;
-	}
 
-	for(tinyxml2::XMLElement* element = root->FirstChildElement(); 
-		element != NULL; element = element->NextSiblingElement())
-	{
-		string elementName = element->Value();
-		if(elementName == "ProjectPath")
-		{
-			manDoc.setProjectXmlPath(element->GetText());
-		}
-		else if(elementName == "Title")
-		{
-			manDoc.setTitle(element->GetText());
-		}
-		else if(elementName == "Author")
-		{
-			manDoc.setAuthor(element->GetText());
-		}
-		else if(elementName == "Copyist")
-		{
-			manDoc.setCopyist(element->GetText());
-		}
-		else if(elementName == "Region")
-		{
-			manDoc.setRegion(element->GetText());
-		}
-		else if(elementName == "Language")
-		{
-			manDoc.setLanguage(element->GetText());
-		}
-		else if(elementName == "FontType")
-		{
-			manDoc.setFontType(element->GetText());
-		}
-		else if(elementName == "DirectoryPath")
-		{
-			manDoc.setManDirPath(element->GetText());
-		}
-		else if(elementName == "Pages")
-		{
-			pageGen(element,manDoc);		
-		}
-		else
-		{
-			return XML_ERROR_IDENTIFYING_TAG;
-		}
-	}
-	return XML_NO_ERROR;
-}
+	tinyxml2::XMLDocument xmlDoc;
+	XMLElement* element;
 
-void XmlWriter::pageGen(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc)
-{
-	Page* page = 0;
-
-	for(tinyxml2::XMLElement* pageElement = element->FirstChildElement("Page"); 
-		pageElement != NULL; pageElement = pageElement->NextSiblingElement("Page"))
-	{
-		page = new Page(); 
-
-		const char* indexAttr;
-		const char* pathAttr;
-		//page init
-		indexAttr = pageElement->Attribute("index");
-		if(indexAttr != NULL)
-		{
-			page->setIndex(atoi(indexAttr));		
-		}
-		pathAttr = pageElement->Attribute("path");
-		if(indexAttr != NULL)
-		{
-			page->setName(manDoc.getPagesDirPath().toStdString()+"/"+pathAttr);
-		}
-		blockGen(pageElement,page); 
-		manDoc.addPage(page);
-		pageGen(pageElement,page,manDoc);
-	}	
-}
-
-void XmlWriter::pageGen(tinyxml2::XMLElement* element,Page* parentPage,ManuscriptDoc& manDoc)
-{
-	Page* page = 0;
-
-	for(tinyxml2::XMLElement* pageElement = element->FirstChildElement("Page"); 
-		pageElement != NULL; pageElement = pageElement->NextSiblingElement("Page"))
-	{
-		page = new Page(); 
-
-		const char* indexAttr;
-		const char* pathAttr;
-		//page init
-		indexAttr = pageElement->Attribute("index");
-		if(indexAttr != NULL)
-		{
-			page->setIndex(atoi(indexAttr));		
-		}
-		pathAttr = pageElement->Attribute("path");
-		if(indexAttr != NULL)
-		{
-			page->setName(manDoc.getPagesDirPath().toStdString()+"/"+pathAttr);
-		}
-
-		blockGen(pageElement,page); 
-		parentPage->addPage(page);
-		pageGen(pageElement,page,manDoc);
-	}	
-}
-
-void XmlWriter::blockGen(tinyxml2::XMLElement* pageElement,Page* page)
-{
+	XMLNode* manNode = xmlDoc.InsertEndChild(xmlDoc.NewElement("Manuscript"));
+	element = xmlDoc.NewElement("ProjectPath");
+	element ->InsertFirstChild(xmlDoc.NewText(manDoc.getProjectXmlPath().toStdString().c_str()));
+	manNode->InsertEndChild(element);
 	
+	element = xmlDoc.NewElement("Title");
+	element ->InsertFirstChild(xmlDoc.NewText(manDoc.getTitle().toStdString().c_str()));
+	manNode->InsertEndChild(element);
 
-	for(tinyxml2::XMLElement* blockElement = pageElement->FirstChildElement("Block"); 
-		blockElement != NULL; blockElement = blockElement->NextSiblingElement("Block"))
-	{
-		Block* block = new Block();
-		const char* typeAttr;
-		typeAttr = blockElement->Attribute("type");
-		if(typeAttr != NULL)
-		{
-			block->setType(atoi(typeAttr));
-		}
-		textLineGen(blockElement,block);	
-		page->addBlock(block);
-	}
-
+	element = xmlDoc.NewElement("Author");
+	element ->InsertFirstChild(xmlDoc.NewText(manDoc.getAuthor().toStdString().c_str()));
+	manNode->InsertEndChild(element);
 	
+	element = xmlDoc.NewElement("Copyist");
+	element ->InsertFirstChild(xmlDoc.NewText(manDoc.getCopyist().toStdString().c_str()));
+	manNode->InsertEndChild(element);
+
+	element = xmlDoc.NewElement("Region");
+	element ->InsertFirstChild(xmlDoc.NewText(manDoc.getRegion().toStdString().c_str()));
+	manNode->InsertEndChild(element);
+
+	element = xmlDoc.NewElement("Language");
+	element ->InsertFirstChild(xmlDoc.NewText(manDoc.getLanguage().toStdString().c_str()));
+	manNode->InsertEndChild(element);
+
+	element = xmlDoc.NewElement("FontType");
+	element ->InsertFirstChild(xmlDoc.NewText(manDoc.getFontType().toStdString().c_str()));
+	manNode->InsertEndChild(element);
+
+	element = xmlDoc.NewElement("DirectoryPath");
+	element ->InsertFirstChild(xmlDoc.NewText(manDoc.getManDirPath().toStdString().c_str()));
+	manNode->InsertEndChild(element);
+
+	element = xmlDoc.NewElement("Pages");
+	XMLNode* pagesNode = manNode ->InsertEndChild(element);
+	element->SetAttribute("count",manDoc.getPages().size());
+	element->SetAttribute("path",manDoc.getPagesDirPath().toStdString().c_str());
+	pageGen(pagesNode,xmlDoc,manDoc);
+	return xmlDoc.SaveFile(xmlFilePath.toStdString().c_str());
 }
 
-void XmlWriter::textLineGen(tinyxml2::XMLElement* blockElement,Block* block)
+void XmlWriter::pageGen(tinyxml2::XMLNode* node, 
+						tinyxml2::XMLDocument& xmlDoc, 
+						ManuscriptDoc& manDoc)
 {
-	for(tinyxml2::XMLElement* textLineElement = blockElement->FirstChildElement("TextLine"); 
-		textLineElement != NULL; textLineElement = textLineElement->NextSiblingElement("TextLine"))
-	{
-		TextLine* textline = new TextLine();
-		for(tinyxml2::XMLElement* element = textLineElement ->FirstChildElement(); 
-			element != NULL; element = element->NextSiblingElement())
-		{
-			string elementName = element->Value();
-			if(elementName == "Rect")
-			{
-				rectGen(element,textline);
-			}
-			else if(elementName == "UpperPoints")
-			{
-				upperPointsGen(element,textline);
-			}
-			else if(elementName == "LowerPoints")
-			{
-				lowerPointsGen(element,textline);
-			}
-		}
-		block->addTextLine(textline);
-	}
-	
-}
+	XMLElement* element;
+	vector<Page*>::iterator pageIter;
 
-void XmlWriter::rectGen(tinyxml2::XMLElement* element,TextLine* textline)
-{
-	const char* xAttr;
-	const char* yAttr;
-	const char* wAttr;
-	const char* hAttr;
-	
-	xAttr = element->Attribute("x");
-	if(xAttr != NULL)
+	vector<Page*> pages = manDoc.getPages();
+	for(pageIter = pages.begin(); pageIter!=pages.end();pageIter++)
 	{
-		yAttr = element->Attribute("y");
-		if(yAttr != NULL)
-		{
-			wAttr = element->Attribute("w");
-			if(wAttr != NULL)
-			{
-				hAttr = element->Attribute("h");
-				if(hAttr != NULL)
-				{
-					textline->setRect(atoi(xAttr),atoi(yAttr),atoi(wAttr),atoi(hAttr));
-				}
-			}
-		}
+		element = xmlDoc.NewElement("Page");
+		XMLNode* pageNode = node->InsertEndChild(element);
+		element->SetAttribute("index",(*pageIter)->getIndex());
+		element->SetAttribute("path",(*pageIter)->getName().c_str());
+		blockGen(pageNode,xmlDoc,*pageIter); 
+		pageGen(pageNode,xmlDoc,*pageIter);
 	}
 }
 
-void XmlWriter::upperPointsGen(tinyxml2::XMLElement* element,TextLine* textline)
+void XmlWriter::pageGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, Page* parentPage)
 {
-	for(tinyxml2::XMLElement* pointElement = element ->FirstChildElement("Point"); 
-		pointElement != NULL; pointElement= pointElement->NextSiblingElement("Point"))
+	XMLElement* element;
+	vector<Page*>::iterator pageIter;
+
+	vector<Page*> pages = parentPage->getPages();
+	for(pageIter = pages.begin(); pageIter!=pages.end();pageIter++)
 	{
-		const char* xAttr;
-		const char* yAttr;
-		
-		xAttr = pointElement->Attribute("x");
-		if(xAttr != NULL)
-		{
-			yAttr = pointElement->Attribute("y");
-			if(yAttr != NULL)
-			{
-				textline->setUpperPoint(atoi(xAttr),atoi(yAttr));
-			}
-		}
+		element = xmlDoc.NewElement("Page");
+		XMLNode* pageNode = node->InsertEndChild(element);
+		element->SetAttribute("index",(*pageIter)->getIndex());
+		element->SetAttribute("path",(*pageIter)->getName().c_str());
+		blockGen(pageNode,xmlDoc,*pageIter); 
+		pageGen(pageNode,xmlDoc,*pageIter);
 	}
 }
 
-void XmlWriter::lowerPointsGen(tinyxml2::XMLElement* element,TextLine* textline)
+void XmlWriter::blockGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, Page* page)
 {
-	for(tinyxml2::XMLElement* pointElement = element ->FirstChildElement("Point"); 
-		pointElement != NULL; pointElement= pointElement->NextSiblingElement("Point"))
-	{
-		const char* xAttr;
-		const char* yAttr;
+	XMLElement* element;
+	vector<Block*>::iterator blockIter;
 
-		xAttr = pointElement->Attribute("x");
-		if(xAttr != NULL)
-		{
-			yAttr = pointElement->Attribute("y");
-			if(yAttr != NULL)
-			{
-				textline->setLowerPoint(atoi(xAttr),atoi(yAttr));
-			}
-		}
+	vector<Block*> blocks = page->getBlocks();
+	for(blockIter = blocks.begin(); blockIter!=blocks.end();blockIter++)
+	{
+		element = xmlDoc.NewElement("Block");
+		XMLNode* blockNode = node->InsertEndChild(element);
+		element->SetAttribute("type",(int)(*blockIter)->getType());
+		textLineGen(blockNode,xmlDoc,*blockIter);
+	}
+}
+
+void XmlWriter::textLineGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, Block* block)
+{
+
+	XMLElement* element;
+	vector<TextLine*>::iterator textLineIter;
+
+	vector<TextLine*> tLines = block->getTextLines();
+	for(textLineIter = tLines.begin(); textLineIter!=tLines.end();textLineIter++)
+	{
+		element = xmlDoc.NewElement("TextLine");
+		XMLNode* tLineNode = node->InsertEndChild(element);
+		rectGen(tLineNode,xmlDoc,*textLineIter);
+		upperPointsGen(tLineNode,xmlDoc,*textLineIter);
+		lowerPointsGen(tLineNode,xmlDoc,*textLineIter);
+	}
+}
+
+void XmlWriter::rectGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, TextLine* textline)
+{
+
+	XMLElement* element;
+	element = xmlDoc.NewElement("Rect");
+	element->SetAttribute("x",textline->getRect().x);
+	element->SetAttribute("y",textline->getRect().y);
+	element->SetAttribute("w",textline->getRect().width);
+	element->SetAttribute("h",textline->getRect().height);
+	node->InsertEndChild(element);
+}
+
+void XmlWriter::upperPointsGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, TextLine* textline)
+{
+	XMLElement* element;
+	vector<cv::Point>::iterator pointIter;
+
+
+	element = xmlDoc.NewElement("UpperPoints");
+	XMLNode* pointsNode = node->InsertEndChild(element);
+
+	vector<cv::Point>* points = textline->getUpperPoints();
+	for(pointIter = points->begin(); pointIter!=points->end();pointIter++)
+	{
+		element = xmlDoc.NewElement("Point");
+		element->SetAttribute("x",(*pointIter).x);
+		element->SetAttribute("y",(*pointIter).y);
+		pointsNode->InsertEndChild(element);
+	}
+
+}
+
+void XmlWriter::lowerPointsGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, TextLine* textline)
+{
+
+	XMLElement* element;
+	vector<cv::Point>::iterator pointIter;
+
+
+	element = xmlDoc.NewElement("LowerPoints");
+	XMLNode* pointsNode = node->InsertEndChild(element);
+
+	vector<cv::Point>* points = textline->getLowerPoints();
+	for(pointIter = points->begin(); pointIter!=points->end();pointIter++)
+	{
+		element = xmlDoc.NewElement("Point");
+		element->SetAttribute("x",(*pointIter).x);
+		element->SetAttribute("y",(*pointIter).y);
+		pointsNode->InsertEndChild(element);
 	}
 }
