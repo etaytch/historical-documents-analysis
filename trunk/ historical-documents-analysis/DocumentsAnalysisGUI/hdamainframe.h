@@ -8,6 +8,8 @@
 #include "FlowSchedulerDialog.h"
 #include "thumbnailsmodel.h"
 #include "treeviewmodel.h"
+#include "manuscriptpropertiesmodel.h"
+#include "manuscriptpropertiesdelegate.h"
 #include "pagemdichild.h"
 #include "xmlreader.h"
 #include "gui_global.h"
@@ -44,6 +46,7 @@ public slots:
 	void cascadePages();
 	void tilePages();
 	void openFlowDialog();	
+	void openProperties(QModelIndex);
 
 private:
 	Ui::HdaMainFrameClass ui;
@@ -51,14 +54,18 @@ private:
 	ProjectDoc _project;
 	ThumbNailsModel* _manuscriptPagesModel;
 	TreeViewModel* _manuscriptTreeModel;	
+	ManuscriptPropertiesModel* _manuscriptPropertiesModel;
+	ManuscriptPropertiesDelegate* _manuscriptPropertiesDelegete;
+
 	HdaFlowManager* _flowManager;
+
 	
 
 private: //methods
 	void modelsInit();
 	void cleanProject();
 	void saveProject();
-	void saveProjectAs(QString name);
+	void saveProjectAs();
 	void saveManuscript(QString path,QString manName);
 };
 

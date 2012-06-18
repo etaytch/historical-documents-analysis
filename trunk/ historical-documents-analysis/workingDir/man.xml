@@ -1,9 +1,9 @@
 <Manuscript>
     <ProjectPath>proj.xml</ProjectPath>
     <Title>Diana Manuscrip</Title>
-    <Author>author</Author>
+    <Author>Diana</Author>
     <Copyist>copyist</Copyist>
-    <Region>region</Region>
+    <Region>Argentina</Region>
     <Language>language</Language>
     <FontType>font-type</FontType>
     <DirectoryPath>man</DirectoryPath>

@@ -2,6 +2,7 @@
 #include <QMdiSubWindow>
 #include <QDebug>
 #include "xmlwriter.h"
+#include "Defs.h"
 
 HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
@@ -9,6 +10,7 @@ HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 	ui.setupUi(this);
 	_project.setName("Default Project");
 	modelsInit();
+	ui.Properties_dock->setVisible(false);
 	_flowManager = new HdaFlowManager(this);
 }
 
@@ -57,6 +59,25 @@ void HdaMainFrame::openImageWindowFromTreeView(QModelIndex index)
 		p->loadFile(pagePath);
 		p->show();
 
+	}
+}
+
+//TODO
+void HdaMainFrame::openProperties(QModelIndex index)
+{
+	if (qVariantCanConvert<QString> (index.data(Qt::UserRole)))
+	{
+		QString manName = qVariantValue<QString>(index.data());
+		
+		_manuscriptPropertiesModel = new ManuscriptPropertiesModel(&_project.getManuscriptAt(manName),index,this);
+		_manuscriptPropertiesDelegete = new ManuscriptPropertiesDelegate();
+		ui.propertiesTableView->setModel(_manuscriptPropertiesModel);
+		ui.propertiesTableView->setItemDelegate(_manuscriptPropertiesDelegete);
+		ui.Properties_dock->setVisible(true);
+	}
+	else if (qVariantCanConvert<PageDoc> (index.data(Qt::UserRole)))
+	{
+		PageDoc pd = qVariantValue<PageDoc>(index.data(Qt::UserRole));
 	}
 }
 
@@ -124,7 +145,7 @@ void HdaMainFrame::addManuscript()
 	if (fileName.isEmpty() || fileName.isNull()) return;
 
 	//create a default project for the manuscript
-	_project.setName("Default Project");
+	_project.setName(DEFAULT_PROJECT);
 	_project.addManuscriptPath(fileName,fileName);
 	//manuscript parsing
 	if (XmlReader::getManuscriptFromXml(fileName,_project.getManuscripts()[fileName])!= tinyxml2::XML_NO_ERROR)
@@ -176,18 +197,33 @@ void HdaMainFrame::saveAll()
 	}
 }
 
-void HdaMainFrame::saveProjectAs(QString name)
+void HdaMainFrame::saveProjectAs()
 {
-	/*
+
+	QString fileName = QFileDialog::getSaveFileName(this,"Save Project as","","Project File (*.xml)");
+	if (fileName.isEmpty() || fileName.isNull()) return;
 	ProjectDoc pr = _manuscriptTreeModel->_project;
-	XmlWriter::saveProjectToXml("test.xml",pr);
-	*/
+
+	//manuscript parsing
+	if (XmlWriter::saveProjectToXml(fileName,pr)!= tinyxml2::XML_NO_ERROR)
+	{
+		QMessageBox::critical(this, "Error",
+                              QString("%1 project seems to be currapted corrupted.")
+							  .arg(pr.getName()));
+		return;
+	}
 }
 
 void HdaMainFrame::saveProject()
 {
 	ProjectDoc pr = _manuscriptTreeModel->_project;
-	XmlWriter::saveProjectToXml(pr.getName()+".xml",pr);
+	if (pr.getName()!=DEFAULT_PROJECT)
+	{
+		XmlWriter::saveProjectToXml(pr.getName()+".xml",pr);
+	}
+	else
+		saveProjectAs();
+	
 }
 
 void HdaMainFrame::saveManuscript(QString path,QString manName)
