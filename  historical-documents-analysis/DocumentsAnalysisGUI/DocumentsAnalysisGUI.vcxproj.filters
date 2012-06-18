@@ -170,6 +170,24 @@
     <ClCompile Include="GeneratedFiles\Release\moc_framedraw.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="manuscriptpropertiesdelegate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_manuscriptpropertiesdelegate.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_manuscriptpropertiesdelegate.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="manuscriptpropertiesmodel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_manuscriptpropertiesmodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_manuscriptpropertiesmodel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="hdamainframe.h">
@@ -229,6 +247,12 @@
     <CustomBuild Include="framedraw.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="manuscriptpropertiesdelegate.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="manuscriptpropertiesmodel.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_hdamainframe.h">
@@ -250,6 +274,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="mdiPageScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

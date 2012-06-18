@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="HdaMainFrame">
+    <file>Resources/icons/Next-icon.png</file>
+    <file>Resources/icons/Sign-Forward-icon.png</file>
     <file>Resources/toolBarIcons/Actions-system-shutdown-icon.png</file>
     <file>Resources/toolBarIcons/Actions-document-open-folder-icon.png</file>
     <file>Resources/toolBarIcons/Actions-project-open-icon.png</file>

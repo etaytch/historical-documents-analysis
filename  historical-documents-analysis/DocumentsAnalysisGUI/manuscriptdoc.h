@@ -6,8 +6,8 @@
 #include <QString>
 #include "Manuscript.h"
 
-#define PAGES "/Pages"
-#define THUMBNAILS "/Thumbnails"
+
+
 
 
 class ManuscriptDoc : public Manuscript
@@ -34,19 +34,20 @@ public:
 //manuscript getters setters
 public:	
 		
-	QString getTitle()					{return _title.c_str();}
+	QString getTitle()	const				{return _title.c_str();}
 	void setTitle(QString title)		{_title = title.toStdString();}
-	QString getAuthor()					{return _author.c_str();}
+	QString getAuthor()	const				{return _author.c_str();}
 	void setAuthor(QString author)		{_author = author.toStdString();}
-	QString getCopyist()				{return _copyist.c_str();}
+	QString getCopyist() const				{return _copyist.c_str();}
 	void setCopyist(QString copyist)	{_copyist = copyist.toStdString();}
-	QString getRegion()					{return _region.c_str();}
+	QString getRegion() const					{return _region.c_str();}
 	void setRegion(QString region)		{_region = region.toStdString();}
-	QString getLanguage()				{return _language.c_str();}
+	QString getLanguage() const				{return _language.c_str();}
 	void setLanguage(QString language)	{_language = language.toStdString();}
-	QString getFontType()				{return _font_type.c_str();}
+	QString getFontType() const				{return _font_type.c_str();}
 	void setFontType(QString font_type)	{_font_type= font_type.toStdString();}
 	
 };
+
 
 #endif // MANUSCRIPTDOC_H

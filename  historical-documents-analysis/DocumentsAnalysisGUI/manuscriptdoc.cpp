@@ -1,5 +1,6 @@
 #include "manuscriptdoc.h"
 #include "PageDoc.h"
+#include "Defs.h"
 
 ManuscriptDoc::ManuscriptDoc()
 	:  Manuscript() 
