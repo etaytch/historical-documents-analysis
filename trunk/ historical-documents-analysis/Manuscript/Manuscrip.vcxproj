@@ -73,7 +73,9 @@
     <ClInclude Include="Binarizer.h" />
     <ClInclude Include="BinaryComponentExtractor.h" />
     <ClInclude Include="Block.h" />
+    <ClInclude Include="ColumnOrderBlender.h" />
     <ClInclude Include="ComponentComparator.h" />
+    <ClInclude Include="ComponentEvolutionMap.h" />
     <ClInclude Include="ComponentExtractor.h" />
     <ClInclude Include="ComponentFilter.h" />
     <ClInclude Include="ConnectedComponent.h" />
@@ -81,24 +83,34 @@
     <ClInclude Include="DImage.h" />
     <ClInclude Include="FeatureVector.h" />
     <ClInclude Include="GlobalBinarizer.h" />
+    <ClInclude Include="ImageCombiner.h" />
     <ClInclude Include="ImageOperation.h" />
+    <ClInclude Include="ImageTools.h" />
     <ClInclude Include="ImageTransformation.h" />
+    <ClInclude Include="LineSegment.h" />
     <ClInclude Include="LocalBinarizer.h" />
     <ClInclude Include="Manuscript.h" />
     <ClInclude Include="manuscript_global.h" />
     <ClInclude Include="OtsulBinarizer.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="ProfileFeature.h" />
+    <ClInclude Include="ProjectionProfile.h" />
     <ClInclude Include="RadialBinarizer.h" />
+    <ClInclude Include="RasterScanner.h" />
+    <ClInclude Include="SeamLineExtractor.h" />
+    <ClInclude Include="SeprateLine.h" />
     <ClInclude Include="SignedDistanceTransform.h" />
     <ClInclude Include="TextLine.h" />
     <ClInclude Include="TextLineExtractor.h" />
+    <ClInclude Include="tools.h" />
     <ClInclude Include="WordSpotter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BinaryComponentExtractor.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="ColumnOrderBlender.cpp" />
     <ClCompile Include="ComponentComparator.cpp" />
+    <ClCompile Include="ComponentEvolutionMap.cpp" />
     <ClCompile Include="ComponentFilter.cpp" />
     <ClCompile Include="ConnectedComponent.cpp" />
     <ClCompile Include="Contour.cpp" />
@@ -109,7 +121,10 @@
     <ClCompile Include="OtsulBinarizer.cpp" />
     <ClCompile Include="Page.cpp" />
     <ClCompile Include="ProfileFeature.cpp" />
+    <ClCompile Include="ProjectionProfile.cpp" />
     <ClCompile Include="RadialBinarizer.cpp" />
+    <ClCompile Include="SeamLineExtractor.cpp" />
+    <ClCompile Include="seprateLine.cpp" />
     <ClCompile Include="SignedDistanceTransform.cpp" />
     <ClCompile Include="TextLine.cpp" />
     <ClCompile Include="WordSpotter.cpp" />
