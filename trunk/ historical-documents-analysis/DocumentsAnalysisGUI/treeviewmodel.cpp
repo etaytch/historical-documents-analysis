@@ -93,6 +93,19 @@ QVariant TreeViewModel::data(const QModelIndex &index, int role) const
 		}*/
 		return item->data(index.column());
 	}
+	if (role == Qt::CheckStateRole)
+	{
+		if (qVariantCanConvert<PageDoc> (item->data(index.column())))
+		{
+			PageDoc pd = qVariantValue<PageDoc>(item->data(index.column()));
+			return QVariant(pd.getPage()->isActive());
+		}
+		else 
+		{
+
+		}
+		
+	}
 	if (role == Qt::UserRole)
 	{
 		return item->data(index.column());
@@ -104,11 +117,33 @@ QVariant TreeViewModel::data(const QModelIndex &index, int role) const
 bool TreeViewModel::setData(const QModelIndex &index, const QVariant &value,
                         int role)
 {
-    if (role != Qt::EditRole)
-        return false;
-    TreeItem *item = getItem(index);
-    bool result = item->setData(index.column(), value);
-    return result;
+	if (!index.isValid())
+		return false;
+	
+	TreeItem *item = getItem(index);
+	if(role == Qt::CheckStateRole)
+    {  
+		if (qVariantCanConvert<PageDoc> (item->data(index.column())))
+		{
+			PageDoc pd = qVariantValue<PageDoc>(item->data(index.column()));
+			pd.getPage()->setActiveState(qVariantValue<int>(value));
+			emit dataChanged(index,index);
+			return true;
+		}
+		else 
+		{
+
+		}
+    }
+	else if (role == Qt::EditRole)
+	{
+		bool result = item->setData(index.column(), value);
+		return result;
+	}
+	else 
+	{
+		return false;
+	}
 }
 
 bool TreeViewModel::setHeaderData(int section, Qt::Orientation orientation,

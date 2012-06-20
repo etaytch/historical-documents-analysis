@@ -128,6 +128,7 @@ void XmlReader::pageParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc)
 
 		const char* indexAttr;
 		const char* pathAttr;
+		const char*	activeAttr;
 		//page init
 		indexAttr = pageElement->Attribute("index");
 		if(indexAttr != NULL)
@@ -139,6 +140,13 @@ void XmlReader::pageParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc)
 		{
 			page->setName(pathAttr);
 		}
+
+		activeAttr = pageElement->Attribute("active");
+		if(activeAttr != NULL)
+		{
+			page->setActiveState(atoi(activeAttr));
+		}
+
 		blockParsing(pageElement,page); 
 		manDoc.addPage(page);
 		pageParsing(pageElement,page,manDoc);
@@ -156,6 +164,7 @@ void XmlReader::pageParsing(tinyxml2::XMLElement* element,Page* parentPage,Manus
 
 		const char* indexAttr;
 		const char* pathAttr;
+		const char*	activeAttr;
 		//page init
 		indexAttr = pageElement->Attribute("index");
 		if(indexAttr != NULL)
@@ -167,7 +176,11 @@ void XmlReader::pageParsing(tinyxml2::XMLElement* element,Page* parentPage,Manus
 		{
 			page->setName(pathAttr);
 		}
-
+		activeAttr = pageElement->Attribute("active");
+		if(activeAttr != NULL)
+		{
+			page->setActiveState(atoi(activeAttr));
+		}
 		blockParsing(pageElement,page); 
 		parentPage->addPage(page);
 		pageParsing(pageElement,page,manDoc);

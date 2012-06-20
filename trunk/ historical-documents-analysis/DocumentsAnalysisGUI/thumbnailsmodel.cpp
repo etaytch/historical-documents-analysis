@@ -91,11 +91,6 @@ QVariant ThumbNailsModel::data(const QModelIndex &index, int role) const
 		{
 			return  (_thumbnails.begin()+index.row()).key();
 		}
-		case Qt::CheckStateRole:
-		{
-			return Qt::Checked;
-		}
-		
 		default:
 			return QVariant();
 	}
@@ -130,6 +125,5 @@ Qt::ItemFlags ThumbNailsModel::flags(const QModelIndex &index) const
     if (!index.isValid())
         return Qt::ItemIsEnabled;
 
-    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable
-		| Qt::ItemIsUserCheckable;
+    return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
 }

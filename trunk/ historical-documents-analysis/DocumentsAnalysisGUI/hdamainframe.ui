@@ -386,6 +386,12 @@
          <stylestrategy>PreferAntialias</stylestrategy>
         </font>
        </property>
+       <property name="tabKeyNavigation">
+        <bool>true</bool>
+       </property>
+       <property name="animated">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
     </layout>
@@ -770,38 +776,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>treeView</sender>
-   <signal>clicked(QModelIndex)</signal>
-   <receiver>HdaMainFrameClass</receiver>
-   <slot>LoadManuscript(QModelIndex)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>120</x>
-     <y>382</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>102</x>
-     <y>493</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>treeView</sender>
-   <signal>doubleClicked(QModelIndex)</signal>
-   <receiver>HdaMainFrameClass</receiver>
-   <slot>openImageWindowFromTreeView(QModelIndex)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>145</x>
-     <y>228</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>280</x>
-     <y>260</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>actionTile_pages</sender>
    <signal>triggered()</signal>
    <receiver>HdaMainFrameClass</receiver>
@@ -1070,6 +1044,38 @@
     <hint type="destinationlabel">
      <x>341</x>
      <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>treeView</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>LoadManuscript(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>120</x>
+     <y>382</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>102</x>
+     <y>493</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>treeView</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>openImageWindowFromTreeView(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>145</x>
+     <y>228</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>280</x>
+     <y>260</y>
     </hint>
    </hints>
   </connection>

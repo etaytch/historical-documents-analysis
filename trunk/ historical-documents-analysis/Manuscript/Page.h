@@ -19,7 +19,7 @@ protected:
 	vector<Block*>     _blocks;
 	vector<Page*>	   _pages;
 	string			   _name;
-
+	int				   _active;
 public:
 	Page(void);
 	void setIndex(int index) {_index = index;}
@@ -31,6 +31,8 @@ public:
 	void addBlock(Block* b)    {_blocks.push_back(b);}
 	void removeBlock(int index);
 	void addPage(Page* p)			{_pages.push_back(p);} 
+	void setActiveState(int active)		{_active = active;} 
+	int  isActive()		{return _active;} 
 	vector<Page*>& getPages()       { return _pages; }
 	Page*          getPage(int idx) { return _pages[idx] ;}
 	void loadMat() ;

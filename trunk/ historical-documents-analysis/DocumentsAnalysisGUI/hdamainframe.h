@@ -56,7 +56,6 @@ private:
 	TreeViewModel* _manuscriptTreeModel;	
 	ManuscriptPropertiesModel* _manuscriptPropertiesModel;
 	ManuscriptPropertiesDelegate* _manuscriptPropertiesDelegete;
-
 	HdaFlowManager* _flowManager;
 
 	
