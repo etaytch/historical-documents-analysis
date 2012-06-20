@@ -92,6 +92,7 @@ void XmlWriter::pageGen(tinyxml2::XMLNode* node,
 		XMLNode* pageNode = node->InsertEndChild(element);
 		element->SetAttribute("index",(*pageIter)->getIndex());
 		element->SetAttribute("path",(*pageIter)->getName().c_str());
+		element->SetAttribute("active",(*pageIter)->isActive());
 		blockGen(pageNode,xmlDoc,*pageIter); 
 		pageGen(pageNode,xmlDoc,*pageIter);
 	}
@@ -109,6 +110,8 @@ void XmlWriter::pageGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, 
 		XMLNode* pageNode = node->InsertEndChild(element);
 		element->SetAttribute("index",(*pageIter)->getIndex());
 		element->SetAttribute("path",(*pageIter)->getName().c_str());
+		element->SetAttribute("active",(*pageIter)->isActive());
+
 		blockGen(pageNode,xmlDoc,*pageIter); 
 		pageGen(pageNode,xmlDoc,*pageIter);
 	}

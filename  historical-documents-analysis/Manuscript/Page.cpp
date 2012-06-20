@@ -3,6 +3,7 @@
 
 Page::Page(void)
 {
+	_active = 0;
 }
 
 void Page::removeBlock(int index)
