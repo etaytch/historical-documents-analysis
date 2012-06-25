@@ -25,9 +25,6 @@ private:
 	QPixmap _image;
 	mdiPageScene _imageScene;
 	QGraphicsPixmapItem _imagePixMap;
-	QGraphicsRectItem* _lastRect;
-	FrameDraw* _lastDraw;
-	bool rectDraw;
 
 public:
 	PageMdiChild(QString path, QWidget* parent);
@@ -43,7 +40,9 @@ public:
     QString currentFile()		{ return _curFile; }
 	QString getPath()			{return _path;}
     void setPath(QString path)	{ _path = path; }
-	
+	QVector<FrameDraw*> getFrames();
+	void showAllFrames();
+	void removeAllFrames();
 	virtual ~PageMdiChild();
 
 private:

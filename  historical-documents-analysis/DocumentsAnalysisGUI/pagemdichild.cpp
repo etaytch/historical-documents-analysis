@@ -7,8 +7,7 @@ PageMdiChild::PageMdiChild(QString path, QWidget* parent) :
 QGraphicsView(), 
 	_image(), 
 	_imageScene(this), 
-	_imagePixMap(), 
-	rectDraw(false)
+	_imagePixMap()
 {
 	 setAttribute(Qt::WA_DeleteOnClose);
 	 setBackgroundRole(QPalette::Base);
@@ -96,6 +95,21 @@ QString PageMdiChild::friendlyCurrentFile()
 QString PageMdiChild::strippedName(const QString &fullFileName)
 {
     return QFileInfo(fullFileName).fileName();
+}
+
+QVector<FrameDraw*> PageMdiChild::getFrames()
+{
+	return this->_imageScene.getFrames();
+}
+
+void PageMdiChild::showAllFrames()
+{
+	this->_imageScene.showAll();
+}
+
+void PageMdiChild::removeAllFrames()
+{
+	this->_imageScene.removeAll();
 }
 
 PageMdiChild::~PageMdiChild()

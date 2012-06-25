@@ -14,7 +14,8 @@ FrameDraw::FrameDraw(mdiPageScene* scene, QPointF point)	:
 	_borderPen(),
     _dragStart(30,30),
     _width(25),
-    _height(25)
+    _height(25),
+	_shown(false)
 {
 	_location = point;
 	action = MOVE; // move by default
@@ -152,6 +153,15 @@ void FrameDraw::hoverLeaveEvent ( QGraphicsSceneHoverEvent * event )
     this->update(0,0,_width,_height);
 }
 
+bool FrameDraw::isShown()
+{
+	return _shown;
+}
+
+void FrameDraw::setShown(bool shown)
+{
+	_shown = shown;
+}
 QPointF FrameDraw::getPos()
 {
 	return this->_location;
