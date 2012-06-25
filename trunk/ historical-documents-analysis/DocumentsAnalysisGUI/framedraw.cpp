@@ -172,9 +172,19 @@ int FrameDraw::getWidth()
 	return this->_width;
 }
 
+void FrameDraw::setWidth(int width)
+{
+	this->_width = width;
+}
+
 int FrameDraw::getHeight()
 {
 	return this->_height;
+}
+
+void FrameDraw::setHeight(int height)
+{
+	this->_height = height;
 }
 
 void FrameDraw::removeFromScene()

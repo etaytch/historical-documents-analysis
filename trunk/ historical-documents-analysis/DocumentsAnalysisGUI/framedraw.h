@@ -29,7 +29,9 @@ public:
 	bool isShown();
 	void setShown(bool shown);
 	QPointF getPos();
-	int getWidth();
+	void FrameDraw::setWidth(int width);
+	int getWidth();	
+	void FrameDraw::setHeight(int height);
 	int getHeight();
 	void removeFromScene();
 	~FrameDraw();
