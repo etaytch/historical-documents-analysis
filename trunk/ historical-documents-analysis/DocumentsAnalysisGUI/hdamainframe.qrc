@@ -1,5 +1,20 @@
 <RCC>
   <qresource prefix="HdaMainFrame">
+    <file>Resources/icons/binary-icon.png</file>
+    <file>Resources/icons/File-Word-icon.png</file>
+    <file>Resources/icons/Actions-transform-rotate-icon.png</file>
+    <file>Resources/icons/Eraser-icon.png</file>
+    <file>Resources/icons/Paste-icon.png</file>
+    <file>Resources/icons/Copy-icon.png</file>
+    <file>Resources/icons/Actions-transform-crop-icon.png</file>
+    <file>Resources/icons/Actions-blue-arrow-redo-icon.png</file>
+    <file>Resources/icons/Actions-blue-arrow-undo-icon.png</file>
+    <file>Resources/icons/Zoom-icon.png</file>
+    <file>Resources/icons/Actions-transform-scale-icon.png</file>
+    <file>Resources/icons/Zoom-In-icon.png</file>
+    <file>Resources/icons/Zoom-Out-icon.png</file>
+    <file>Resources/icons/ActionPageIcon.png</file>
+    <file>Resources/icons/ActionsPagesicon.png</file>
     <file>Resources/icons/Next-icon.png</file>
     <file>Resources/icons/Sign-Forward-icon.png</file>
     <file>Resources/toolBarIcons/Actions-system-shutdown-icon.png</file>

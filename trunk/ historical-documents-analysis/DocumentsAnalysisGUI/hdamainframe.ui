@@ -118,11 +118,20 @@
     <property name="title">
      <string>Edit</string>
     </property>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+    <addaction name="actionCrop"/>
+    <addaction name="actionCopy"/>
+    <addaction name="actionPaste"/>
+    <addaction name="actionEraser"/>
    </widget>
-   <widget class="QMenu" name="menuManuscript">
+   <widget class="QMenu" name="menuPageOperation">
     <property name="title">
-     <string>Manuscript</string>
+     <string>Page Operation</string>
     </property>
+    <addaction name="actionRotate"/>
+    <addaction name="actionBinarize"/>
+    <addaction name="actionLine_Extraction"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -131,13 +140,17 @@
     <addaction name="actionOriginal_size"/>
     <addaction name="actionTile_pages"/>
     <addaction name="actionCascade_pages"/>
+    <addaction name="actionFit_To_Screen"/>
+    <addaction name="actionZoomIn"/>
+    <addaction name="actionZoom_Out"/>
+    <addaction name="actionEnable_Scaling"/>
    </widget>
    <widget class="QMenu" name="menuTools">
     <property name="title">
      <string>Tools</string>
     </property>
     <addaction name="actionScedual_batch_job"/>
-    <addaction name="actionQuick_Opertion"/>
+    <addaction name="opertionMode_Opertion"/>
     <addaction name="actionSceduler"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -149,7 +162,7 @@
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
-   <addaction name="menuManuscript"/>
+   <addaction name="menuPageOperation"/>
    <addaction name="menuView"/>
    <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
@@ -175,10 +188,12 @@
    <addaction name="actionNewManuscript"/>
    <addaction name="actionSave_all"/>
    <addaction name="actionSave_current_file"/>
-   <addaction name="actionQuick_Opertion"/>
+   <addaction name="opertionMode_Opertion"/>
    <addaction name="actionScedual_batch_job"/>
    <addaction name="actionSceduler"/>
    <addaction name="actionHelp"/>
+   <addaction name="actionUndo"/>
+   <addaction name="actionRedo"/>
   </widget>
   <widget class="QDockWidget" name="ProjectTree_dock">
    <property name="sizePolicy">
@@ -657,13 +672,20 @@
     <string>Quit</string>
    </property>
   </action>
-  <action name="actionQuick_Opertion">
+  <action name="opertionMode_Opertion">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="hdamainframe.qrc">
-     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-quickopen-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-quickopen-icon.png</iconset>
+     <normaloff>:/HdaMainFrame/Resources/icons/ActionsPagesicon.png</normaloff>
+     <normalon>:/HdaMainFrame/Resources/icons/ActionPageIcon.png</normalon>:/HdaMainFrame/Resources/icons/ActionsPagesicon.png</iconset>
    </property>
    <property name="text">
-    <string>Quick Opertion</string>
+    <string>opertionMode</string>
+   </property>
+   <property name="toolTip">
+    <string>single/multiple page operation mode</string>
    </property>
   </action>
   <action name="actionScedual_batch_job">
@@ -735,6 +757,144 @@
    </property>
    <property name="text">
     <string>Open Project</string>
+   </property>
+  </action>
+  <action name="actionZoomIn">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/Zoom-In-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Zoom-In-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom In</string>
+   </property>
+   <property name="toolTip">
+    <string>Zoom in to active Page</string>
+   </property>
+  </action>
+  <action name="actionZoom_Out">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/Zoom-Out-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Zoom-Out-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Zoom Out</string>
+   </property>
+  </action>
+  <action name="actionEnable_Scaling">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/Actions-transform-scale-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Actions-transform-scale-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Enable Scaling</string>
+   </property>
+  </action>
+  <action name="actionFit_To_Screen">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/Zoom-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Zoom-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Fit To Screen</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/Actions-blue-arrow-undo-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Actions-blue-arrow-undo-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/Actions-blue-arrow-redo-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Actions-blue-arrow-redo-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Redo</string>
+   </property>
+   <property name="toolTip">
+    <string>Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Y</string>
+   </property>
+  </action>
+  <action name="actionCrop">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/Actions-transform-crop-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Actions-transform-crop-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Crop</string>
+   </property>
+   <property name="toolTip">
+    <string>Crop</string>
+   </property>
+  </action>
+  <action name="actionCopy">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/Copy-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Copy-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Copy</string>
+   </property>
+  </action>
+  <action name="actionPaste">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/Paste-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Paste-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Paste</string>
+   </property>
+  </action>
+  <action name="actionEraser">
+   <property name="icon">
+    <iconset theme="Erase" resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/Eraser-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Eraser-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Eraser</string>
+   </property>
+  </action>
+  <action name="actionRotate">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/Actions-transform-rotate-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Actions-transform-rotate-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate</string>
+   </property>
+   <property name="toolTip">
+    <string>Rotate</string>
+   </property>
+  </action>
+  <action name="actionBinarize">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/binary-icon.png</normaloff>:/HdaMainFrame/Resources/icons/binary-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Binarize</string>
+   </property>
+  </action>
+  <action name="actionLine_Extraction">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/File-Word-icon.png</normaloff>:/HdaMainFrame/Resources/icons/File-Word-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Line Extraction</string>
    </property>
   </action>
  </widget>
