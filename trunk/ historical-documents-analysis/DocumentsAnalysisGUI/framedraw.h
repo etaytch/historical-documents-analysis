@@ -44,6 +44,7 @@ public:
     qreal   _width;
     qreal   _height;
 	bool _shown;
+	bool _hovered;
 	//move, resize top right, resize top left, resize bottom right, resize bottom left
 	enum mouseAction { MOVE, RESIZETR, RESIZETL, RESIZEBR, RESIZEBL};
 	mouseAction action; 

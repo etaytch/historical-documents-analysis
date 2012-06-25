@@ -15,7 +15,8 @@ FrameDraw::FrameDraw(mdiPageScene* scene, QPointF point)	:
     _dragStart(30,30),
     _width(25),
     _height(25),
-	_shown(false)
+	_shown(false),
+	_hovered(false)
 {
 	_location = point;
 	action = MOVE; // move by default
@@ -50,6 +51,18 @@ void FrameDraw::paint (QPainter *painter, const QStyleOptionGraphicsItem *option
 	
     painter->drawRoundRect(rect,0,0);
 	setPos(_location);
+
+	if (_hovered)
+	{
+		_borderPen.setColor(Qt::black);
+		_borderPen.setStyle(Qt::DotLine);
+		painter->setPen(_borderPen);
+		painter->setBrush( background);
+		painter->drawRoundRect(QRectF(0,0,_width*0.25 ,_height*0.25));
+		painter->drawRoundRect(QRectF(_width-(_width*0.25),0,_width*0.25 ,_height*0.25));
+		painter->drawRoundRect(QRectF(0,_height-(_height*0.25),_width*0.25 ,_height*0.25));
+		painter->drawRoundRect(QRectF(_width- (_width*0.25),_height-(_height*0.25),_width*0.25 ,_height*0.25));
+	}
 
 }
 
@@ -143,12 +156,14 @@ void FrameDraw::mouseReleaseEvent (QGraphicsSceneMouseEvent* event)
 
 void FrameDraw::hoverEnterEvent ( QGraphicsSceneHoverEvent * event )
 {
+	_hovered = true;
 	_borderColor = Qt::red;
     this->update(0,0,_width,_height);
 }
 
 void FrameDraw::hoverLeaveEvent ( QGraphicsSceneHoverEvent * event )
 {
+	_hovered = false;
 	_borderColor = Qt::black;
     this->update(0,0,_width,_height);
 }

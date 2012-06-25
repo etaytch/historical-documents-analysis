@@ -112,6 +112,13 @@ void PageMdiChild::removeAllFrames()
 	this->_imageScene.removeAll();
 }
 
+void PageMdiChild::addRectangle(int x, int y, int width, int height)
+{
+	FrameDraw* newFrame = this->_imageScene.addRectangle(QPointF(x,y));
+	newFrame->setWidth(width);
+	newFrame->setHeight(height);
+}
+
 PageMdiChild::~PageMdiChild()
 {
 }

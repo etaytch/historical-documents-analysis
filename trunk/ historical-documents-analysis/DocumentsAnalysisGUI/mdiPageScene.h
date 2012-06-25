@@ -13,6 +13,7 @@ public:
 	void removeAll();
 	void removeRect(FrameDraw* toRemove);
 	QVector<FrameDraw*> getFrames();
+	FrameDraw* addRectangle(QPointF point);
 	virtual ~mdiPageScene(void);
 
 	QVector<FrameDraw*> frames;
