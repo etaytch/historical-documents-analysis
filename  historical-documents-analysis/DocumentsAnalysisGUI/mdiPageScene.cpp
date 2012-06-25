@@ -16,11 +16,7 @@ void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
 	if (_action == ADD)
 	{
-			FrameDraw* frameDraw = new FrameDraw(this, mouseOnPoint);
-			this->frames.push_back(frameDraw);
-			
-			this->addItem(frameDraw);
-			frameDraw->setShown(true);
+		addRectangle(mouseOnPoint);
 	}
 	_action = NONE;
 	
@@ -64,6 +60,17 @@ void mdiPageScene::removeRect(FrameDraw* toRemove)
 QVector<FrameDraw*> mdiPageScene::getFrames()
 {
 	return this->frames;
+}
+
+FrameDraw* mdiPageScene::addRectangle(QPointF point)
+{
+	FrameDraw* frameDraw = new FrameDraw(this, point);
+	this->frames.push_back(frameDraw);
+			
+	this->addItem(frameDraw);
+	frameDraw->setShown(true);
+
+	return frameDraw;
 }
 
 mdiPageScene::~mdiPageScene(void)

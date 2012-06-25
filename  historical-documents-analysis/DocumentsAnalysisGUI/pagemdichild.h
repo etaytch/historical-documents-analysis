@@ -43,6 +43,7 @@ public:
 	QVector<FrameDraw*> getFrames();
 	void showAllFrames();
 	void removeAllFrames();
+	void addRectangle(int x, int y, int width, int height);
 	virtual ~PageMdiChild();
 
 private:
