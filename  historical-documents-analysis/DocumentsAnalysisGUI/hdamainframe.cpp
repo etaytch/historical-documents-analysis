@@ -272,6 +272,7 @@ void HdaMainFrame::modelsInit()
 	}
 	this->_manuscriptTreeModel = new TreeViewModel(_project,ui.treeView);
 	ui.treeView->setModel(this->_manuscriptTreeModel);
+
 	if (_project.getManuscriptCount()>0)
 	{
 		_manuscriptPagesModel = new ThumbNailsModel(_project.getManuscriptAt(0),ui.thumbnailsView);
@@ -312,4 +313,3 @@ HdaMainFrame::~HdaMainFrame()
 	if (!_flowManager)
 		delete _flowManager;	
 }
-

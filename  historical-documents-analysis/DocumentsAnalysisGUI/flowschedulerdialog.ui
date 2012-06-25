@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>656</width>
-    <height>688</height>
+    <width>637</width>
+    <height>656</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -54,6 +54,18 @@
       </size>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetMinAndMaxSize</enum>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
       <item>
        <widget class="QLabel" name="flowPagesLabel_2">
         <property name="sizePolicy">
@@ -61,6 +73,12 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
         </property>
         <property name="font">
          <font>
@@ -107,19 +125,25 @@
          <enum>QFrame::NoFrame</enum>
         </property>
         <property name="frameShadow">
-         <enum>QFrame::Plain</enum>
+         <enum>QFrame::Sunken</enum>
         </property>
         <property name="lineWidth">
          <number>3</number>
         </property>
         <property name="midLineWidth">
-         <number>0</number>
+         <number>2</number>
         </property>
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
+        <property name="opaqueResize">
+         <bool>true</bool>
+        </property>
         <property name="handleWidth">
-         <number>10</number>
+         <number>4</number>
+        </property>
+        <property name="childrenCollapsible">
+         <bool>true</bool>
         </property>
         <widget class="QWidget" name="layoutWidget">
          <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -146,6 +170,9 @@
               </property>
               <property name="text">
                <string>Pages:</string>
+              </property>
+              <property name="buddy">
+               <cstring>flowPagesTreeView</cstring>
               </property>
              </widget>
             </item>
@@ -184,10 +211,35 @@
               <property name="text">
                <string>Operations:</string>
               </property>
+              <property name="buddy">
+               <cstring>flowOperationsListView</cstring>
+              </property>
              </widget>
             </item>
             <item>
              <widget class="QListView" name="flowOperationsListView"/>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_8">
+              <item>
+               <widget class="QLabel" name="flowPropertiesLabel">
+                <property name="font">
+                 <font>
+                  <underline>true</underline>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Properties:</string>
+                </property>
+                <property name="buddy">
+                 <cstring>flowPropertiesListView</cstring>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QListView" name="flowPropertiesListView"/>
+              </item>
+             </layout>
             </item>
            </layout>
           </item>
@@ -201,8 +253,8 @@
             </property>
             <property name="minimumSize">
              <size>
-              <width>64</width>
-              <height>64</height>
+              <width>32</width>
+              <height>32</height>
              </size>
             </property>
             <property name="text">
@@ -214,8 +266,8 @@
             </property>
             <property name="iconSize">
              <size>
-              <width>64</width>
-              <height>64</height>
+              <width>32</width>
+              <height>32</height>
              </size>
             </property>
             <property name="autoExclusive">
@@ -243,6 +295,9 @@
               </property>
               <property name="text">
                <string>Selected Operations:</string>
+              </property>
+              <property name="buddy">
+               <cstring>flowSelectedOperationsListView</cstring>
               </property>
              </widget>
             </item>
@@ -335,8 +390,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>620</width>
-               <height>153</height>
+               <width>601</width>
+               <height>124</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -432,6 +487,19 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>flowPagesTreeView</tabstop>
+  <tabstop>flowOperationsListView</tabstop>
+  <tabstop>flowPropertiesListView</tabstop>
+  <tabstop>flowSelectOperationButton</tabstop>
+  <tabstop>flowSelectedOperationsListView</tabstop>
+  <tabstop>flowMoveDownOperation</tabstop>
+  <tabstop>flowMoveUpOperationButton</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>clearDoneButton</tabstop>
+  <tabstop>startFlowButton</tabstop>
+  <tabstop>cancelButton</tabstop>
+ </tabstops>
  <resources>
   <include location="hdamainframe.qrc"/>
  </resources>
