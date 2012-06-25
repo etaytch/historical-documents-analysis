@@ -7,6 +7,7 @@ QGraphicsScene(parent), _action(NONE), _frameView(SHOWN)
 {
 	//delete
 	_action = ADD;
+
 }
 
 void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
