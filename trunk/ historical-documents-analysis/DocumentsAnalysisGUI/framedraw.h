@@ -26,6 +26,8 @@ public:
     virtual void hoverLeaveEvent ( QGraphicsSceneHoverEvent * event ); 
 	bool closeTo(QPointF p1, QPointF p2);
 	void movePosition(int x, int y);
+	bool isShown();
+	void setShown(bool shown);
 	QPointF getPos();
 	int getWidth();
 	int getHeight();
@@ -39,6 +41,7 @@ public:
     QPointF _dragStart;
     qreal   _width;
     qreal   _height;
+	bool _shown;
 	//move, resize top right, resize top left, resize bottom right, resize bottom left
 	enum mouseAction { MOVE, RESIZETR, RESIZETL, RESIZEBR, RESIZEBL};
 	mouseAction action; 
