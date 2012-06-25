@@ -175,6 +175,7 @@ int FrameDraw::getWidth()
 void FrameDraw::setWidth(int width)
 {
 	this->_width = width;
+	this->update(0,0,_width,_height);
 }
 
 int FrameDraw::getHeight()
@@ -185,6 +186,7 @@ int FrameDraw::getHeight()
 void FrameDraw::setHeight(int height)
 {
 	this->_height = height;
+	this->update(0,0,_width,_height);
 }
 
 void FrameDraw::removeFromScene()
