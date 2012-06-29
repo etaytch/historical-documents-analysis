@@ -1,6 +1,7 @@
 #pragma once
 #include <QGraphicsScene>
 class FrameDraw;
+class RectFrame;
 
 class mdiPageScene :
 	public QGraphicsScene
@@ -13,11 +14,14 @@ public:
 	void removeAll();
 	void removeRect(FrameDraw* toRemove);
 	QVector<FrameDraw*> getFrames();
-	FrameDraw* addRectangle(QPointF point);
+	RectFrame* addRectangle(QPointF point);
+	FrameDraw* addPolygon(QVector<QPointF> points);
+	void DrawPoly();
 	virtual ~mdiPageScene(void);
 
 	QVector<FrameDraw*> frames;
-	enum RectAction { ADD, REMOVE, NONE};
+	QVector<QPointF> _pointsForNextPoly;
+	enum RectAction { ADDPOLY, ADDRECT, REMOVE, NONE};
 	RectAction _action; 
 	enum RectView { SHOWN, HIDDEN};
 	RectView _frameView; 
