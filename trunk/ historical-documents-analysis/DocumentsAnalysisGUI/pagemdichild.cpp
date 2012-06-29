@@ -2,6 +2,7 @@
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include <QRect>
+#include "RectFrame.h"
 
 PageMdiChild::PageMdiChild(QString path, QWidget* parent) : 
 QGraphicsView(), 
@@ -114,9 +115,34 @@ void PageMdiChild::removeAllFrames()
 
 void PageMdiChild::addRectangle(int x, int y, int width, int height)
 {
-	FrameDraw* newFrame = this->_imageScene.addRectangle(QPointF(x,y));
+	RectFrame* newFrame = this->_imageScene.addRectangle(QPointF(x,y));
 	newFrame->setWidth(width);
 	newFrame->setHeight(height);
+}
+
+void PageMdiChild::addPolygon(QVector<QPointF> points)
+{
+	this->_imageScene.addPolygon(points);
+}
+
+void PageMdiChild::setAddPolygon()
+{
+	this->_imageScene._action = mdiPageScene::RectAction::ADDPOLY;
+}
+
+void PageMdiChild::setAddRectangle()
+{
+	this->_imageScene._action = mdiPageScene::RectAction::ADDRECT;
+}
+
+void PageMdiChild::setRemove()
+{
+	this->_imageScene._action = mdiPageScene::RectAction::REMOVE;
+}
+
+void PageMdiChild::setNone()
+{
+	this->_imageScene._action = mdiPageScene::RectAction::NONE;
 }
 
 PageMdiChild::~PageMdiChild()

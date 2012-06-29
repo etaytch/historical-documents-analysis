@@ -44,6 +44,11 @@ public:
 	void showAllFrames();
 	void removeAllFrames();
 	void addRectangle(int x, int y, int width, int height);
+	void addPolygon(QVector<QPointF> points);
+	void setAddPolygon();
+	void setAddRectangle();
+	void setRemove();
+	void setNone();
 	virtual ~PageMdiChild();
 
 private:
