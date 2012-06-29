@@ -145,6 +145,11 @@ void PageMdiChild::setNone()
 	this->_imageScene._action = mdiPageScene::RectAction::NONE;
 }
 
+void PageMdiChild::drawPolygon()
+{
+	this->_imageScene.DrawPoly();
+}
+
 PageMdiChild::~PageMdiChild()
 {
 }

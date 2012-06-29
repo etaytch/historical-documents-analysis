@@ -46,6 +46,7 @@ public:
 	void addRectangle(int x, int y, int width, int height);
 	void addPolygon(QVector<QPointF> points);
 	void setAddPolygon();
+	void drawPolygon();
 	void setAddRectangle();
 	void setRemove();
 	void setNone();
