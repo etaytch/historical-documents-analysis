@@ -1,5 +1,12 @@
 <RCC>
   <qresource prefix="HdaMainFrame">
+    <file>Resources/icons/Actions-view-process-all-icon.png</file>
+    <file>Resources/icons/bin-icon.png</file>
+    <file>Resources/icons/copying-and-distribution-icon.png</file>
+    <file>Resources/icons/draw-line-icon.png</file>
+    <file>Resources/icons/draw-polygon-icon.png</file>
+    <file>Resources/icons/draw-polyline-icon.png</file>
+    <file>Resources/icons/rectangle-icon.png</file>
     <file>Resources/icons/binary-icon.png</file>
     <file>Resources/icons/File-Word-icon.png</file>
     <file>Resources/icons/Actions-transform-rotate-icon.png</file>

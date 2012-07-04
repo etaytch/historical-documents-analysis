@@ -47,6 +47,12 @@ public slots:
 	void tilePages();
 	void openFlowDialog();	
 	void openProperties(QModelIndex);
+	void drawRectangle();
+	void drawPolygon(bool start);
+	void deleteFrame();
+	void showFrames(bool show);
+
+
 
 private:
 	Ui::HdaMainFrameClass ui;
