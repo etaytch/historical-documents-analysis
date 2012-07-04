@@ -260,6 +260,51 @@ void HdaMainFrame::tilePages()
 }
 
 
+void HdaMainFrame::drawRectangle()
+{
+	qobject_cast<PageMdiChild*>
+		(ui.mdiArea->currentSubWindow()->widget())->setAddRectangle();
+}
+
+void HdaMainFrame::drawPolygon(bool start)
+{
+	PageMdiChild* child = qobject_cast<PageMdiChild*>
+								(ui.mdiArea->currentSubWindow()->widget()); 
+	if (start)
+	{
+		child->setAddPolygon();
+	}
+	else
+	{
+		child->drawPolygon();
+	}
+}
+
+void HdaMainFrame::deleteFrame()
+{
+	
+	PageMdiChild* child = qobject_cast<PageMdiChild*>
+								(ui.mdiArea->currentSubWindow()->widget());
+	child->setRemove();
+
+}
+
+void HdaMainFrame::showFrames(bool show)
+{
+	PageMdiChild* child = qobject_cast<PageMdiChild*>
+								(ui.mdiArea->currentSubWindow()->widget()); 
+	if (show)
+	{
+		child->showAllFrames();
+	}
+	else
+	{
+		child->removeAllFrames();
+	}
+
+}
+
+
 /***********************************/
 /********  PRIVATE METHODS *********/
 /***********************************/

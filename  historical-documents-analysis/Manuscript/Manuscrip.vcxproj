@@ -110,7 +110,6 @@
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="ColumnOrderBlender.cpp" />
     <ClCompile Include="ComponentComparator.cpp" />
-    <ClCompile Include="ComponentEvolutionMap.cpp" />
     <ClCompile Include="ComponentFilter.cpp" />
     <ClCompile Include="ConnectedComponent.cpp" />
     <ClCompile Include="Contour.cpp" />
@@ -121,9 +120,7 @@
     <ClCompile Include="OtsulBinarizer.cpp" />
     <ClCompile Include="Page.cpp" />
     <ClCompile Include="ProfileFeature.cpp" />
-    <ClCompile Include="ProjectionProfile.cpp" />
     <ClCompile Include="RadialBinarizer.cpp" />
-    <ClCompile Include="SeamLineExtractor.cpp" />
     <ClCompile Include="seprateLine.cpp" />
     <ClCompile Include="SignedDistanceTransform.cpp" />
     <ClCompile Include="TextLine.cpp" />

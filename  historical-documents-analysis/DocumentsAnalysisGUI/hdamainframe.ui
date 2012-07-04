@@ -564,6 +564,21 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QToolBar" name="drawingToolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionDraw_Rectangle"/>
+   <addaction name="actionDraw_Polygon"/>
+   <addaction name="actionDelete_Frame"/>
+   <addaction name="actionShow_Frames"/>
+  </widget>
   <action name="actionNewManuscript">
    <property name="icon">
     <iconset resource="hdamainframe.qrc">
@@ -895,6 +910,63 @@
    </property>
    <property name="text">
     <string>Line Extraction</string>
+   </property>
+  </action>
+  <action name="actionDraw_Rectangle">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/rectangle-icon.png</normaloff>:/HdaMainFrame/Resources/icons/rectangle-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Draw Rectangle</string>
+   </property>
+   <property name="toolTip">
+    <string>Draw Rectangle</string>
+   </property>
+  </action>
+  <action name="actionDraw_Polygon">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/draw-polygon-icon.png</normaloff>:/HdaMainFrame/Resources/icons/draw-polygon-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Draw Polygon</string>
+   </property>
+   <property name="toolTip">
+    <string>Draw Polygon</string>
+   </property>
+  </action>
+  <action name="actionDelete_Frame">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/bin-icon.png</normaloff>:/HdaMainFrame/Resources/icons/bin-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Delete Frame</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete Frame</string>
+   </property>
+  </action>
+  <action name="actionShow_Frames">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/copying-and-distribution-icon.png</normaloff>:/HdaMainFrame/Resources/icons/copying-and-distribution-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Show Frames </string>
+   </property>
+   <property name="toolTip">
+    <string>Show/Hide  Frames </string>
    </property>
   </action>
  </widget>
@@ -1255,6 +1327,70 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionDraw_Polygon</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>drawPolygon(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionDraw_Rectangle</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>drawRectangle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionDelete_Frame</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>deleteFrame()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionShow_Frames</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>showFrames(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openImageWindowFromThumbView(QModelIndex)</slot>
@@ -1274,5 +1410,9 @@
   <slot>help()</slot>
   <slot>openFlowDialog()</slot>
   <slot>openProperties(QModelIndex)</slot>
+  <slot>drawRectangle()</slot>
+  <slot>drawPolygon(bool)</slot>
+  <slot>showFrames(bool)</slot>
+  <slot>deleteFrame()</slot>
  </slots>
 </ui>
