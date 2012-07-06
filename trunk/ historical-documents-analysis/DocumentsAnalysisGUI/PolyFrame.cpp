@@ -1,5 +1,6 @@
 #include "PolyFrame.h"
 #include "mdiPageScene.h"
+#include <algorithm>
 
 PolyFrame::PolyFrame(mdiPageScene* scene) :
 	FrameDraw(scene),
@@ -65,7 +66,15 @@ void PolyFrame::mouseMoveEvent (QGraphicsSceneMouseEvent* event)
 {
 	qreal dx = event->scenePos().x() - _dragStart.x();
 	qreal dy = event->scenePos().y() - _dragStart.y();
-	_points.replace(movingIndex, QPointF(_points.at(movingIndex).x()+dx, _points.at(movingIndex).y() + dy));
+	float x = _points.at(movingIndex).x()+dx;
+	float y = _points.at(movingIndex).y() + dy;
+	//align to scene
+	x = std::max((float)x,(float)0);
+	y = std::max((float)y,(float)0);
+	x = std::min((float)x,(float)this->scene()->sceneRect().width());
+	y = std::min((float)y,(float)this->scene()->sceneRect().height());
+	//
+	_points.replace(movingIndex, QPointF(x,y));
 	delete this->_poly;
 	this->_poly = new QPolygonF(_points);
 	this->update(this->_poly->boundingRect());
