@@ -25,9 +25,9 @@ public:
 	void movePosition(int x, int y);
 	QPointF getPos();
 	void setWidth(int width);
-	int getWidth();	
+	qreal getWidth();	
 	void setHeight(int height);
-	int getHeight();
+	qreal getHeight();
 	~RectFrame(void);
 
 	mdiPageScene* _scene;
