@@ -127,6 +127,7 @@ bool TreeViewModel::setData(const QModelIndex &index, const QVariant &value,
 		{
 			PageDoc pd = qVariantValue<PageDoc>(item->data(index.column()));
 			pd.getPage()->setActiveState(qVariantValue<int>(value));
+			emit updateThumbnails(pd,item,qVariantValue<int>(value));
 			emit dataChanged(index,index);
 			return true;
 		}

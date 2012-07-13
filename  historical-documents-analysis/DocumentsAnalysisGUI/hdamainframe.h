@@ -47,6 +47,7 @@ public slots:
 	void tilePages();
 	void openFlowDialog();	
 	void openProperties(QModelIndex);
+	void openDiff();
 	void drawRectangle();
 	void drawPolygon(bool start);
 	void deleteFrame();

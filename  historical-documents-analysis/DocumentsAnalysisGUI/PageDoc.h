@@ -15,12 +15,13 @@ public:
 	PageDoc(QObject *parent=0);
 	PageDoc(const PageDoc &p);
 	PageDoc(Page* page,QString man,TreeItem* treeitem, QObject *parent=0);
-	void setPage(Page* page)				{_page = page;}
-	Page* getPage()							{return _page;}
-	void setManuscriptName(QString man)		{_man = man;}
-	QString getManuscriptName()				{return _man;}
-	TreeItem* getTreeItem();
 
+	void setPage(Page* page)				{_page = page;}
+	Page* getPage()	const					{return _page;}
+	void setManuscriptName(QString man)		{_man = man;}
+	QString getManuscriptName()	const		{return _man;}
+	TreeItem* getTreeItem() const;
+	virtual PageDoc& operator=(const PageDoc&);
 	virtual ~PageDoc(void){}
 
 private:

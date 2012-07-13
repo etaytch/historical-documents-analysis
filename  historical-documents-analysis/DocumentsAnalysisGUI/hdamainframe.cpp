@@ -1,8 +1,11 @@
 #include "hdamainframe.h"
-#include <QMdiSubWindow>
-#include <QDebug>
 #include "xmlwriter.h"
 #include "Defs.h"
+#include "hdadiffwindow.h"
+#include "pagechooser.h"
+
+#include <QMdiSubWindow>
+#include <QDebug>
 
 HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
@@ -21,9 +24,10 @@ HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 
 void HdaMainFrame::openImageWindowFromThumbView(QModelIndex index)
 {
-	if (qVariantCanConvert<QString> (index.data(Qt::UserRole)))
+	if (qVariantCanConvert<PageDoc> (index.data(Qt::UserRole)))
 	{
-		QString pagePath = qVariantValue<QString>(index.data(Qt::UserRole));
+		PageDoc page = qVariantValue<PageDoc>(index.data(Qt::UserRole));
+		QString pagePath = page.getPage()->getName().c_str();
 		foreach (QMdiSubWindow *window, ui.mdiArea->subWindowList())
 		{
 			if ((static_cast<PageMdiChild*>(window->widget()))->getPath() == pagePath)
@@ -32,7 +36,8 @@ void HdaMainFrame::openImageWindowFromThumbView(QModelIndex index)
 				return;
 			}
 		}
-		PageMdiChild* p = new PageMdiChild(pagePath,ui.mdiArea);
+		page.getPage()->loadMat();
+		PageMdiChild* p = new PageMdiChild(page,ui.mdiArea);
 		ui.mdiArea->addSubWindow(p);
 		p->loadFile(pagePath);
 		p->show();
@@ -54,7 +59,9 @@ void HdaMainFrame::openImageWindowFromTreeView(QModelIndex index)
 				return;
 			}
 		}
-		PageMdiChild* p = new PageMdiChild(pagePath,ui.mdiArea);
+
+		page.getPage()->loadMat();
+		PageMdiChild* p = new PageMdiChild(page,ui.mdiArea);
 		ui.mdiArea->addSubWindow(p);
 		p->loadFile(pagePath);
 		p->show();
@@ -89,7 +96,7 @@ void HdaMainFrame::LoadManuscript(QModelIndex index)
 	{
 		QString manName = qVariantValue<QString>(index.data());
 		ManuscriptDoc man = _project.getManuscriptAt(manName);
-		_manuscriptPagesModel = new ThumbNailsModel(man,ui.thumbnailsView);
+		_manuscriptPagesModel = new ThumbNailsModel(_manuscriptTreeModel->getRootItem(),_project,ui.thumbnailsView);
 		ui.thumbnailsView->setModel(_manuscriptPagesModel);
 		ui.CurrentManuscriptPages->setWindowTitle(manName+" Pages");
 	}	
@@ -304,37 +311,18 @@ void HdaMainFrame::showFrames(bool show)
 
 }
 
-
-/***********************************/
-/********  PRIVATE METHODS *********/
-/***********************************/
-
-void HdaMainFrame::modelsInit()
+void HdaMainFrame::openDiff()
 {
-	if (!_manuscriptTreeModel)
+	PageChooser* pc = new PageChooser(this->_manuscriptTreeModel,this->_manuscriptTreeModel,this);
+	if (pc->exec()==QDialog::Accepted)
 	{
-		delete _manuscriptTreeModel;
+		HdaDiffWindow* diffWindow = new HdaDiffWindow(pc->getSelectedPages().first,pc->getSelectedPages().second ,this);
+		diffWindow->exec();
+		delete diffWindow;
 	}
-	this->_manuscriptTreeModel = new TreeViewModel(_project,ui.treeView);
-	ui.treeView->setModel(this->_manuscriptTreeModel);
-
-	if (_project.getManuscriptCount()>0)
-	{
-		_manuscriptPagesModel = new ThumbNailsModel(_project.getManuscriptAt(0),ui.thumbnailsView);
-	}
-	else
-	{
-		_manuscriptPagesModel = new ThumbNailsModel(ui.thumbnailsView);
-	}
-	ui.thumbnailsView->setModel(_manuscriptPagesModel);
+	delete pc;
 }
 
-void HdaMainFrame::cleanProject()
-{
-	_project = ProjectDoc();
-	_manuscriptTreeModel = 0;
-	_manuscriptPagesModel = 0;
-}
 
 void HdaMainFrame::openFlowDialog()
 {	
@@ -356,5 +344,43 @@ HdaMainFrame::~HdaMainFrame()
 	if (!_manuscriptPagesModel)
 		delete _manuscriptTreeModel;
 	if (!_flowManager)
-		delete _flowManager;	
+		delete _flowManager;
 }
+
+/***********************************/
+/********  PRIVATE METHODS *********/
+/***********************************/
+
+void HdaMainFrame::modelsInit()
+{
+	if (!_manuscriptTreeModel)
+	{
+		delete _manuscriptTreeModel;
+	}
+	_manuscriptTreeModel = new TreeViewModel(_project,ui.treeView);
+	ui.treeView->setModel(_manuscriptTreeModel);
+
+	if (_project.getManuscriptCount()>0)
+	{
+		_manuscriptPagesModel = new ThumbNailsModel(_manuscriptTreeModel->getRootItem(),_project,ui.thumbnailsView);
+	}
+	else
+	{
+		_manuscriptPagesModel = new ThumbNailsModel(ui.thumbnailsView);
+	}
+	
+	connect(_manuscriptTreeModel, 
+			SIGNAL(updateThumbnails(PageDoc,TreeItem*,int)),
+            _manuscriptPagesModel, 
+			SLOT(updateThumbnail(PageDoc,TreeItem*,int)));
+
+	ui.thumbnailsView->setModel(_manuscriptPagesModel);
+}
+
+void HdaMainFrame::cleanProject()
+{
+	_project = ProjectDoc();
+	_manuscriptTreeModel = 0;
+	_manuscriptPagesModel = 0;
+}
+
