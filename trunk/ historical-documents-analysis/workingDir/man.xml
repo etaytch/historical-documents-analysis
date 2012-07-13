@@ -8,7 +8,7 @@
     <FontType>font-type</FontType>
     <DirectoryPath>man</DirectoryPath>
     <Pages count="9" path="man/Pages">
-        <Page index="1" path="man/Pages/1.jpg" active="0">
+        <Page index="1" path="man/Pages/1.jpg" active="2">
             <Block type="1">
                 <TextLine>
                     <Rect x="1" y="1" w="20" h="20"/>
@@ -33,7 +33,7 @@
                     </LowerPoints>
                 </TextLine>
             </Block>
-            <Page index="1" path="man/Pages/1_copy1.jpg" active="0">
+            <Page index="1" path="man/Pages/1_copy1.jpg" active="2">
                 <Block type="1">
                     <TextLine>
                         <Rect x="1" y="1" w="20" h="20"/>
