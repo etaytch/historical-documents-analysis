@@ -16,10 +16,17 @@ PageDoc::PageDoc(const PageDoc &p)
 {
 	_page = p._page;
 	_man = p._man;
+	_treeItem = p.getTreeItem();
 }
 
-TreeItem* PageDoc::getTreeItem()
+TreeItem* PageDoc::getTreeItem() const
 {
 	return _treeItem;
 }
 
+PageDoc& PageDoc::operator=(const PageDoc& p) {
+	_page = p.getPage();
+	_man = p.getManuscriptName();
+	_treeItem = p.getTreeItem();
+	return *this;
+}

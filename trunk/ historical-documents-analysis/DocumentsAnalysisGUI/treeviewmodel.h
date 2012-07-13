@@ -38,6 +38,7 @@ public:
 	QModelIndex parent(const QModelIndex &index) const;
 	QModelIndex index(int row, int column, const QModelIndex &parent) const;
 	TreeItem *getItem(const QModelIndex &index) const;
+	TreeItem *getRootItem() const {return _rootItem;}
 
 	ProjectDoc _project;
 private:
@@ -52,7 +53,7 @@ private: //methods
 	
 signals:
     void editCompleted(const QString &);
-
+	void updateThumbnails(PageDoc,TreeItem*,int);
 };
 
 #endif // TREEVIEWMODEL_H

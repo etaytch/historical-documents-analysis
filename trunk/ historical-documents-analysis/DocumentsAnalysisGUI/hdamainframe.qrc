@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="HdaMainFrame">
+    <file>Resources/icons/select-by-difference-icon.png</file>
     <file>Resources/icons/Actions-view-process-all-icon.png</file>
     <file>Resources/icons/bin-icon.png</file>
     <file>Resources/icons/copying-and-distribution-icon.png</file>

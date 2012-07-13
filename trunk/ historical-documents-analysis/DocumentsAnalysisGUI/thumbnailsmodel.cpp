@@ -1,11 +1,13 @@
 #include "thumbnailsmodel.h"
+#include <QFileInfo>
+#include <QFile>
 
 
-ThumbNailsModel::ThumbNailsModel(ManuscriptDoc& man,QObject *parent)
+ThumbNailsModel::ThumbNailsModel(TreeItem *rootItem,ProjectDoc proj ,QObject *parent)
 	: QAbstractListModel(parent)
 {
-	_man = man;
-	loadImages();
+	_project = proj;
+	loadImages(rootItem);
 }
 
 ThumbNailsModel::ThumbNailsModel(QObject *parent)
@@ -13,41 +15,76 @@ ThumbNailsModel::ThumbNailsModel(QObject *parent)
 {
 }
 
-bool ThumbNailsModel::loadImages()
+bool ThumbNailsModel::removeRows(int position, int rows, const QModelIndex &parent)
 {
-	
-	QDir manPagesDir(_man.getPagesDirPath());
-	QDir manThumbsDir(_man.getThumbnailsDirPath());
+	beginRemoveRows(parent, position, position + rows - 1);
+    endRemoveRows();
+	return true;
+}
 
-	//create thumnails folder if it doesnt exist
+bool ThumbNailsModel::insertRows(int position, int rows, const QModelIndex &parent)
+{
+    beginInsertRows(parent, 0, position + rows - 1);
+    endInsertRows();
+    return true;
+}
+
+void ThumbNailsModel::updateThumbnail(PageDoc pd , TreeItem* child, int checked)
+{
+	ManuscriptDoc manDoc = _project.getManuscriptAt(pd.getManuscriptName());
+	QDir manPagesDir(manDoc.getPagesDirPath());
+	QDir manThumbsDir(manDoc.getThumbnailsDirPath());
 	if (!manThumbsDir.exists())
 	{
-		QDir().mkdir(_man.getThumbnailsDirPath());
+		QDir().mkdir(manDoc.getThumbnailsDirPath());
 	}
 
-	QStringList imageList = manPagesDir.entryList(QDir::Files); //put all the images names in the folder into a vector  
-	foreach(QString imageFileName, imageList)	
+	if(checked)
 	{
+		QString imageFileName = QFileInfo(QFile(pd.getPage()->getName().c_str())).fileName(); 
 		QPixmap image = QPixmap();
-		QString thumbPath = _man.getThumbnailsDirPath()+"/"+imageFileName; 
+		QString thumbPath = manDoc.getThumbnailsDirPath()+"/"+imageFileName; 
 		thumbPath = thumbPath.split(".")[0]+".png";
-		QString realPath = _man.getPagesDirPath()+"/"+imageFileName; 
-
+		QString realPath = manDoc.getPagesDirPath()+"/"+imageFileName;
 		QFile thumbfile(thumbPath);
 		if (thumbfile.exists())
 		{
-			if (!image.load(thumbPath))
-				return false;
+			if (!image.load(thumbPath)) return;
 			_thumbnails.insert(realPath,image);
+			_pages.insert(realPath,PageDoc(pd.getPage(),pd.getManuscriptName(),child));
 		}
 		else
 		{
-			if (!image.load(realPath))
-				return false;		
+			if (!image.load(realPath)) return;		
 			image = image.scaled(150, 150, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 			saveThumbnail(thumbPath,image);
 			_thumbnails.insert(realPath,image);
+			_pages.insert(realPath,PageDoc(pd.getPage(),pd.getManuscriptName(),child));
 		}
+		insertRows(rowCount(),1,QModelIndex());
+	}
+	else
+	{
+		_thumbnails.remove(pd.getPage()->getName().c_str());
+		_pages.remove(pd.getPage()->getName().c_str());
+		removeRows(rowCount(),1,QModelIndex());
+	}
+}
+
+bool ThumbNailsModel::loadImages(TreeItem *rootItem)
+{
+	for(int i=0; i<rootItem->childCount();i++)	
+	{
+		TreeItem* child = rootItem->child(i);
+		if (qVariantCanConvert<PageDoc>(child->data(0)))
+		{
+			PageDoc pd = qVariantValue<PageDoc>(child->data(0));
+			updateThumbnail(pd,child,pd.getPage()->isActive());
+		}
+		else
+		{
+		}
+		loadImages(child);
 	}
 	return true;
 }
@@ -89,7 +126,7 @@ QVariant ThumbNailsModel::data(const QModelIndex &index, int role) const
 		}
 		case Qt::UserRole:
 		{
-			return  (_thumbnails.begin()+index.row()).key();
+			return  QVariant::fromValue((_pages.begin()+index.row()).value());
 		}
 		default:
 			return QVariant();

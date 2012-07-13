@@ -152,6 +152,7 @@
     <addaction name="actionScedual_batch_job"/>
     <addaction name="opertionMode_Opertion"/>
     <addaction name="actionSceduler"/>
+    <addaction name="actionPages_Diff"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -969,6 +970,15 @@
     <string>Show/Hide  Frames </string>
    </property>
   </action>
+  <action name="actionPages_Diff">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/select-by-difference-icon.png</normaloff>:/HdaMainFrame/Resources/icons/select-by-difference-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pages Diff</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -1391,6 +1401,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionPages_Diff</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>openDiff()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openImageWindowFromThumbView(QModelIndex)</slot>
@@ -1414,5 +1440,6 @@
   <slot>drawPolygon(bool)</slot>
   <slot>showFrames(bool)</slot>
   <slot>deleteFrame()</slot>
+  <slot>openDiff()</slot>
  </slots>
 </ui>

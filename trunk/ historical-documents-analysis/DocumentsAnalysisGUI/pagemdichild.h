@@ -13,6 +13,7 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsRectItem>
 #include "framedraw.h"
+#include "PageDoc.h"
 #include "mdiPageScene.h"
 
 class PageMdiChild : public QGraphicsView 
@@ -23,11 +24,12 @@ private:
 	QString _curFile;
 	QString _path;
 	QPixmap _image;
+	PageDoc _page;
 	mdiPageScene _imageScene;
 	QGraphicsPixmapItem _imagePixMap;
 
 public:
-	PageMdiChild(QString path, QWidget* parent);
+	PageMdiChild(PageDoc path, QWidget* parent);
 	int getOriginalWidth();
 	int getOriginalHeight();
     bool loadFile(const QString &fileName);

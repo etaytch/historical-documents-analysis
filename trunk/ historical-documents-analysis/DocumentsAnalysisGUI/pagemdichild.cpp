@@ -1,20 +1,25 @@
 #include "PageMdiChild.h"
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
+#include <QImage>
 #include <QRect>
 #include "RectFrame.h"
 
-PageMdiChild::PageMdiChild(QString path, QWidget* parent) : 
+PageMdiChild::PageMdiChild(PageDoc page, QWidget* parent) : 
 QGraphicsView(), 
-	_image(), 
 	_imageScene(this), 
 	_imagePixMap()
 {
+	 Mat d;
 	 setAttribute(Qt::WA_DeleteOnClose);
 	 setBackgroundRole(QPalette::Base);
 	 setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 	 this->setScene(&this->_imageScene);
-	 _path = path;
+	 _page = page;
+	 cvtColor(_page.getPage()->getMat(),d,CV_BGR2RGB);
+     QImage image((uchar*)d.data, d.cols, d.rows,QImage::Format_RGB888);
+	 _image = QPixmap::fromImage(image); 
+	 _path = page.getPage()->getName().c_str();		
 }
 
 int PageMdiChild::getOriginalWidth()
