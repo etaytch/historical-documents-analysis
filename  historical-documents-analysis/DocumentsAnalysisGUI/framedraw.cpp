@@ -9,20 +9,9 @@
 
 FrameDraw::FrameDraw(mdiPageScene* scene) : 
 	QObject(),
-	QGraphicsItem(),
-	_shown(false)
+	QGraphicsItem()
 {
 	_scene = scene;	
-}
-
-bool FrameDraw::isShown()
-{
-	return _shown;
-}
-
-void FrameDraw::setShown(bool shown)
-{
-	_shown = shown;
 }
 
 void FrameDraw::removeFromScene()

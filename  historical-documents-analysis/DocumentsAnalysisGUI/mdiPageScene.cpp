@@ -28,51 +28,51 @@ void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
 void mdiPageScene::showAll()
 {
-	QVector<FrameDraw*>::Iterator iter;
-	for( iter = this->frames.begin(); iter != this->frames.end() ; ++iter)
+	QList<QGraphicsItem*> sceneFrames = this->items();
+	QList<QGraphicsItem*>::Iterator iter;
+	for( iter = sceneFrames.begin(); iter != sceneFrames.end() ; ++iter)
 	{
-		FrameDraw* frame = *iter;
-		if (!frame->isShown())
-		{
-			this->addItem(frame);
-			frame->setShown(true);
-		}
+		QGraphicsItem* frame = dynamic_cast<FrameDraw*>(*iter);
+		if (frame != 0) frame->setVisible(true);
 	}
 }
 
 void mdiPageScene::removeAll()
 {
-	QVector<FrameDraw*>::Iterator iter;
-	for( iter = this->frames.begin(); iter != this->frames.end() ; ++iter)
+	QList<QGraphicsItem*> sceneFrames = this->items();
+	QList<QGraphicsItem*>::Iterator iter;
+	for( iter = sceneFrames.begin(); iter != sceneFrames.end() ; ++iter)
 	{
-		FrameDraw* frame = *iter;
-		if (frame->isShown())
-		{
-			this->removeItem(frame);
-			frame->setShown(false);
-		}
+		QGraphicsItem* frame = dynamic_cast<FrameDraw*>(*iter);
+		if (frame != 0)frame->setVisible(false);
 	}
 }
 
 void mdiPageScene::removeFrame(FrameDraw* toRemove)
 {
 	this->removeItem((QGraphicsItem*) toRemove);
-	this->frames.remove(this->frames.indexOf(toRemove));
 	delete toRemove;
 }
 
 QVector<FrameDraw*> mdiPageScene::getFrames()
 {
-	return this->frames;
+	QVector<FrameDraw*> allFrames;
+	QList<QGraphicsItem*> sceneFrames = this->items();
+	QList<QGraphicsItem*>::Iterator iter;
+	for( iter = sceneFrames.begin(); iter != sceneFrames.end() ; ++iter)
+	{
+		FrameDraw* frame = dynamic_cast<FrameDraw*>(*iter);
+		if (frame != 0) allFrames.push_back(frame);
+	}
+
+	return allFrames;
 }
 
 RectFrame* mdiPageScene::addRectangle(QPointF point)
 {
 	RectFrame* frame = new RectFrame(this, point);
-	this->frames.push_back(frame);
-			
+
 	this->addItem(frame);
-	frame->setShown(true);
 
 	return frame;
 }
@@ -82,10 +82,8 @@ FrameDraw* mdiPageScene::addPolygon(QVector<QPointF> points)
 	FrameDraw* frameDraw = 0;
 	if (points.size() > 0) frameDraw = new PolyFrame(this, points);
 	else frameDraw = new PolyFrame(this);
-	this->frames.push_back(frameDraw);
 			
 	this->addItem(frameDraw);
-	frameDraw->setShown(true);
 
 	return frameDraw;
 }
