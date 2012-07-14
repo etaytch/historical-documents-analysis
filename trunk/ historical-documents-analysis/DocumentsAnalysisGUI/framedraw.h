@@ -14,13 +14,10 @@ class FrameDraw : public QObject, public QGraphicsItem
 
 public:
 	FrameDraw(mdiPageScene* scene);
-	bool isShown();
-	void setShown(bool shown);
 	virtual void removeFromScene();
 	~FrameDraw();
 	
 	mdiPageScene* _scene;
-	bool _shown;
 };
 
 #endif // FRAMEDRAW_H

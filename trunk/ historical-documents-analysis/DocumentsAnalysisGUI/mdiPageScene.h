@@ -19,7 +19,6 @@ public:
 	void DrawPoly();
 	virtual ~mdiPageScene(void);
 
-	QVector<FrameDraw*> frames;
 	QVector<QPointF> _pointsForNextPoly;
 	enum RectAction { ADDPOLY, ADDRECT, REMOVE, NONE};
 	RectAction _action; 
