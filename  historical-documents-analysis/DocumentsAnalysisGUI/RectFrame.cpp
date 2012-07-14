@@ -17,6 +17,8 @@ RectFrame::RectFrame(mdiPageScene* scene, QPointF point) :
 	_borderPen.setWidth(2);
     _borderPen.setColor(_borderColor);
 
+	this->setPos(_location);
+
 	this->setAcceptHoverEvents(true);
 }
 
@@ -110,12 +112,12 @@ void RectFrame::mouseMoveEvent (QGraphicsSceneMouseEvent* event)
 	_location.setY(std::min((float) _location.y(), (float) this->scene()->sceneRect().height()));
 	if ((_location.x() + this->_width) > this->scene()->sceneRect().width())
 	{
-		if (action == MOVE) _location.setX(this->scene()->sceneRect().width() - this->_width);
+		if (action == MOVE) _location.setX(this->scene()->sceneRect().width() - this->_width - 1);
 		else this->_width = this->scene()->sceneRect().width() - _location.x();
 	}
 	if ((_location.y() + this->_height) > this->scene()->sceneRect().height())
 	{
-		if (action == MOVE) _location.setY(this->scene()->sceneRect().height() - this->_height);
+		if (action == MOVE) _location.setY(this->scene()->sceneRect().height() - this->_height - 1);
 		else this->_height = this->scene()->sceneRect().height() - _location.y();
 	}
 	//
