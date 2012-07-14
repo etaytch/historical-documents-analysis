@@ -30,11 +30,7 @@ public:
 	qreal getHeight();
 	~RectFrame(void);
 
-	mdiPageScene* _scene;
-	QColor  _borderColor; 
-    QPen    _borderPen; 
     QPointF _location;
-    QPointF _dragStart;
     qreal   _width;
     qreal   _height;
 	bool _hovered;

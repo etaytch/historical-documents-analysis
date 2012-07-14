@@ -79,13 +79,13 @@ RectFrame* mdiPageScene::addRectangle(QPointF point)
 
 FrameDraw* mdiPageScene::addPolygon(QVector<QPointF> points)
 {
-	FrameDraw* frameDraw = 0;
-	if (points.size() > 0) frameDraw = new PolyFrame(this, points);
-	else frameDraw = new PolyFrame(this);
-			
-	this->addItem(frameDraw);
-
-	return frameDraw;
+	if (points.size() > 0) 
+	{
+		FrameDraw* frameDraw = new PolyFrame(this, points);
+		this->addItem(frameDraw);
+		return frameDraw;
+	}
+	return 0;
 }
 
 void mdiPageScene::DrawPoly()

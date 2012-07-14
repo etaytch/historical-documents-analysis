@@ -3,19 +3,12 @@
 
 RectFrame::RectFrame(mdiPageScene* scene, QPointF point) :
 	FrameDraw(scene),
-	_borderColor(Qt::black),
-	_borderPen(),
-    _dragStart(30,30),
     _width(25),
     _height(25),
 	_hovered(false)
 {
 	_location = point;
 	action = MOVE; // move by default
-	_scene = scene;
-
-	_borderPen.setWidth(2);
-    _borderPen.setColor(_borderColor);
 
 	this->setPos(_location);
 
@@ -59,7 +52,6 @@ void RectFrame::paint (QPainter *painter, const QStyleOptionGraphicsItem *option
 	}
 
 }
-
 
 void RectFrame::mouseMoveEvent (QGraphicsSceneMouseEvent* event)
 {
