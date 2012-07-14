@@ -9,9 +9,14 @@
 
 FrameDraw::FrameDraw(mdiPageScene* scene) : 
 	QObject(),
-	QGraphicsItem()
+	QGraphicsItem(),
+	_borderPen(),
+	_borderColor(Qt::black),
+    _dragStart(30,30),
+	_scene(scene)
 {
-	_scene = scene;	
+	_borderPen.setWidth(2);
+    _borderPen.setColor(_borderColor);
 }
 
 void FrameDraw::removeFromScene()
@@ -20,6 +25,4 @@ void FrameDraw::removeFromScene()
 }
 
 FrameDraw::~FrameDraw()
-{
-
-}
+{}

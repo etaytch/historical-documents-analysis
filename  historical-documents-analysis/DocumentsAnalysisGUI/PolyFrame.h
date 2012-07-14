@@ -12,15 +12,8 @@ class PolyFrame : public FrameDraw
 	Q_OBJECT
 
 private:
-	mdiPageScene* _scene;
-	QColor  _borderColor; 
-    QPen    _borderPen; 
-    QPointF _dragStart;
-    qreal   _width;
-    qreal   _height;
 	QVector<QPointF> _points;
 	QPolygonF* _poly;
-	
 
 public:
 	PolyFrame(mdiPageScene* scene);

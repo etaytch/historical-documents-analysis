@@ -2,43 +2,12 @@
 #include "mdiPageScene.h"
 #include <algorithm>
 
-PolyFrame::PolyFrame(mdiPageScene* scene) :
-	FrameDraw(scene),
-	_borderColor(Qt::black),
-	_borderPen(),
-    _dragStart(30,30),
-	_points()
-{
-	//test
-	_points.push_back(QPointF(20,50));
-	_points.push_back(QPointF(20,90));
-	_points.push_back(QPointF(60,110));
-	_points.push_back(QPointF(60,50));
-	//endtest
-	_poly = new QPolygonF(_points);
-
-	_scene = scene;
-
-	_borderPen.setWidth(2);
-    _borderPen.setColor(_borderColor);
-
-	this->setAcceptHoverEvents(true);
-}
-
 PolyFrame::PolyFrame(mdiPageScene* scene, QVector<QPointF> points) :
 	FrameDraw(scene),
-	_borderColor(Qt::black),
-	_borderPen(),
-    _dragStart(30,30),
 	_points()
 {
 	_points = points;
 	_poly = new QPolygonF(_points);
-
-	_scene = scene;
-
-	_borderPen.setWidth(2);
-    _borderPen.setColor(_borderColor);
 
 	this->setAcceptHoverEvents(true);
 }

@@ -17,7 +17,11 @@ public:
 	virtual void removeFromScene();
 	~FrameDraw();
 	
+protected:
 	mdiPageScene* _scene;
+	QPointF _dragStart;
+	QPen    _borderPen;
+	QColor  _borderColor;
 };
 
 #endif // FRAMEDRAW_H
