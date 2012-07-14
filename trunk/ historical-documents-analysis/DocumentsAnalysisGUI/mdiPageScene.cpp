@@ -54,9 +54,10 @@ void mdiPageScene::removeAll()
 	}
 }
 
-void mdiPageScene::removeRect(FrameDraw* toRemove)
+void mdiPageScene::removeFrame(FrameDraw* toRemove)
 {
 	this->removeItem((QGraphicsItem*) toRemove);
+	this->frames.remove(this->frames.indexOf(toRemove));
 	delete toRemove;
 }
 

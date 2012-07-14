@@ -12,7 +12,7 @@ public:
 	virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
 	void showAll();
 	void removeAll();
-	void removeRect(FrameDraw* toRemove);
+	void removeFrame(FrameDraw* toRemove);
 	QVector<FrameDraw*> getFrames();
 	RectFrame* addRectangle(QPointF point);
 	FrameDraw* addPolygon(QVector<QPointF> points);

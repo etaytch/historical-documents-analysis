@@ -27,7 +27,7 @@ void FrameDraw::setShown(bool shown)
 
 void FrameDraw::removeFromScene()
 {
-	this->_scene->removeItem(this);
+	this->_scene->removeFrame(this);
 }
 
 FrameDraw::~FrameDraw()
