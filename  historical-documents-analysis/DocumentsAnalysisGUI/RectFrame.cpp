@@ -1,5 +1,9 @@
 #include "RectFrame.h"
 #include "mdiPageScene.h"
+#include <QVector>
+
+int RectFrame::MAXHEIGHT = 10;
+int RectFrame::MAXWIDTH = 10;
 
 RectFrame::RectFrame(mdiPageScene* scene, QPointF point) :
 	FrameDraw(scene),
@@ -45,10 +49,10 @@ void RectFrame::paint (QPainter *painter, const QStyleOptionGraphicsItem *option
 		_borderPen.setStyle(Qt::DotLine);
 		painter->setPen(_borderPen);
 		painter->setBrush( background);
-		painter->drawRoundRect(QRectF(0,0,_width*0.25 ,_height*0.25));
-		painter->drawRoundRect(QRectF(_width-(_width*0.25),0,_width*0.25 ,_height*0.25));
-		painter->drawRoundRect(QRectF(0,_height-(_height*0.25),_width*0.25 ,_height*0.25));
-		painter->drawRoundRect(QRectF(_width- (_width*0.25),_height-(_height*0.25),_width*0.25 ,_height*0.25));
+		painter->drawRoundRect(QRectF(0,0, std::min((float) (_width*0.25), (float)MAXWIDTH) , std::min((float) (_height*0.25), (float)MAXHEIGHT)));
+		painter->drawRoundRect(QRectF(_width-std::min((float) (_width*0.25), (float)MAXWIDTH),0,std::min((float) (_width*0.25), (float)MAXWIDTH) ,std::min((float) (_height*0.25), (float)MAXHEIGHT)));
+		painter->drawRoundRect(QRectF(0,_height-std::min((float) (_height*0.25), (float)MAXHEIGHT),std::min((float) (_width*0.25), (float)MAXWIDTH) ,std::min((float) (_height*0.25), (float)MAXHEIGHT)));
+		painter->drawRoundRect(QRectF(_width- std::min((float) (_width*0.25), (float)MAXWIDTH),_height-std::min((float) (_height*0.25), (float)MAXHEIGHT),std::min((float) (_width*0.25), (float)MAXWIDTH) ,std::min((float) (_height*0.25), (float)MAXHEIGHT)));
 	}
 
 }
@@ -129,6 +133,25 @@ void RectFrame::mousePressEvent (QGraphicsSceneMouseEvent* event)
 		this->removeFromScene();
 		return;
 	}
+
+	if (this->_scene->_action == mdiPageScene::CHANGETOPOLY) 
+	{
+		QVector<QPointF> points;
+		points.push_back(mapToScene(0,0));
+		points.push_back(mapToScene(_width,0));
+		points.push_back(mapToScene(_width,_height));
+		points.push_back(mapToScene(0,_height));		
+		this->_scene->addPolygon(points);
+		this->_scene->_action = mdiPageScene::NONE;
+		this->removeFromScene();
+		return;
+	}
+
+	if (this->_scene->_action == mdiPageScene::DELETEPOINT)
+	{
+		this->_scene->_action = mdiPageScene::NONE;
+	}
+
 	_dragStart = event->scenePos();
 	if (closeTo(this->boundingRect().bottomRight() , event->pos()))		{ 	action = RESIZEBR;	}
 	else if (closeTo(this->boundingRect().topRight() , event->pos()))		{	action = RESIZETR;	}
@@ -144,9 +167,7 @@ bool RectFrame::closeTo(QPointF p1, QPointF p2)
 {
 	int dx = abs(p1.x() - p2.x());
 	int dy = abs(p1.y() - p2.y());
-	if ((dx < _width*0.25) && (dy < _height*0.25)) return true;
-	
-	return false;
+	return ((dx < _width*0.25) && (dx < MAXWIDTH) && (dy < _height*0.25) && (dy < MAXHEIGHT));
 }
 
 void RectFrame::mousePressEvent(QGraphicsSceneDragDropEvent* event){ event->setAccepted(false); }
@@ -174,7 +195,7 @@ void RectFrame::hoverLeaveEvent ( QGraphicsSceneHoverEvent * event )
 
 QPointF RectFrame::getPos()
 {
-	return this->_location;
+	return mapToScene(this->_location);
 }
 
 qreal RectFrame::getWidth()

@@ -14,6 +14,8 @@ class PolyFrame : public FrameDraw
 private:
 	QVector<QPointF> _points;
 	QPolygonF* _poly;
+	bool _hovered;
+	static int MAXDISTANCE;
 
 public:
 	PolyFrame(mdiPageScene* scene);
@@ -21,6 +23,7 @@ public:
 	virtual QRectF boundingRect() const; 
     virtual void paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget); 
 	virtual void mouseMoveEvent ( QGraphicsSceneMouseEvent * event );
+	QPointF adjustToScene(float x, float y);
     virtual void mouseMoveEvent(QGraphicsSceneDragDropEvent *event);
     virtual void mousePressEvent (QGraphicsSceneMouseEvent * event );
     virtual void mousePressEvent(QGraphicsSceneDragDropEvent *event);
