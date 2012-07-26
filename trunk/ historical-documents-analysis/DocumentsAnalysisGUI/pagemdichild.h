@@ -32,6 +32,9 @@ public:
 	PageMdiChild(PageDoc path, QWidget* parent);
 	int getOriginalWidth();
 	int getOriginalHeight();
+	virtual void wheelEvent(QWheelEvent* event);
+	void SetCenter(const QPointF& centerPoint);
+	QPointF GetCenter();
     bool loadFile(const QString &fileName);
     bool save();
     bool saveAs();
@@ -48,6 +51,8 @@ public:
 	void addRectangle(int x, int y, int width, int height);
 	void addPolygon(QVector<QPointF> points);
 	void setAddPolygon();
+	void PageMdiChild::setDeletePoint();
+	void PageMdiChild::setChangeRectToPoly();
 	void drawPolygon();
 	void setAddRectangle();
 	void setRemove();
@@ -57,6 +62,7 @@ public:
 private:
 	void setCurrentFile(const QString &fileName);
 	QString strippedName(const QString &fullFileName);
+	QPointF CurrentCenterPoint;
 	
 protected:
     void closeEvent(QCloseEvent *event);

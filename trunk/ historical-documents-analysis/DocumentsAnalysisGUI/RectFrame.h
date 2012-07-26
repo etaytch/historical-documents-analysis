@@ -30,6 +30,9 @@ public:
 	qreal getHeight();
 	~RectFrame(void);
 
+private:
+	static int MAXHEIGHT;
+	static int MAXWIDTH;
     QPointF _location;
     qreal   _width;
     qreal   _height;

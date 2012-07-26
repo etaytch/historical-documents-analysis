@@ -5,7 +5,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 mdiPageScene::mdiPageScene(QObject* parent):
-QGraphicsScene(parent), _action(NONE), _frameView(SHOWN), _pointsForNextPoly()
+QGraphicsScene(parent), _action(NONE), _frameView(SHOWN), _pointsForNextPoly(), _lastPoly(0)
 {}
 
 void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
@@ -21,6 +21,11 @@ void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 	if (_action == ADDPOLY)
 	{
 		_pointsForNextPoly.push_back(mouseOnPoint);
+		if (_lastPoly != 0)
+		{
+			_lastPoly->removeFromScene();
+		}
+		_lastPoly = this->addPolygon(_pointsForNextPoly);
 	}
 	
 	QGraphicsScene::mousePressEvent(mouseEvent);
@@ -90,8 +95,9 @@ FrameDraw* mdiPageScene::addPolygon(QVector<QPointF> points)
 
 void mdiPageScene::DrawPoly()
 {
+	_lastPoly = 0;
 	_action = NONE;
-	addPolygon(_pointsForNextPoly);
+	//addPolygon(_pointsForNextPoly);
 	_pointsForNextPoly.clear();
 
 }
