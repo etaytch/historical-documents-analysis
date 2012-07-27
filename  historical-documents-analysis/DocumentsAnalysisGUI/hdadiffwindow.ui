@@ -35,11 +35,20 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="groupBox">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
        <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
+       <verstretch>50</verstretch>
       </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>30</height>
+      </size>
      </property>
      <property name="maximumSize">
       <size>
@@ -50,7 +59,51 @@
      <property name="title">
       <string>Tools</string>
      </property>
-     <zorder>splitter</zorder>
+     <widget class="QPushButton" name="startButton">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>set Start</string>
+      </property>
+      <property name="default">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="EndButton">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>10</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>set End</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="CompareButton">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>10</y>
+        <width>61</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Compare</string>
+      </property>
+     </widget>
     </widget>
    </item>
    <item>
@@ -95,10 +148,69 @@
     </widget>
    </item>
   </layout>
+  <action name="actionPush">
+   <property name="text">
+    <string>push</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
   <include location="hdamainframe.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>EndButton</sender>
+   <signal>clicked()</signal>
+   <receiver>HdaDiffWindow</receiver>
+   <slot>endPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>165</x>
+     <y>25</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>176</x>
+     <y>3</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CompareButton</sender>
+   <signal>clicked()</signal>
+   <receiver>HdaDiffWindow</receiver>
+   <slot>comparePressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>307</x>
+     <y>32</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>330</x>
+     <y>5</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>startButton</sender>
+   <signal>clicked()</signal>
+   <receiver>HdaDiffWindow</receiver>
+   <slot>startPressed()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>85</x>
+     <y>27</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>107</x>
+     <y>6</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>startPressed()</slot>
+  <slot>endPressed()</slot>
+  <slot>comparePressed()</slot>
+ </slots>
 </ui>
