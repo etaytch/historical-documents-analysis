@@ -2,6 +2,7 @@
 #define HDADIFFWINDOW_H
 
 #include <QWidget>
+#include <QSize>
 #include <QMouseEvent>
 #include <QPainter>
 #include "ui_hdadiffwindow.h"
@@ -18,10 +19,14 @@ public:
 	HdaDiffWindow(PageDoc page1, PageDoc page2, QWidget *parent = 0);
 	
 	~HdaDiffWindow();
- public slots:
+public slots:
     void startPressed();
 	void endPressed();
 	void comparePressed();
+	void zoomIn1();
+	void zoomIn2();
+	void zoomOut1();
+	void zoomOut2();
 private:
 	Ui::HdaDiffWindow ui;
 	PageDoc _page1;
@@ -35,6 +40,9 @@ private:
 	QPoint _StartPos2;
 	QPoint _EndPos1;
 	QPoint _EndPos2;
+
+	bool samePoint(QPoint p1,QPoint p2);
+	void scaleImage(QPixmap* pixMap,QLabel* lable,double ratio);
 protected:
 	 bool eventFilter(QObject *obj, QEvent *ev);
 

@@ -60,6 +60,32 @@ void HdaDiffWindow::comparePressed()
 	_chooseState= CHOOSE_NONE;
 }
 
+void HdaDiffWindow::zoomIn1()
+{
+	scaleImage(&_pic1,ui.label1,1.25);
+}
+void HdaDiffWindow::zoomIn2()
+{
+	scaleImage(&_pic2,ui.label2,2);
+}
+void HdaDiffWindow::zoomOut1()
+{
+	scaleImage(&_pic1,ui.label1,0.8);
+}
+void HdaDiffWindow::zoomOut2()
+{
+	scaleImage(&_pic2,ui.label2,0/5);
+}
+
+void HdaDiffWindow::scaleImage(QPixmap* pixMap,QLabel* lable,double ratio)
+{
+	int h= pixMap->height();
+	int w= pixMap->width();
+	*pixMap= pixMap->scaled (w, h, Qt::IgnoreAspectRatio, Qt::FastTransformation );
+	lable->setPixmap(*pixMap);
+	lable->adjustSize();
+    lable->update();
+}
  bool HdaDiffWindow::eventFilter(QObject *obj, QEvent *event)
  {
      if (obj == ui.label1) {
@@ -69,14 +95,14 @@ void HdaDiffWindow::comparePressed()
 			QPoint pos = mouse_event->pos();
 			if (_chooseState== CHOOSE_START)
 			{
-				if (pos == _StartPos1)				
+				if (samePoint(pos,_StartPos1))				
 					_StartPos1 = QPoint(-1,-1);
 				else
 					_StartPos1 = pos;
 			}
 			else if (_chooseState== CHOOSE_END)
 			{
-				if (pos == _EndPos1)				
+				if (samePoint(pos,_EndPos1))					
 					_EndPos1 = QPoint(-1,-1);
 				else
 					_EndPos1 = pos;
@@ -105,7 +131,7 @@ void HdaDiffWindow::comparePressed()
 			QPoint pos = mouse_event->pos();
 			if (_chooseState== CHOOSE_START)
 			{
-				if (pos == _StartPos2)				
+				if (samePoint(pos,_StartPos2))			
 					_StartPos2 = QPoint(-1,-1);
 				else				
 					_StartPos2 = pos;					
@@ -113,7 +139,7 @@ void HdaDiffWindow::comparePressed()
 			}
 			else if (_chooseState== CHOOSE_END)
 			{
-				if (pos == _EndPos2)				
+				if (samePoint(pos,_EndPos2))
 					_EndPos2 = QPoint(-1,-1);
 				else				
 					_EndPos2 = pos;				
@@ -140,3 +166,8 @@ void HdaDiffWindow::comparePressed()
          return QDialog::eventFilter(obj, event);
      }
  }
+
+bool HdaDiffWindow::samePoint(QPoint p1,QPoint p2)
+{
+	return sqrt((double)((p1.x()-p2.x())*(p1.x()-p2.x())+(p1.y()-p2.y())*(p1.y()-p2.y())))<5;
+}
