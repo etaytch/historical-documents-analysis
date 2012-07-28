@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>640</width>
+    <width>634</width>
     <height>593</height>
    </rect>
   </property>
@@ -32,122 +32,244 @@
   <property name="modal">
    <bool>true</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QGroupBox" name="groupBox">
-     <property name="enabled">
-      <bool>true</bool>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>9</y>
+     <width>622</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+     <horstretch>0</horstretch>
+     <verstretch>50</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>30</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>16777215</width>
+     <height>30</height>
+    </size>
+   </property>
+   <property name="title">
+    <string>Tools</string>
+   </property>
+   <widget class="QPushButton" name="startButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>set Start</string>
+    </property>
+    <property name="default">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="EndButton">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>10</y>
+      <width>71</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>set End</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="CompareButton">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>10</y>
+      <width>61</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Compare</string>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="zoomIn1">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>10</y>
+      <width>25</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+    <property name="icon">
+     <iconset resource="hdamainframe.qrc">
+      <normaloff>:/HdaMainFrame/Resources/icons/Zoom-In-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Zoom-In-icon.png</iconset>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="zoomOut1">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>10</y>
+      <width>25</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+    <property name="icon">
+     <iconset resource="hdamainframe.qrc">
+      <normaloff>:/HdaMainFrame/Resources/icons/Zoom-Out-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Zoom-Out-icon.png</iconset>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="zoomIn2">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>10</y>
+      <width>25</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+    <property name="icon">
+     <iconset resource="hdamainframe.qrc">
+      <normaloff>:/HdaMainFrame/Resources/icons/Zoom-In-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Zoom-In-icon.png</iconset>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="zoomOut2">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>10</y>
+      <width>25</width>
+      <height>19</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>...</string>
+    </property>
+    <property name="icon">
+     <iconset resource="hdamainframe.qrc">
+      <normaloff>:/HdaMainFrame/Resources/icons/Zoom-Out-icon.png</normaloff>:/HdaMainFrame/Resources/icons/Zoom-Out-icon.png</iconset>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QSplitter" name="splitter">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>45</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QScrollArea" name="scrollArea1">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>311</width>
+     <height>551</height>
+    </rect>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>309</width>
+      <height>549</height>
+     </rect>
+    </property>
+    <widget class="QLabel" name="label1">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>10</y>
+       <width>301</width>
+       <height>531</height>
+      </rect>
      </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-       <horstretch>0</horstretch>
-       <verstretch>50</verstretch>
-      </sizepolicy>
+     <property name="text">
+      <string>TextLabel</string>
      </property>
-     <property name="minimumSize">
-      <size>
-       <width>0</width>
-       <height>30</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>30</height>
-      </size>
-     </property>
-     <property name="title">
-      <string>Tools</string>
-     </property>
-     <widget class="QPushButton" name="startButton">
-      <property name="enabled">
-       <bool>true</bool>
-      </property>
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>10</y>
-        <width>71</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>set Start</string>
-      </property>
-      <property name="default">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="EndButton">
-      <property name="geometry">
-       <rect>
-        <x>130</x>
-        <y>10</y>
-        <width>71</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>set End</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="CompareButton">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>10</y>
-        <width>61</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Compare</string>
-      </property>
-     </widget>
     </widget>
-   </item>
-   <item>
-    <widget class="QSplitter" name="splitter">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
+   </widget>
+  </widget>
+  <widget class="QScrollArea" name="scrollArea2">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>40</y>
+     <width>311</width>
+     <height>551</height>
+    </rect>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>309</width>
+      <height>549</height>
+     </rect>
+    </property>
+    <widget class="QLabel" name="label2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>281</width>
+       <height>531</height>
+      </rect>
      </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+     <property name="text">
+      <string>TextLabel</string>
      </property>
-     <widget class="QLabel" name="label1">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label2">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
-     </widget>
     </widget>
-   </item>
-  </layout>
+   </widget>
+  </widget>
   <action name="actionPush">
    <property name="text">
     <string>push</string>
@@ -207,10 +329,78 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>zoomIn1</sender>
+   <signal>clicked()</signal>
+   <receiver>HdaDiffWindow</receiver>
+   <slot>zoomIn1()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>368</x>
+     <y>22</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>375</x>
+     <y>6</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>zoomOut1</sender>
+   <signal>clicked()</signal>
+   <receiver>HdaDiffWindow</receiver>
+   <slot>zoomOut1()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>395</x>
+     <y>25</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>223</x>
+     <y>3</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>zoomIn2</sender>
+   <signal>clicked()</signal>
+   <receiver>HdaDiffWindow</receiver>
+   <slot>zoomIn2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>492</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>496</x>
+     <y>-2</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>zoomOut2</sender>
+   <signal>clicked()</signal>
+   <receiver>HdaDiffWindow</receiver>
+   <slot>zoomOut2()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>524</x>
+     <y>27</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>562</x>
+     <y>3</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>startPressed()</slot>
   <slot>endPressed()</slot>
   <slot>comparePressed()</slot>
+  <slot>zoomIn1()</slot>
+  <slot>zoomIn2()</slot>
+  <slot>zoomOut1()</slot>
+  <slot>zoomOut2()</slot>
  </slots>
 </ui>
