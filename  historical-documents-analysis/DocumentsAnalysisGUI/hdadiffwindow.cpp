@@ -11,6 +11,15 @@ HdaDiffWindow::HdaDiffWindow(PageDoc page1, PageDoc page2, QWidget *parent)
 	:QDialog(parent)
 {
 	ui.setupUi(this);
+	ui.label2 = new QLabel();
+    ui.label2->setObjectName(QString::fromUtf8("label2"));
+    ui.label2->setGeometry(QRect(10, 10, 281, 531));
+	ui.scrollArea2->setWidget(ui.label2);
+	ui.label1 = new QLabel();
+    ui.label1->setObjectName(QString::fromUtf8("label1"));
+    ui.label1->setGeometry(QRect(0, 10, 301, 531));
+	ui.scrollArea1->setWidget(ui.label1);
+		
 	Mat d1,d2;
 	_page1 = page1;
 	_page2 = page2;
