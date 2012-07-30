@@ -130,8 +130,8 @@
      <string>Page Operation</string>
     </property>
     <addaction name="actionRotate"/>
-    <addaction name="actionBinarize"/>
     <addaction name="actionLine_Extraction"/>
+    <addaction name="actionBinarize"/>
    </widget>
    <widget class="QMenu" name="menuView">
     <property name="title">
@@ -1417,6 +1417,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionBinarize</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>binarize()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openImageWindowFromThumbView(QModelIndex)</slot>
@@ -1441,5 +1457,6 @@
   <slot>showFrames(bool)</slot>
   <slot>deleteFrame()</slot>
   <slot>openDiff()</slot>
+  <slot>binarize()</slot>
  </slots>
 </ui>

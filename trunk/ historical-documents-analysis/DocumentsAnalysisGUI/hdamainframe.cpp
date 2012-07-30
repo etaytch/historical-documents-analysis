@@ -146,6 +146,11 @@ void HdaMainFrame::removeManuscript()
 
 }
 
+void HdaMainFrame::binarize()
+{
+	
+}
+
 void HdaMainFrame::addManuscript()
 {
 	QString fileName = QFileDialog::getOpenFileName(this,"Open Manuscript","","Manuscript File (*.xml)");

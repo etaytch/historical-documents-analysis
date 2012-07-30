@@ -32,6 +32,7 @@ public slots:
 	void openImageWindowFromTreeView(QModelIndex index);
 
 	//Actions slots 
+	void binarize();
 	void openProject();	
 	void openManuscript();	
 	void removeManuscript();
