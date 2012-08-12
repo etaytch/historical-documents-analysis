@@ -238,12 +238,12 @@
                  <string>Properties:</string>
                 </property>
                 <property name="buddy">
-                 <cstring>flowPropertiesListView</cstring>
+                 <cstring>flowPropertiesTableView</cstring>
                 </property>
                </widget>
               </item>
               <item>
-               <widget class="QListView" name="flowPropertiesListView"/>
+               <widget class="QTableView" name="flowPropertiesTableView"/>
               </item>
              </layout>
             </item>
@@ -382,12 +382,6 @@
           </item>
           <item>
            <widget class="QScrollArea" name="scrollArea">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -400,18 +394,31 @@
                <height>69</height>
               </rect>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_6">
-              <item>
+             <widget class="QWidget" name="widget_4" native="true">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>0</y>
+                <width>601</width>
+                <height>121</height>
+               </rect>
+              </property>
+              <widget class="QWidget" name="verticalLayoutWidget">
+               <property name="geometry">
+                <rect>
+                 <x>-1</x>
+                 <y>-1</y>
+                 <width>601</width>
+                 <height>61</height>
+                </rect>
+               </property>
                <layout class="QVBoxLayout" name="verticalLayout">
-                <property name="spacing">
-                 <number>0</number>
-                </property>
                 <property name="sizeConstraint">
-                 <enum>QLayout::SetNoConstraint</enum>
+                 <enum>QLayout::SetDefaultConstraint</enum>
                 </property>
                </layout>
-              </item>
-             </layout>
+              </widget>
+             </widget>
             </widget>
            </widget>
           </item>
@@ -496,12 +503,11 @@
  <tabstops>
   <tabstop>flowPagesTreeView</tabstop>
   <tabstop>flowOperationsListView</tabstop>
-  <tabstop>flowPropertiesListView</tabstop>
+  <tabstop>flowPropertiesTableView</tabstop>
   <tabstop>flowSelectOperationButton</tabstop>
   <tabstop>flowSelectedOperationsListView</tabstop>
   <tabstop>flowMoveDownOperation</tabstop>
   <tabstop>flowMoveUpOperationButton</tabstop>
-  <tabstop>scrollArea</tabstop>
   <tabstop>clearDoneButton</tabstop>
   <tabstop>startFlowButton</tabstop>
   <tabstop>cancelButton</tabstop>
@@ -517,8 +523,8 @@
    <slot>startFlow()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>307</x>
-     <y>461</y>
+     <x>540</x>
+     <y>637</y>
     </hint>
     <hint type="destinationlabel">
      <x>506</x>
@@ -533,12 +539,92 @@
    <slot>cancelFlow()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>397</x>
-     <y>461</y>
+     <x>621</x>
+     <y>637</y>
     </hint>
     <hint type="destinationlabel">
      <x>506</x>
      <y>248</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>flowOperationsListView</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>FlowSchedulerDialog</receiver>
+   <slot>showProperties(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>299</x>
+     <y>169</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>318</x>
+     <y>327</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>flowSelectOperationButton</sender>
+   <signal>clicked()</signal>
+   <receiver>FlowSchedulerDialog</receiver>
+   <slot>addOperation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>417</x>
+     <y>274</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>406</x>
+     <y>-8</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>flowSelectedOperationsListView</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>FlowSchedulerDialog</receiver>
+   <slot>showProperties(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>527</x>
+     <y>263</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>318</x>
+     <y>327</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>flowMoveDownOperation</sender>
+   <signal>clicked()</signal>
+   <receiver>FlowSchedulerDialog</receiver>
+   <slot>moveDown()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>466</x>
+     <y>470</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>446</x>
+     <y>-6</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>flowMoveUpOperationButton</sender>
+   <signal>clicked()</signal>
+   <receiver>FlowSchedulerDialog</receiver>
+   <slot>moveUp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>578</x>
+     <y>470</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>540</x>
+     <y>-4</y>
     </hint>
    </hints>
   </connection>
@@ -548,5 +634,8 @@
   <slot>startFlow()</slot>
   <slot>cancelFlow()</slot>
   <slot>clearDone()</slot>
+  <slot>showProperties(QModelIndex)</slot>
+  <slot>moveUp()</slot>
+  <slot>moveDown()</slot>
  </slots>
 </ui>

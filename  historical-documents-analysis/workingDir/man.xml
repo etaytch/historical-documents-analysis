@@ -8,7 +8,7 @@
     <FontType>font-type</FontType>
     <DirectoryPath>man</DirectoryPath>
     <Pages count="9" path="man/Pages">
-        <Page index="1" path="man/Pages/1.jpg" active="2">
+        <Page index="1" path="man/Pages/1.jpg" active="0">
             <Block type="1">
                 <TextLine>
                     <Rect x="1" y="1" w="20" h="20"/>
@@ -33,7 +33,7 @@
                     </LowerPoints>
                 </TextLine>
             </Block>
-            <Page index="1" path="man/Pages/1_copy1.jpg" active="2">
+            <Page index="1" path="man/Pages/1_copy1.jpg" active="0">
                 <Block type="1">
                     <TextLine>
                         <Rect x="1" y="1" w="20" h="20"/>
@@ -58,7 +58,7 @@
                         </LowerPoints>
                     </TextLine>
                 </Block>
-                <Page index="1" path="man/Pages/1_copy2.jpg" active="2">
+                <Page index="1" path="man/Pages/1_copy2.jpg" active="0">
                     <Block type="1">
                         <TextLine>
                             <Rect x="1" y="1" w="20" h="20"/>
@@ -86,13 +86,12 @@
                 </Page>
             </Page>
         </Page>
-        <Page index="2" path="man/Pages/2.jpg" active="2"/>
-        <Page index="3" path="man/Pages/3.jpg" active="2"/>
+        <Page index="2" path="man/Pages/2.jpg" active="0"/>
+        <Page index="3" path="man/Pages/3.jpg" active="0"/>
         <Page index="4" path="man/Pages/4.jpg" active="0"/>
         <Page index="5" path="man/Pages/5.jpg" active="0"/>
         <Page index="6" path="man/Pages/6.jpg" active="0"/>
         <Page index="7" path="man/Pages/7.jpg" active="0"/>
-        <Page index="8" path="man/Pages/8.jpg" active="0"/>
-        <Page index="9" path="man/Pages/f1r.jpg" active="0"/>
+        <Page index="8" path="man/Pages/f1r.jpg" active="0"/>
     </Pages>
 </Manuscript>

@@ -141,6 +141,11 @@ void PageMdiChild::setAddRectangle()
 	this->_imageScene._action = mdiPageScene::RectAction::ADDRECT;
 }
 
+void PageMdiChild::setWordDetectorRectangle()
+{
+	this->_imageScene._action = mdiPageScene::RectAction::ADDWORDRECT;
+}
+
 void PageMdiChild::setRemove()
 {
 	this->_imageScene._action = mdiPageScene::RectAction::REMOVE;

@@ -3,15 +3,22 @@
 HdaFlowManager::HdaFlowManager(QObject *parent)
 	: QObject(parent)
 {	
+	connect(this,SIGNAL(callSaveAndReload()),parent,SLOT(saveAndReload()));
 }
 
-void HdaFlowManager::addThread(Page* page,QStringList operations,HdaProgressBar* probar)
+void HdaFlowManager::addThread(Page* page,QVector<OperationDO*> operations,HdaProgressBar* probar)
 {	
 	HdaOperationThread* hdaot = new HdaOperationThread(this,page,operations);
 	connect(hdaot,SIGNAL(setValue(int)),probar,SLOT(setValue(int)));
 	connect(hdaot,SIGNAL(threadDone(HdaOperationThread*)),this,SLOT(removeThread(HdaOperationThread*)));
+	connect(hdaot,SIGNAL(saveAndReload()),this,SLOT(saveAndReload()));
 	_threads.push_back(hdaot);
 	hdaot->start();
+}
+
+void HdaFlowManager::saveAndReload()
+{
+	emit callSaveAndReload();
 }
 
 void HdaFlowManager::removeThread(HdaOperationThread* thread)

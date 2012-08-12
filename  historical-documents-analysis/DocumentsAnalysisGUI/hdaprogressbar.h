@@ -12,6 +12,7 @@ public:
 	HdaProgressBar(QWidget *parent = 0);	
 	~HdaProgressBar();
 	int getValue();
+	void setTitle(QString title);
 
 private:
 	Ui::HdaProgressBar ui;

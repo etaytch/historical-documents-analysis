@@ -6,6 +6,7 @@
 #include <QAbstractListModel>
 #include <QObject>
 #include <QStandardItem>
+#include "OperationDO.h"
 
 
 class FlowOperationsModel : public QAbstractListModel
@@ -13,7 +14,7 @@ class FlowOperationsModel : public QAbstractListModel
 	Q_OBJECT
 
 private:
-	QStringList stringList;
+	QVector<OperationDO*> _operations;
 public:	
 	FlowOperationsModel(QObject *parent,int type);
     int rowCount(const QModelIndex &parent = QModelIndex()) const;

@@ -93,6 +93,7 @@ QVariant TreeViewModel::data(const QModelIndex &index, int role) const
 		}*/
 		return item->data(index.column());
 	}
+	
 	if (role == Qt::CheckStateRole)
 	{
 		if (qVariantCanConvert<PageDoc> (item->data(index.column())))
@@ -102,7 +103,7 @@ QVariant TreeViewModel::data(const QModelIndex &index, int role) const
 		}
 		else 
 		{
-
+			return 0;
 		}
 		
 	}

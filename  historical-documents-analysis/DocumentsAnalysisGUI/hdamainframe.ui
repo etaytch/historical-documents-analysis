@@ -579,6 +579,7 @@
    <addaction name="actionDraw_Polygon"/>
    <addaction name="actionDelete_Frame"/>
    <addaction name="actionShow_Frames"/>
+   <addaction name="actionWord_Detector"/>
   </widget>
   <action name="actionNewManuscript">
    <property name="icon">
@@ -977,6 +978,18 @@
    </property>
    <property name="text">
     <string>Pages Diff</string>
+   </property>
+  </action>
+  <action name="actionWord_Detector">
+   <property name="icon">
+    <iconset>
+     <normaloff>Resources/icons/word_detector.jpg</normaloff>Resources/icons/word_detector.jpg</iconset>
+   </property>
+   <property name="text">
+    <string>Word Detector</string>
+   </property>
+   <property name="toolTip">
+    <string>Word Detector</string>
    </property>
   </action>
  </widget>
@@ -1433,6 +1446,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionWord_Detector</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>callWordDetector()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openImageWindowFromThumbView(QModelIndex)</slot>
@@ -1458,5 +1487,6 @@
   <slot>deleteFrame()</slot>
   <slot>openDiff()</slot>
   <slot>binarize()</slot>
+  <slot>callWordDetector()</slot>
  </slots>
 </ui>

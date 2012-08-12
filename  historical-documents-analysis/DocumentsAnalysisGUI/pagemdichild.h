@@ -52,9 +52,10 @@ public:
 	void addPolygon(QVector<QPointF> points);
 	void setAddPolygon();
 	void PageMdiChild::setDeletePoint();
-	void PageMdiChild::setChangeRectToPoly();
+	void PageMdiChild::setChangeRectToPoly();	
 	void drawPolygon();
 	void setAddRectangle();
+	void setWordDetectorRectangle();
 	void setRemove();
 	void setNone();
 	virtual ~PageMdiChild();

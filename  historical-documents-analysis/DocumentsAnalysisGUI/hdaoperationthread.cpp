@@ -1,10 +1,11 @@
 #include "hdaoperationthread.h"
 #include <stdio.h>
 #include <QFileInfo>
+#include "BinarizeOperationDO.h"
 
 using namespace cv;
 
-HdaOperationThread::HdaOperationThread(QObject *parent,Page* page,QStringList operations)
+HdaOperationThread::HdaOperationThread(QObject *parent,Page* page,QVector<OperationDO*> operations)
 	: QThread(parent)
 {
 	_page=page;
@@ -18,17 +19,17 @@ DImage* HdaOperationThread::doOperation(Binarizer* bin, Page* page/*,_fUpdateVal
 	return page->binarize(*bin);
 }
 
-Binarizer* HdaOperationThread::getOperation(QString oper)
+Binarizer* HdaOperationThread::getOperation(OperationDO* oper)
 {
-	if(oper==QString("Global Binarizer"))
+	if(oper->getOperationType()==QString("Global Binarizer"))
 	{		
-		return new GlobalBinarizer(150);
+		return new GlobalBinarizer(((BinarizeOperationDO*)oper)->getThershold());
 	}	
-	if(oper==QString("Otsul Binarizer"))
+	if(oper->getOperationType()==QString("Otsul Binarizer"))
 	{
 		return new OtsulBinarizer();
 	}
-	if(oper==QString("Radial Binarizer"))
+	if(oper->getOperationType()==QString("Radial Binarizer"))
 	{
 		return new RadialBinarizer();
 	}
@@ -49,7 +50,7 @@ void HdaOperationThread::run()
 //		_fUpdateValue f = updateValue;
 		//(this->*f)(1);
 		// current operation as QString
-		QString oper = _operations.at(i);
+		OperationDO* oper = _operations.at(i);
 		// current operation object
 		Binarizer* bin = getOperation(oper);
 		// resulted DImage
@@ -57,6 +58,7 @@ void HdaOperationThread::run()
 
 		// creating new page for the resulted DImage
 		Page* newPage = new Page();
+		newPage->setIndex(1);
 		newPage->setMat(newImage->getMat());
 
 		QFileInfo fi(workingPage->getName().c_str());	
@@ -77,7 +79,7 @@ void HdaOperationThread::run()
 		compression_params.push_back(9);
 		// setting new page' filename
 		QString newPageName = workingPage->getName().c_str();
-		newPageName = newPageName.replace("."+originalSuffix,QString("_"+oper)+QString(".png")/*+originalSuffix*/);
+		newPageName = newPageName.replace("."+originalSuffix,QString("_"+oper->getOperationType()+"_threshold_")+QString::number(oper->getThershold())+QString(".png")/*+originalSuffix*/);
 		newPage->setName(newPageName.toStdString());
 		workingPage->addPage(newPage);	
 
@@ -100,7 +102,7 @@ void HdaOperationThread::run()
 		workingPage = newPage;
 		Sleep(2000);
 	}
-		
+	emit saveAndReload();
 	
 }
 
