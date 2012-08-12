@@ -2,10 +2,13 @@
 #include "framedraw.h"
 #include "PolyFrame.h"
 #include "RectFrame.h"
+#include "HDAQGraphicsTextItem.h"
 #include <QGraphicsSceneMouseEvent>
+#include <QKeyEvent>
+#include <qDebug>
 
 mdiPageScene::mdiPageScene(QObject* parent):
-QGraphicsScene(parent), _action(NONE), _frameView(SHOWN), _pointsForNextPoly(), _lastPoly(0)
+QGraphicsScene(parent), _action(NONE), _frameView(SHOWN), _pointsForNextPoly(), _lastPoly(0), _recentItem(0)
 {}
 
 void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
@@ -27,8 +30,54 @@ void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 		}
 		_lastPoly = this->addPolygon(_pointsForNextPoly);
 	}
+
+	if (_action == ADDWORDRECT)
+	{
+		//addRectangle(mouseOnPoint);
+		HDAQGraphicsTextItem* txt = new HDAQGraphicsTextItem(QString("BLA"));
+		txt->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemIsMovable);
+		txt->setTextInteractionFlags(Qt::TextEditorInteraction);
+		txt->setPos(mouseOnPoint.x(), mouseOnPoint.y()-30);				
+		this->addItem(txt);
+		RectFrame* rct = addRectangle(mouseOnPoint);
+		_recentItem = rct;
+		_action = NONE;
+	}
 	
 	QGraphicsScene::mousePressEvent(mouseEvent);
+}
+
+void mdiPageScene::keyPressEvent ( QKeyEvent * keyEvent )
+{
+	Qt::Key key = (Qt::Key)keyEvent->key();
+	
+	if((key==Qt::Key::Key_Left)||(key==Qt::Key::Key_Right))
+	{
+		if(_recentItem)
+		{
+			QPointF qp = _recentItem->pos();
+			
+			if(key==Qt::Key::Key_Left)
+			{				
+				qp.setX(qp.x()-20);
+				_recentItem->setPos(qp);
+				_recentItem->update();						
+				this->update();				
+			}
+			else
+			{				
+				qp.setX(qp.x()+20);
+				_recentItem->setPos(qp);
+				_recentItem->update();
+				this->update();
+			}
+		}	
+		else QGraphicsScene::keyPressEvent(keyEvent);
+	}
+	else QGraphicsScene::keyPressEvent(keyEvent);
+
+
+	
 }
 
 void mdiPageScene::showAll()
@@ -78,7 +127,7 @@ RectFrame* mdiPageScene::addRectangle(QPointF point)
 	RectFrame* frame = new RectFrame(this, point);
 
 	this->addItem(frame);
-
+	
 	return frame;
 }
 

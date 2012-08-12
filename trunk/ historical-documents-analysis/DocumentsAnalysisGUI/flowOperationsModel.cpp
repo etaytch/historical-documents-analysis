@@ -1,20 +1,12 @@
 #include "flowOperationsModel.h"
 
 	FlowOperationsModel::FlowOperationsModel(QObject *parent,int type) : QAbstractListModel(parent)
-	{
-		if(type==0)
-		{
-			stringList.push_back(QString("Global Binarizer"));
-			//stringList.push_back(QString("Local Binarizer"));
-			stringList.push_back(QString("Radial Binarizer"));
-			stringList.push_back(QString("Otsul Binarizer"));			
-		}
-		
+	{	
 	}
 
     int FlowOperationsModel::rowCount(const QModelIndex &parent) const
 	{
-		return stringList.size();
+		return _operations.size();
 	}
 
 	int FlowOperationsModel::columnCount(const QModelIndex &parent) const
@@ -31,7 +23,11 @@
 			return QVariant();
 
 		if (role == Qt::DisplayRole)
-			return stringList.at(index.row());
+			return _operations.at(index.row())->getOperationType();
+		
+		else if (role == Qt::UserRole)		
+			return QVariant::fromValue(_operations.at(index.row()));
+		
 		else
 			return QVariant();
 	}
@@ -39,7 +35,43 @@
 	bool FlowOperationsModel::setData(const QModelIndex &index,
                               const QVariant &value, int role)
 	{
-		if (index.isValid() && role == Qt::EditRole) {
+	
+		int row = index.row();
+		int col = index.column();
+
+		if (role == Qt::EditRole) 
+		{
+			if (qVariantCanConvert<OperationDO*> (value))
+			{						
+				
+				_operations.push_back(qVariantValue<OperationDO*>(value));
+				emit dataChanged(createIndex(_operations.size(),0), createIndex(_operations.size(),0));
+			}
+		}
+		else if (index.isValid() && role == Qt::UserRole+1) 
+		{
+			if(row>0 && rowCount()>1)
+			{
+				OperationDO* fst = _operations[row-1];
+				_operations[row-1] = _operations[row];
+				_operations[row] = fst;
+				emit dataChanged(createIndex(0,0), createIndex(_operations.size(),0));
+			}
+		}
+
+		else if (index.isValid() && role == Qt::UserRole+2) 
+		{
+			if(row<rowCount()-1 && rowCount()>1)
+			{
+				OperationDO* fst = _operations[row+1];
+				_operations[row+1] = _operations[row];
+				_operations[row] = fst;
+				emit dataChanged(createIndex(0,0), createIndex(_operations.size(),0));
+			}
+		}
+		
+		
+		/*if (index.isValid() && role == Qt::EditRole) {
 
 			stringList.replace(index.row(), value.toString());
 			emit dataChanged(index, index);
@@ -50,7 +82,7 @@
 			stringList.push_back(value.toString());
 			emit dataChanged(createIndex(stringList.size(),0), createIndex(stringList.size(),0));
 			return true;
-		}
+		}*/
  
 		return false;
 	}
@@ -63,9 +95,9 @@
 			return QVariant();
 
 		if (orientation == Qt::Horizontal)
-			return QString("Column %1").arg(section);
+			return QString("Operations");
 		else
-			return QString("Row %1").arg(section);
+			return QVariant();
 	}
 
     Qt::ItemFlags FlowOperationsModel::flags(const QModelIndex &index) const

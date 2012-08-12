@@ -15,6 +15,7 @@ HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 	modelsInit();
 	ui.Properties_dock->setVisible(false);
 	_flowManager = new HdaFlowManager(this);
+	_flowSchedulerDialog=0;
 }
 
 
@@ -108,10 +109,9 @@ void HdaMainFrame::LoadManuscript(QModelIndex index)
 /********  ACTIONS *********/
 /***************************/
 
-void HdaMainFrame::openProject()
+void HdaMainFrame::openProject(QString fileName)
 {
-	cleanProject();
-	QString fileName = QFileDialog::getOpenFileName(this,"Open project","","Project File (*.xml)");
+	cleanProject();	
 	if (fileName.isEmpty() || fileName.isNull()) return;
 
 	//project parsing
@@ -133,6 +133,12 @@ void HdaMainFrame::openProject()
 		XmlReader::getManuscriptFromXml(path,_project.getManuscripts()[name]);
 	}
 	modelsInit();
+}
+
+void HdaMainFrame::openProject()
+{
+	_filename = QFileDialog::getOpenFileName(this,"Open project","","Project File (*.xml)");
+	openProject(_filename);
 }
 
 void HdaMainFrame::openManuscript()
@@ -278,6 +284,14 @@ void HdaMainFrame::drawRectangle()
 		(ui.mdiArea->currentSubWindow()->widget())->setAddRectangle();
 }
 
+void HdaMainFrame::callWordDetector()
+{
+	qobject_cast<PageMdiChild*>
+		(ui.mdiArea->currentSubWindow()->widget())->setWordDetectorRectangle();
+}
+
+
+
 void HdaMainFrame::drawPolygon(bool start)
 {
 	PageMdiChild* child = qobject_cast<PageMdiChild*>
@@ -331,8 +345,11 @@ void HdaMainFrame::openDiff()
 
 void HdaMainFrame::openFlowDialog()
 {	
-	_flowSchedulerDialog = new FlowSchedulerDialog(this,this->_manuscriptTreeModel);
-	connect(_flowManager,SIGNAL(updatePage(Page*)),_flowSchedulerDialog,SLOT(updatePage(Page*)));
+	if(_flowSchedulerDialog==0)
+	{
+		_flowSchedulerDialog = new FlowSchedulerDialog(this,this->_manuscriptTreeModel);
+		connect(_flowManager,SIGNAL(updatePage(Page*)),_flowSchedulerDialog,SLOT(updatePage(Page*)));
+	}
 	_flowSchedulerDialog->show();
 }
 
@@ -389,3 +406,8 @@ void HdaMainFrame::cleanProject()
 	_manuscriptPagesModel = 0;
 }
 
+void HdaMainFrame::saveAndReload()
+{
+	saveAll();
+	openProject(_filename);
+}

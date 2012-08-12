@@ -6,6 +6,11 @@ HdaProgressBar::HdaProgressBar(QWidget *parent)
 	ui.setupUi(this);
 }
 
+void HdaProgressBar::setTitle(QString title)
+{
+	ui.label->setText(title);
+}
+
 void HdaProgressBar::setValue(int value)
 {
 	ui.progressBar->setValue(value);

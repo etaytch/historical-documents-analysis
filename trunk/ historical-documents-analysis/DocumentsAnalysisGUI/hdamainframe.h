@@ -50,9 +50,11 @@ public slots:
 	void openProperties(QModelIndex);
 	void openDiff();
 	void drawRectangle();
+	void callWordDetector();
 	void drawPolygon(bool start);
 	void deleteFrame();
 	void showFrames(bool show);
+	void saveAndReload();
 
 
 
@@ -65,10 +67,11 @@ private:
 	ManuscriptPropertiesModel* _manuscriptPropertiesModel;
 	ManuscriptPropertiesDelegate* _manuscriptPropertiesDelegete;
 	HdaFlowManager* _flowManager;
-
+	QString _filename;
 	
 
 private: //methods
+	void openProject(QString filename);
 	void modelsInit();
 	void cleanProject();
 	void saveProject();

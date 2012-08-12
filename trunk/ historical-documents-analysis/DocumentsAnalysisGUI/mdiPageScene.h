@@ -10,6 +10,7 @@ public:
 	
 	mdiPageScene(QObject* parent);
 	virtual void mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent);
+	virtual void keyPressEvent ( QKeyEvent * keyEvent );
 	void showAll();
 	void removeAll();
 	void removeFrame(FrameDraw* toRemove);
@@ -21,9 +22,10 @@ public:
 
 	FrameDraw* _lastPoly;
 	QVector<QPointF> _pointsForNextPoly;
-	enum RectAction { CHANGETOPOLY, DELETEPOINT, ADDPOLY, ADDRECT, REMOVE, NONE};
+	enum RectAction { CHANGETOPOLY, DELETEPOINT, ADDPOLY, ADDRECT, REMOVE, ADDWORDRECT, NONE};
 	RectAction _action; 
 	enum RectView { SHOWN, HIDDEN};
 	RectView _frameView; 
+	QGraphicsItem* _recentItem;
 };
 

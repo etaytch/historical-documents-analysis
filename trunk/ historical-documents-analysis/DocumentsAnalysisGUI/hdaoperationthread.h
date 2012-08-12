@@ -3,7 +3,7 @@
 
 #include <QThread>
 #include <QString>
-#include <QStringList>
+#include <QVector>
 #include <opencv/cv.h>
 #include <opencv2/core/core.hpp>
 #include <opencv2/opencv.hpp>
@@ -12,6 +12,7 @@
 #include "OtsulBinarizer.h"
 #include "RadialBinarizer.h"
 #include "Page.h"
+#include "OperationDO.h"
 
 
 
@@ -21,10 +22,10 @@ class HdaOperationThread : public QThread
 
 public:
 	//typedef void (HdaOperationThread::*_fUpdateValue)  (int);
-	HdaOperationThread(QObject *parent,Page* page,QStringList operations);
+	HdaOperationThread(QObject *parent,Page* page,QVector<OperationDO*> operations);
 	void run();
 	DImage* doOperation(Binarizer* bin, Page* page/*,_fUpdateValue f*/);
-	Binarizer* getOperation(QString oper);
+	Binarizer* getOperation(OperationDO* oper);
 	void updateValue(int);
 	Page* getPage();
 
@@ -32,7 +33,7 @@ public:
 
 private:
 	Page* _page;
-	QStringList _operations;
+	QVector<OperationDO*> _operations;
 
 public slots:
 	void onDone();
@@ -40,6 +41,7 @@ public slots:
 signals:
 	void setValue(int);
 	void threadDone(HdaOperationThread*);
+	void saveAndReload();
 };
 
 #endif // HDAOPERATIONTHREAD_H
