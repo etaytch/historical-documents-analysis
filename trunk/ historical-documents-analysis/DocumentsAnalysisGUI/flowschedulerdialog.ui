@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>637</width>
+    <width>701</width>
     <height>656</height>
    </rect>
   </property>
@@ -326,6 +326,19 @@
                <enum>QLayout::SetFixedSize</enum>
               </property>
               <item>
+               <widget class="QPushButton" name="flowMoveUpOperationButton">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Move Up</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QPushButton" name="flowMoveDownOperation">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -339,15 +352,9 @@
                </widget>
               </item>
               <item>
-               <widget class="QPushButton" name="flowMoveUpOperationButton">
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
+               <widget class="QPushButton" name="flowClearOperations">
                 <property name="text">
-                 <string>Move Up</string>
+                 <string>Clear</string>
                 </property>
                </widget>
               </item>
@@ -390,7 +397,7 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>601</width>
+               <width>665</width>
                <height>69</height>
               </rect>
              </property>
@@ -506,8 +513,6 @@
   <tabstop>flowPropertiesTableView</tabstop>
   <tabstop>flowSelectOperationButton</tabstop>
   <tabstop>flowSelectedOperationsListView</tabstop>
-  <tabstop>flowMoveDownOperation</tabstop>
-  <tabstop>flowMoveUpOperationButton</tabstop>
   <tabstop>clearDoneButton</tabstop>
   <tabstop>startFlowButton</tabstop>
   <tabstop>cancelButton</tabstop>
@@ -576,7 +581,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>406</x>
-     <y>-8</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -603,12 +608,12 @@
    <slot>moveDown()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>466</x>
+     <x>550</x>
      <y>470</y>
     </hint>
     <hint type="destinationlabel">
      <x>446</x>
-     <y>-6</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -619,12 +624,44 @@
    <slot>moveUp()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>578</x>
+     <x>502</x>
      <y>470</y>
     </hint>
     <hint type="destinationlabel">
      <x>540</x>
-     <y>-4</y>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>clearDoneButton</sender>
+   <signal>clicked()</signal>
+   <receiver>FlowSchedulerDialog</receiver>
+   <slot>clearDone()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>76</x>
+     <y>625</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>430</x>
+     <y>41</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>flowClearOperations</sender>
+   <signal>clicked()</signal>
+   <receiver>FlowSchedulerDialog</receiver>
+   <slot>clearOperations()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>644</x>
+     <y>474</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>638</x>
+     <y>36</y>
     </hint>
    </hints>
   </connection>
@@ -637,5 +674,6 @@
   <slot>showProperties(QModelIndex)</slot>
   <slot>moveUp()</slot>
   <slot>moveDown()</slot>
+  <slot>clearOperations()</slot>
  </slots>
 </ui>

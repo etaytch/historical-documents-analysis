@@ -23,6 +23,8 @@ FlowSchedulerDialog::FlowSchedulerDialog(QWidget *parent,TreeViewModel* model)
 	ui.flowSelectedOperationsListView->setModel(_flowSelectedOperationsListModel);
 	ui.flowPropertiesTableView->setModel(_flowPropertiesModel);
 
+	connect(parent,SIGNAL(updateFlowDialogTree(TreeViewModel*)),this,SLOT(updateTree(TreeViewModel*)));
+
 	/*
 	QProgressBar* probar1 = new QProgressBar();
 	ui.verticalLayout->addWidget(probar1);
@@ -45,8 +47,11 @@ FlowSchedulerDialog::FlowSchedulerDialog(QWidget *parent)
 
 FlowSchedulerDialog::~FlowSchedulerDialog()
 {	
+	for(int i=0;i<_allOperationsDo.size();i++)
+	{
+		delete _allOperationsDo.at(i);
+	}	
 }
-
 
 void FlowSchedulerDialog::addOperation()
 {
@@ -149,12 +154,21 @@ void FlowSchedulerDialog::moveDown()
 
 void FlowSchedulerDialog::cancelFlow()
 {
-	
+	close();
+}
+
+void FlowSchedulerDialog::clearOperations()
+{
+	int rows = _flowSelectedOperationsListModel->rowCount();
+	for(int i=0;i<rows;i++)
+	{
+		_flowSelectedOperationsListModel->removeRows(0, 1, QModelIndex());
+	}
 }
 
 void FlowSchedulerDialog::clearDone()
 {
-/*
+
 	QVector<HdaProgressBar*> newProgressVector;
 	for(int i=0;i<_progressBars.size();i++)
 	{
@@ -170,13 +184,15 @@ void FlowSchedulerDialog::clearDone()
 		}
 	}	
 	_progressBars = newProgressVector;
-	*/
+	
 }
 
 
 OperationDO* FlowSchedulerDialog::createOperationDO(QString type)
-{
-	return new BinarizeOperationDO(type);
+{	
+	OperationDO* ans = new BinarizeOperationDO(type);
+	_allOperationsDo.push_back(ans);
+	return ans;
 }
 
 void FlowSchedulerDialog::showProperties(QModelIndex index)
@@ -219,6 +235,13 @@ FlowPropertiesModel* FlowSchedulerDialog::getOperationPropertiesModel(OperationD
 		return new FlowBinarizeModel(operationDO,this);
 	}
 	return new FlowPropertiesModel(operationDO,this);
+}
+
+void FlowSchedulerDialog::updateTree(TreeViewModel* updatedModel)
+{
+	_manuscriptTreeModel = updatedModel;
+	ui.flowPagesTreeView->setModel(0);
+	ui.flowPagesTreeView->setModel(_manuscriptTreeModel);	
 }
 
 void FlowSchedulerDialog::updatePage(Page* page)
