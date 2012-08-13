@@ -4,6 +4,8 @@
 
 #include <QtGui/QMainWindow>
 #include <QString>
+#include <QMutex>
+
 #include "ui_hdamainframe.h"
 #include "FlowSchedulerDialog.h"
 #include "thumbnailsmodel.h"
@@ -68,6 +70,7 @@ private:
 	ManuscriptPropertiesDelegate* _manuscriptPropertiesDelegete;
 	HdaFlowManager* _flowManager;
 	QString _filename;
+	QMutex _lock;
 	
 
 private: //methods
@@ -77,6 +80,9 @@ private: //methods
 	void saveProject();
 	void saveProjectAs();
 	void saveManuscript(QString path,QString manName);
+
+signals:
+	void updateFlowDialogTree(TreeViewModel*);
 };
 
 #endif // HDAMAINFRAME_H

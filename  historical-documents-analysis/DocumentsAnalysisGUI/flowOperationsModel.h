@@ -25,7 +25,8 @@ public:
     virtual QVariant headerData(int section, Qt::Orientation orientation,
 								  int role = Qt::DisplayRole) const;
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
-	virtual QModelIndex parent( const QModelIndex &index ) const;
+	virtual QModelIndex parent( const QModelIndex &index ) const;	
+	virtual bool removeRows(int position, int rows, const QModelIndex & parent);
 	virtual ~FlowOperationsModel();	
 
 };

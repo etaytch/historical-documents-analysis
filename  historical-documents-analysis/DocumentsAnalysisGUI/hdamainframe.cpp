@@ -16,6 +16,7 @@ HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 	ui.Properties_dock->setVisible(false);
 	_flowManager = new HdaFlowManager(this);
 	_flowSchedulerDialog=0;
+	
 }
 
 
@@ -408,6 +409,10 @@ void HdaMainFrame::cleanProject()
 
 void HdaMainFrame::saveAndReload()
 {
+	_lock.lock();
+	qDebug()<<"abcd ";
 	saveAll();
 	openProject(_filename);
+	emit updateFlowDialogTree(_manuscriptTreeModel);
+	_lock.unlock();
 }

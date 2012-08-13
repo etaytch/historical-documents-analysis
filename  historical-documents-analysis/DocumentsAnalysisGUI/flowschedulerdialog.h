@@ -29,6 +29,7 @@ private:
 	FlowOperationsModel* _flowSelectedOperationsListModel;
 	FlowPropertiesModel* _flowPropertiesModel;
 	QVector<HdaProgressBar*> _progressBars;
+	QVector<OperationDO*> _allOperationsDo;
 
 	QModelIndexList getCheckedPages(QModelIndexList lst);
 	QVector<OperationDO*> getSelectedOperations();
@@ -39,11 +40,13 @@ public slots:
 	void addOperation();
 	void startFlow();
 	void cancelFlow();
+	void clearOperations();
 	void clearDone();
 	void moveUp();
 	void moveDown();
 	void updatePage(Page*);
 	void showProperties(QModelIndex index);
+	void updateTree(TreeViewModel*);
 };
 
 #endif // FLOWSCHEDULERDIALOG_H
