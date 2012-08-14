@@ -7,6 +7,7 @@
 #include <QString>
 #include <QMetaType>
 #include "treeitem.h"
+#include "HDAQGraphicsTextItem.h"
 
 class PageDoc : public QObject
 {
@@ -21,6 +22,7 @@ public:
 	void setManuscriptName(QString man)		{_man = man;}
 	QString getManuscriptName()	const		{return _man;}
 	TreeItem* getTreeItem() const;
+	void addWord(HDAQGraphicsTextItem*);
 	virtual PageDoc& operator=(const PageDoc&);
 	virtual ~PageDoc(void){}
 
@@ -28,6 +30,7 @@ private:
 	Page* _page;
 	QString _man; 
 	TreeItem* _treeItem;
+	QVector<HDAQGraphicsTextItem*> _words;
 };
 
 Q_DECLARE_METATYPE(PageDoc);

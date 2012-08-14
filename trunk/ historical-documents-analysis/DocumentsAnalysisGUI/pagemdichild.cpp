@@ -5,9 +5,9 @@
 #include <QRect>
 #include "RectFrame.h"
 
-PageMdiChild::PageMdiChild(PageDoc page, QWidget* parent) : 
+PageMdiChild::PageMdiChild(PageDoc& page, QWidget* parent) : 
 QGraphicsView(), 
-	_imageScene(this), 
+	_imageScene(this,page), 
 	_imagePixMap()
 {
 	 Mat d;
