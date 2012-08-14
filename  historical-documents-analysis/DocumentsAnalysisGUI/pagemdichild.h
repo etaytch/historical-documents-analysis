@@ -29,7 +29,7 @@ private:
 	QGraphicsPixmapItem _imagePixMap;
 
 public:
-	PageMdiChild(PageDoc path, QWidget* parent);
+	PageMdiChild(PageDoc& path, QWidget* parent);
 	int getOriginalWidth();
 	int getOriginalHeight();
 	virtual void wheelEvent(QWheelEvent* event);

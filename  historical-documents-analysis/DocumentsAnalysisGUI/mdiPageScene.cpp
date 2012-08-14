@@ -7,8 +7,8 @@
 #include <QKeyEvent>
 #include <qDebug>
 
-mdiPageScene::mdiPageScene(QObject* parent):
-QGraphicsScene(parent), _action(NONE), _frameView(SHOWN), _pointsForNextPoly(), _lastPoly(0), _recentItem(0)
+mdiPageScene::mdiPageScene(QObject* parent, PageDoc& page):
+QGraphicsScene(parent), _action(NONE), _frameView(SHOWN), _pointsForNextPoly(), _lastPoly(0), _recentItem(0), _pageDoc(page)
 {}
 
 void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
@@ -34,13 +34,14 @@ void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 	if (_action == ADDWORDRECT)
 	{
 		//addRectangle(mouseOnPoint);
-		HDAQGraphicsTextItem* txt = new HDAQGraphicsTextItem(QString("BLA"));
+		RectFrame* rct = addRectangle(mouseOnPoint);
+		_recentItem = rct;
+		HDAQGraphicsTextItem* txt = new HDAQGraphicsTextItem(rct,QString("BLA"));
 		txt->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemIsMovable);
 		txt->setTextInteractionFlags(Qt::TextEditorInteraction);
 		txt->setPos(mouseOnPoint.x(), mouseOnPoint.y()-30);				
 		this->addItem(txt);
-		RectFrame* rct = addRectangle(mouseOnPoint);
-		_recentItem = rct;
+		_pageDoc.addWord(txt);
 		_action = NONE;
 	}
 	

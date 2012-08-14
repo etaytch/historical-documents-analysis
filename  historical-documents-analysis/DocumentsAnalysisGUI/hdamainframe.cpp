@@ -409,8 +409,7 @@ void HdaMainFrame::cleanProject()
 
 void HdaMainFrame::saveAndReload()
 {
-	_lock.lock();
-	qDebug()<<"abcd ";
+	_lock.lock();	
 	saveAll();
 	openProject(_filename);
 	emit updateFlowDialogTree(_manuscriptTreeModel);

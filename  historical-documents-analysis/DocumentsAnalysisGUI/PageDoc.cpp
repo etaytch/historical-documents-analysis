@@ -24,6 +24,11 @@ TreeItem* PageDoc::getTreeItem() const
 	return _treeItem;
 }
 
+void PageDoc::addWord(HDAQGraphicsTextItem* txtItem)
+{
+	_words.push_back(txtItem);
+}
+
 PageDoc& PageDoc::operator=(const PageDoc& p) {
 	_page = p.getPage();
 	_man = p.getManuscriptName();
