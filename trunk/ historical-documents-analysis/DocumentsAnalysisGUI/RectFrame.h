@@ -11,7 +11,7 @@ class RectFrame: public FrameDraw
 	Q_OBJECT
 
 public:
-	RectFrame(mdiPageScene* scene, QPointF point);
+	RectFrame(mdiPageScene* scene, QPointF point, qreal width, qreal height);
 	virtual QRectF boundingRect() const; 
     virtual void paint (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget); 
 	virtual void mouseMoveEvent ( QGraphicsSceneMouseEvent * event );

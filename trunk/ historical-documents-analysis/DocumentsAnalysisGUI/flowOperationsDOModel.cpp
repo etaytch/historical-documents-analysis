@@ -1,20 +1,20 @@
-#include "flowOperationsModel.h"
+#include "flowOperationsDOModel.h"
 
-FlowOperationsModel::FlowOperationsModel(QObject *parent,int type) : QAbstractListModel(parent)
+FlowOperationsDOModel::FlowOperationsDOModel(QObject *parent,int type) : QAbstractListModel(parent)
 {	
 }
 
-int FlowOperationsModel::rowCount(const QModelIndex &parent) const
+int FlowOperationsDOModel::rowCount(const QModelIndex &parent) const
 {
 	return _operations.size();
 }
 
-int FlowOperationsModel::columnCount(const QModelIndex &parent) const
+int FlowOperationsDOModel::columnCount(const QModelIndex &parent) const
 {
 	return 1;
 }
 	
-QVariant FlowOperationsModel::data(const QModelIndex &index, int role) const
+QVariant FlowOperationsDOModel::data(const QModelIndex &index, int role) const
 {
 	if (!index.isValid())
     return QVariant();
@@ -32,7 +32,7 @@ QVariant FlowOperationsModel::data(const QModelIndex &index, int role) const
 		return QVariant();
 }
 
-bool FlowOperationsModel::setData(const QModelIndex &index,
+bool FlowOperationsDOModel::setData(const QModelIndex &index,
                             const QVariant &value, int role)
 {
 	
@@ -88,7 +88,7 @@ bool FlowOperationsModel::setData(const QModelIndex &index,
 }
 
 
-QVariant FlowOperationsModel::headerData(int section, Qt::Orientation orientation,
+QVariant FlowOperationsDOModel::headerData(int section, Qt::Orientation orientation,
 								int role) const
 {
 	if (role != Qt::DisplayRole)
@@ -100,7 +100,7 @@ QVariant FlowOperationsModel::headerData(int section, Qt::Orientation orientatio
 		return QVariant();
 }
 
-Qt::ItemFlags FlowOperationsModel::flags(const QModelIndex &index) const
+Qt::ItemFlags FlowOperationsDOModel::flags(const QModelIndex &index) const
 {
 	if (!index.isValid())
 		return Qt::ItemIsEnabled;
@@ -108,12 +108,12 @@ Qt::ItemFlags FlowOperationsModel::flags(const QModelIndex &index) const
 	return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
 }
 
-QModelIndex FlowOperationsModel::parent( const QModelIndex &index ) const
+QModelIndex FlowOperationsDOModel::parent( const QModelIndex &index ) const
 {
 	return QModelIndex();
 }
 
-bool FlowOperationsModel::removeRows(int position, int rows, const QModelIndex &parent)
+bool FlowOperationsDOModel::removeRows(int position, int rows, const QModelIndex &parent)
 {
 	beginRemoveRows(parent, position, position + rows - 1);
 	_operations.remove(position);
@@ -121,6 +121,6 @@ bool FlowOperationsModel::removeRows(int position, int rows, const QModelIndex &
 	return true;
 }
 
-FlowOperationsModel::~FlowOperationsModel()
+FlowOperationsDOModel::~FlowOperationsDOModel()
 {
 }

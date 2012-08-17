@@ -6,7 +6,6 @@
 #include "hdamainframe.h"
 #include "OperationDO.h"
 #include "BinarizeOperationDO.h"
-#include "FlowBinarizeModel.h"
 #include <QModelIndex>
 
 FlowSchedulerDialog::FlowSchedulerDialog(QWidget *parent,TreeViewModel* model)
@@ -14,7 +13,7 @@ FlowSchedulerDialog::FlowSchedulerDialog(QWidget *parent,TreeViewModel* model)
 {
 	ui.setupUi(this);			
 	_flowOperationsListModel = new FlowOperationsListModel(this);
-	_flowSelectedOperationsListModel = new FlowOperationsModel(this,1);
+	_flowSelectedOperationsListModel = new FlowOperationsDOModel(this,1);
 	_flowPropertiesModel= new FlowPropertiesModel(this);
 	_manuscriptTreeModel = model;
 	ui.flowPagesTreeView->setModel(_manuscriptTreeModel);
@@ -23,20 +22,8 @@ FlowSchedulerDialog::FlowSchedulerDialog(QWidget *parent,TreeViewModel* model)
 	ui.flowSelectedOperationsListView->setModel(_flowSelectedOperationsListModel);
 	ui.flowPropertiesTableView->setModel(_flowPropertiesModel);
 
+	// updates pages tree when a job is done
 	connect(parent,SIGNAL(updateFlowDialogTree(TreeViewModel*)),this,SLOT(updateTree(TreeViewModel*)));
-
-	/*
-	QProgressBar* probar1 = new QProgressBar();
-	ui.verticalLayout->addWidget(probar1);
-	QProgressBar* probar2 = new QProgressBar();
-	ui.verticalLayout->addWidget(probar2);
-	QProgressBar* probar3 = new QProgressBar();
-	ui.verticalLayout->addWidget(probar3);
-	QProgressBar* probar4 = new QProgressBar();
-	ui.verticalLayout->addWidget(probar4);
-	QProgressBar* probar5 = new QProgressBar();
-	ui.verticalLayout->addWidget(probar5);
-	*/
 }
 
 FlowSchedulerDialog::FlowSchedulerDialog(QWidget *parent)
@@ -55,6 +42,8 @@ FlowSchedulerDialog::~FlowSchedulerDialog()
 
 void FlowSchedulerDialog::addOperation()
 {
+	// takes the current OperationDO from the _flowPropertiesModel and adds it to the 
+	// _flowSelectedOperationsListModel 	 
 	QVariant qvar = _flowPropertiesModel->data(QModelIndex(),Qt::UserRole);
 	if (qVariantCanConvert<OperationDO*> (qvar))
 	{						
@@ -62,16 +51,6 @@ void FlowSchedulerDialog::addOperation()
 	}
 	_flowPropertiesModel->clearProperties();
 	ui.flowOperationsListView->clearSelection();
-
-
-	/*QItemSelectionModel* selectionModel = ui.flowOperationsListView->selectionModel();
-	QModelIndexList indexes = selectionModel->selectedIndexes();
-	for(int i=0;i<indexes.size();i++){
-		QModelIndex currentIndex = indexes.at(i);
-		QVariant currentOperationStr = currentIndex.data(Qt::DisplayRole);
-		_flowSelectedOperationsListModel->setData(QModelIndex(),currentOperationStr);
-		qDebug()<<currentOperationStr;
-	}*/
 }
 
 QVector<OperationDO*> FlowSchedulerDialog::getSelectedOperations()
@@ -102,8 +81,7 @@ QModelIndexList FlowSchedulerDialog::getCheckedPages(QModelIndexList lst)
 }
 
 void FlowSchedulerDialog::startFlow()
-{
-	//getCheckedPages();
+{	
 	QVector<OperationDO*> selectedOperations = getSelectedOperations();
 
 	ui.flowPagesTreeView->selectAll();
@@ -113,6 +91,11 @@ void FlowSchedulerDialog::startFlow()
 	QModelIndexList checkedPagesIndexes = getCheckedPages(pagesIndexes);
 	ui.flowPagesTreeView->clearSelection();
 
+	/*  for each selected page:
+		- load the Mat
+		- add ProgressBar to the current jobs view
+		- create a thread and start it
+	*/
 	for(int i=0;i<checkedPagesIndexes .size();i++){
 		QModelIndex currentIndex = checkedPagesIndexes.at(i);
 		if (qVariantCanConvert<PageDoc> (currentIndex.data(Qt::UserRole)))
@@ -196,19 +179,17 @@ OperationDO* FlowSchedulerDialog::createOperationDO(QString type)
 }
 
 void FlowSchedulerDialog::showProperties(QModelIndex index)
-{	
-	//QModelIndexList indexes = ui.flowOperationsListView->selectionModel()->selectedIndexes();		
-	
+{		
 	if (index.isValid()) 
-	{
-		//QVariant qvar = index.model()->data(index,Qt::DisplayRole);
-		//QString oper = qvar.toString();
+	{		
 		QVariant qvar = index.model()->data(index,Qt::UserRole);
 		OperationDO* operDO;
+		// if the user selected an operation from the selectedOperations - take the exist OperationDO
 		if (qVariantCanConvert<OperationDO*> (qvar))
 		{							
 			operDO = qVariantValue<OperationDO*>(qvar);
 		}
+		// otherwise, create a new OperationDO
 		else 
 		{			
 			operDO = createOperationDO(index.model()->data(index,Qt::DisplayRole).toString());
@@ -216,25 +197,7 @@ void FlowSchedulerDialog::showProperties(QModelIndex index)
 		_flowPropertiesModel->setOperationDO(operDO);	
 		ui.flowPropertiesTableView->setModel(0);		
 		ui.flowPropertiesTableView->setModel(_flowPropertiesModel);		
-
-		/*
-		OperationDO* operationDO = new OperationDO();
-		operationDO->setOperationType(oper);
-		if(_flowPropertiesModel)
-			delete _flowPropertiesModel;
-		_flowPropertiesModel = getOperationPropertiesModel(operationDO);
-		ui.flowPropertiesTableView->setModel(_flowPropertiesModel);
-		*/
 	}
-}
-
-FlowPropertiesModel* FlowSchedulerDialog::getOperationPropertiesModel(OperationDO* operationDO)
-{
-	if(operationDO->getOperationType()==QString("Global Binarizer"))
-	{
-		return new FlowBinarizeModel(operationDO,this);
-	}
-	return new FlowPropertiesModel(operationDO,this);
 }
 
 void FlowSchedulerDialog::updateTree(TreeViewModel* updatedModel)
@@ -242,43 +205,4 @@ void FlowSchedulerDialog::updateTree(TreeViewModel* updatedModel)
 	_manuscriptTreeModel = updatedModel;
 	ui.flowPagesTreeView->setModel(0);
 	ui.flowPagesTreeView->setModel(_manuscriptTreeModel);	
-}
-
-void FlowSchedulerDialog::updatePage(Page* page)
-{
-
-	
-	//for ( int i = 0 ; i < _manuscriptTreeModel->rowCount() ; ++i )
-	//{		
-	//	QModelIndex currentIndex = _manuscriptTreeModel->index( i, 0,QModelIndex());		
-	//	//ans << _flowSelectedOperationsListModel->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
-	//	QVariant currentPage = currentIndex.data(Qt::UserRole);
-
-	//	TreeItem* item = _manuscriptTreeModel->getItem(currentIndex);
-	//	
-	//	for(int j=0;j<item->childCount();j++)
-	//	{			
-	//		TreeItem* childItem = item->child(j);
-	//		QVariant child = childItem->data(0);
-	//		if (qVariantCanConvert<PageDoc> (child))
-	//		{				
-	//			PageDoc pd = qVariantValue<PageDoc>(child);
-	//		}
-	//	}
-
-
-
-
-	//	if (qVariantCanConvert<PageDoc> (currentIndex.data(Qt::UserRole)))
-	//	{
-	//		QVariant currentPage = currentIndex.data(Qt::UserRole);
-	//		PageDoc pd = qVariantValue<PageDoc>(currentPage);
-	//		if(pd.getPage()==page){
-	//			int rf=5;
-	//		}
-	//	}
-
-
-	  //ans << _flowSelectedOperationsListModel->index( i, 0 ).data( Qt::DisplayRole ).toString() ;
-	//}
 }

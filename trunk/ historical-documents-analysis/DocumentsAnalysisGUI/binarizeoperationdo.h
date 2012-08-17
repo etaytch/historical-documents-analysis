@@ -4,6 +4,13 @@
 #include "OperationDO.h"
 #include <QModelIndex>
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/// <summary>	BinarizeOperationDO class extends the OperationDO class to represent 
+///				a Binarize operation. </summary>
+///
+/// <remarks>	Etay Tchechanovski, 1/5/2012. </remarks>
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 class BinarizeOperationDO : public OperationDO
 {
 	Q_OBJECT

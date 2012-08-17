@@ -17,7 +17,7 @@ void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 
 	if (_action == ADDRECT)
 	{
-		addRectangle(mouseOnPoint);
+		addRectangle(mouseOnPoint, 25, 25);
 		_action = NONE;
 	}
 
@@ -34,13 +34,14 @@ void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 	if (_action == ADDWORDRECT)
 	{
 		//addRectangle(mouseOnPoint);
-		RectFrame* rct = addRectangle(mouseOnPoint);
+		RectFrame* rct = addRectangle(mouseOnPoint, 35, 35);
 		_recentItem = rct;
-		HDAQGraphicsTextItem* txt = new HDAQGraphicsTextItem(rct,QString("BLA"));
+		HDAQGraphicsTextItem* txt = new HDAQGraphicsTextItem(rct,QString("Title"));
 		txt->setFlags(QGraphicsItem::ItemIsSelectable | QGraphicsItem::ItemIsFocusable | QGraphicsItem::ItemIsMovable);
 		txt->setTextInteractionFlags(Qt::TextEditorInteraction);
 		txt->setPos(mouseOnPoint.x(), mouseOnPoint.y()-30);				
 		this->addItem(txt);
+		_rectFrameTexts[rct]=txt;
 		_pageDoc.addWord(txt);
 		_action = NONE;
 	}
@@ -106,6 +107,13 @@ void mdiPageScene::removeAll()
 void mdiPageScene::removeFrame(FrameDraw* toRemove)
 {
 	this->removeItem((QGraphicsItem*) toRemove);
+	if(_rectFrameTexts.contains(toRemove))
+	{
+		QGraphicsItem* txt = _rectFrameTexts.value(toRemove);
+		this->removeItem(txt);		
+		_rectFrameTexts.remove(toRemove);
+		delete txt;
+	}
 	delete toRemove;
 }
 
@@ -123,9 +131,9 @@ QVector<FrameDraw*> mdiPageScene::getFrames()
 	return allFrames;
 }
 
-RectFrame* mdiPageScene::addRectangle(QPointF point)
+RectFrame* mdiPageScene::addRectangle(QPointF point, qreal width, qreal height)
 {
-	RectFrame* frame = new RectFrame(this, point);
+	RectFrame* frame = new RectFrame(this, point,width,height);
 
 	this->addItem(frame);
 	

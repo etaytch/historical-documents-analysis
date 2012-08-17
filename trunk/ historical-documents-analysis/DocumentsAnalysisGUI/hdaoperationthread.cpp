@@ -13,9 +13,8 @@ HdaOperationThread::HdaOperationThread(QObject *parent,Page* page,QVector<Operat
 	connect(this,SIGNAL(finished()),this,SLOT(onDone()));
 }
 
-DImage* HdaOperationThread::doOperation(Binarizer* bin, Page* page/*,_fUpdateValue f*/)
+DImage* HdaOperationThread::doOperation(Binarizer* bin, Page* page)
 {
-//	(this->*f)(1);
 	return page->binarize(*bin);
 }
 
@@ -34,10 +33,7 @@ Binarizer* HdaOperationThread::getOperation(OperationDO* oper)
 		return new RadialBinarizer();
 	}
 }
-void HdaOperationThread::updateValue(int val)
-{
 
-}
 
 void HdaOperationThread::run()
 {
@@ -47,9 +43,7 @@ void HdaOperationThread::run()
 
 	for(int i=0;i<_operations.size();i++)
 	{
-//		_fUpdateValue f = updateValue;
-		//(this->*f)(1);
-		// current operation as QString
+		// current OperationDO
 		OperationDO* oper = _operations.at(i);
 		// current operation object
 		Binarizer* bin = getOperation(oper);
@@ -61,19 +55,10 @@ void HdaOperationThread::run()
 		newPage->setIndex(1);
 		newPage->setMat(newImage->getMat());
 
+		// saving to file
 		QFileInfo fi(workingPage->getName().c_str());	
 		QString originalSuffix = fi.completeSuffix();
 		vector<int> compression_params;
-    
-		/*if((originalSuffix.toLower()=="jpg")||(originalSuffix.toLower()=="jpeg"))
-		{
-			compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);		
-		}
-		else if(originalSuffix.toLower()=="png")
-		{
-			compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
-			compression_params.push_back(9);    	
-		}	*/
 
 		compression_params.push_back(CV_IMWRITE_PNG_COMPRESSION);
 		compression_params.push_back(9);
@@ -91,6 +76,7 @@ void HdaOperationThread::run()
 			fprintf(stderr, "Exception converting image to PNG format: %s\n", ex.what());        
 		}
 
+		// sets the ProgressBar, currently for demonstration only
 		for(int i=1;i<=(100/_operations.size());i++)
 		{
 			Sleep(33);
@@ -102,6 +88,7 @@ void HdaOperationThread::run()
 		workingPage = newPage;
 		Sleep(2000);
 	}
+	// save project and reload
 	emit saveAndReload();
 	
 }

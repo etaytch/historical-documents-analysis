@@ -1,5 +1,5 @@
-#ifndef FLOWOPERATIONSMODEL_H
-#define FLOWOPERATIONSMODEL_H
+#ifndef FLOWOPERATIONSDOMODEL_H
+#define FLOWOPERATIONSDOMODEL_H
 
 #include <QString>
 #include <QPixmap>
@@ -8,15 +8,21 @@
 #include <QStandardItem>
 #include "OperationDO.h"
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/// <summary>	FlowOperationsDOModel class extends the QAbstractListModel base class.
+///				It responsible on displaying the selected OperationDOs in the system.</summary>
+///
+/// <remarks>	Etay Tchechanovski, 1/5/2012. </remarks>
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class FlowOperationsModel : public QAbstractListModel
+class FlowOperationsDOModel : public QAbstractListModel
 {
 	Q_OBJECT
 
 private:
 	QVector<OperationDO*> _operations;
 public:	
-	FlowOperationsModel(QObject *parent,int type);
+	FlowOperationsDOModel(QObject *parent,int type);
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
     virtual QVariant data(const QModelIndex &index, int role) const;
@@ -27,12 +33,12 @@ public:
     virtual Qt::ItemFlags flags(const QModelIndex &index) const;
 	virtual QModelIndex parent( const QModelIndex &index ) const;	
 	virtual bool removeRows(int position, int rows, const QModelIndex & parent);
-	virtual ~FlowOperationsModel();	
+	virtual ~FlowOperationsDOModel();	
 
 };
 
 
-#endif // FLOWOPERATIONSMODEL_H
+#endif // FLOWOPERATIONSDOMODEL_H
 
 
 
