@@ -121,7 +121,7 @@ void PageMdiChild::removeAllFrames()
 
 void PageMdiChild::addRectangle(int x, int y, int width, int height)
 {
-	RectFrame* newFrame = this->_imageScene.addRectangle(QPointF(x,y));
+	RectFrame* newFrame = this->_imageScene.addRectangle(QPointF(x,y),width,height);
 	newFrame->setWidth(width);
 	newFrame->setHeight(height);
 }

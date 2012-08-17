@@ -5,6 +5,13 @@
 #include <QAbstractTableModel>
 #include "OperationDO.h"
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/// <summary>	FlowPropertiesModel class extends the QAbstractTableModel base class.
+///				It responsible on displaying the selected OperationDO' properties.</summary>
+///
+/// <remarks>	Etay Tchechanovski, 1/5/2012. </remarks>
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 class FlowPropertiesModel : public QAbstractTableModel
 {
 	Q_OBJECT

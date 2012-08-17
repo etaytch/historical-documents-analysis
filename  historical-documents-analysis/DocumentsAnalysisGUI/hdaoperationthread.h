@@ -20,13 +20,41 @@ class HdaOperationThread : public QThread
 {
 	Q_OBJECT
 
-public:
-	//typedef void (HdaOperationThread::*_fUpdateValue)  (int);
+public:	
 	HdaOperationThread(QObject *parent,Page* page,QVector<OperationDO*> operations);
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/// <summary>	Starts the thread. </summary>
+	///
+	/// <remarks>	Etay Tchechanovski, 1/5/2012. </remarks>	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 	void run();
-	DImage* doOperation(Binarizer* bin, Page* page/*,_fUpdateValue f*/);
-	Binarizer* getOperation(OperationDO* oper);
-	void updateValue(int);
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/// <summary>	Perform the Operation. </summary>
+	///
+	/// <remarks>	Etay Tchechanovski, 1/5/2012. </remarks>	
+	/// <param name="bin">	[in] The Binarizer. </param>
+	/// <param name="page">	[in] The Page. </param>
+	/// <returns>	The DImage* result. </returns>
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	DImage* doOperation(Binarizer* bin, Page* page);
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/// <summary>	Returns Operation. </summary>
+	///
+	/// <remarks>	Etay Tchechanovski, 1/5/2012. </remarks>	
+	/// <param name="operation">	[in] The OperationDO. </param>
+	/// <returns>	The Operation. </returns>
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	Binarizer* getOperation(OperationDO* operation);	
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/// <summary>	Returns the Page. </summary>
+	///
+	/// <remarks>	Etay Tchechanovski, 1/5/2012. </remarks>		
+	/// <returns>	The Page. </returns>
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 	Page* getPage();
 
 	~HdaOperationThread();
@@ -36,6 +64,7 @@ private:
 	QVector<OperationDO*> _operations;
 
 public slots:
+
 	void onDone();
 
 signals:

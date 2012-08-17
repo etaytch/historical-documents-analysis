@@ -5,10 +5,10 @@
 int RectFrame::MAXHEIGHT = 10;
 int RectFrame::MAXWIDTH = 10;
 
-RectFrame::RectFrame(mdiPageScene* scene, QPointF point) :
+RectFrame::RectFrame(mdiPageScene* scene, QPointF point, qreal width, qreal height) :
 	FrameDraw(scene),
-    _width(25),
-    _height(25),
+    _width(width),
+    _height(height),
 	_hovered(false)
 {
 	_location = point;
@@ -130,7 +130,7 @@ void RectFrame::mousePressEvent (QGraphicsSceneMouseEvent* event)
 	if (this->_scene->_action == mdiPageScene::REMOVE) 
 	{
 		this->_scene->_action = mdiPageScene::NONE;
-		this->removeFromScene();
+		this->removeFromScene();		
 		return;
 	}
 

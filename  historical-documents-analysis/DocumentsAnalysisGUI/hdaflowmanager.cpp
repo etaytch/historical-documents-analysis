@@ -23,8 +23,7 @@ void HdaFlowManager::saveAndReload()
 
 void HdaFlowManager::removeThread(HdaOperationThread* thread)
 {
-	int pos=-1;
-	emit updatePage(thread->getPage());
+	int pos=-1;	
 	for(int i=0;i<_threads.size();i++)
 	{
 		if(_threads.at(i)==thread)
@@ -37,6 +36,8 @@ void HdaFlowManager::removeThread(HdaOperationThread* thread)
 	{
 		_threads.remove(pos);
 	}
+	if(thread)
+		delete thread;
 }
 
 QVector<HdaOperationThread*> HdaFlowManager::getThreads()

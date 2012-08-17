@@ -16,7 +16,7 @@ public:
 	void removeAll();
 	void removeFrame(FrameDraw* toRemove);
 	QVector<FrameDraw*> getFrames();
-	RectFrame* addRectangle(QPointF point);
+	RectFrame* addRectangle(QPointF point, qreal width, qreal height);
 	FrameDraw* addPolygon(QVector<QPointF> points);
 	void DrawPoly();
 	virtual ~mdiPageScene(void);
@@ -29,5 +29,6 @@ public:
 	RectView _frameView; 
 	QGraphicsItem* _recentItem;
 	PageDoc _pageDoc;
+	QHash<FrameDraw*,HDAQGraphicsTextItem*> _rectFrameTexts;
 };
 
