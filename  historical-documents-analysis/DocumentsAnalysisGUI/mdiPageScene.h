@@ -27,7 +27,7 @@ public:
 	RectAction _action; 
 	enum RectView { SHOWN, HIDDEN};
 	RectView _frameView; 
-	QGraphicsItem* _recentItem;
+	RectFrame* _recentItem;
 	PageDoc _pageDoc;
 	QHash<FrameDraw*,HDAQGraphicsTextItem*> _rectFrameTexts;
 };

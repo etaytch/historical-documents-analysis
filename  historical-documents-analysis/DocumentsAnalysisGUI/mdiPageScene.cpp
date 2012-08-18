@@ -60,18 +60,16 @@ void mdiPageScene::keyPressEvent ( QKeyEvent * keyEvent )
 			QPointF qp = _recentItem->pos();
 			
 			if(key==Qt::Key::Key_Left)
-			{				
-				qp.setX(qp.x()-20);
-				_recentItem->setPos(qp);
-				_recentItem->update();						
+			{		
+				_recentItem->setWidth(_recentItem->getWidth()-20);
+				_recentItem->setHeight(_recentItem->getHeight()-20);
 				this->update();				
 			}
 			else
-			{				
-				qp.setX(qp.x()+20);
-				_recentItem->setPos(qp);
-				_recentItem->update();
-				this->update();
+			{	
+				_recentItem->setWidth(_recentItem->getWidth()+20);
+				_recentItem->setHeight(_recentItem->getHeight()+20);
+				this->update();			
 			}
 		}	
 		else QGraphicsScene::keyPressEvent(keyEvent);
