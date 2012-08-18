@@ -9,7 +9,9 @@
     <DirectoryPath>man2</DirectoryPath>
     <Pages count="3" path="man2/Pages">
         <Page index="1" path="man2/Pages/map.jpg" active="0"/>
-        <Page index="2" path="man2/Pages/Negev.JPG" active="0"/>
+        <Page index="2" path="man2/Pages/Negev.JPG" active="0">
+            <Page index="1" path="man2/Pages/Negev_Global Binarizer_threshold_33.png" active="0"/>
+        </Page>
         <Page index="3" path="man2/Pages/vadi.jpg" active="0"/>
     </Pages>
 </Manuscript>

@@ -96,6 +96,7 @@ void FlowSchedulerDialog::startFlow()
 		- add ProgressBar to the current jobs view
 		- create a thread and start it
 	*/
+	QSize sz(340, 35);
 	for(int i=0;i<checkedPagesIndexes .size();i++){
 		QModelIndex currentIndex = checkedPagesIndexes.at(i);
 		if (qVariantCanConvert<PageDoc> (currentIndex.data(Qt::UserRole)))
@@ -108,9 +109,17 @@ void FlowSchedulerDialog::startFlow()
 
 			HdaProgressBar* probar = new HdaProgressBar();
 			probar->setValue(0);
-			probar->setTitle(page->getName().c_str());			
-			ui.verticalLayout->addWidget(probar);
-			ui.verticalLayout->update();
+			probar->setTitle(page->getName().c_str());		
+						
+			QListWidgetItem* s = new QListWidgetItem(QString(""),ui.listWidget);			
+            s->setSizeHint(sz);
+
+			ui.listWidget->addItem(s);
+			ui.listWidget->setItemWidget(s,probar);
+
+
+			//ui.verticalLayout->addWidget(probar);
+			//ui.verticalLayout->update();
 			_progressBars.push_back(probar);
 			mainFrame->getFlowManager()->addThread(pd.getPage(),selectedOperations,probar);
 		}
@@ -151,23 +160,27 @@ void FlowSchedulerDialog::clearOperations()
 
 void FlowSchedulerDialog::clearDone()
 {
-
-	QVector<HdaProgressBar*> newProgressVector;
-	for(int i=0;i<_progressBars.size();i++)
+	QVector<QListWidgetItem*> itemsToDelete;
+	QVector<HdaProgressBar*> probarsToKeep;
+	int size = ui.listWidget->count();
+	int i=0;
+	while(i<ui.listWidget->count())
 	{
-		HdaProgressBar* currentProgBar = _progressBars.at(i);
-		if(currentProgBar->getValue()>=100)
+		QListWidgetItem* item = ui.listWidget->item(i);
+		HdaProgressBar* probar = (HdaProgressBar*)ui.listWidget->itemWidget(item);		
+		if(probar->getValue()>=100)
 		{
-			ui.verticalLayout->removeWidget(currentProgBar);
-			delete currentProgBar;
+			//itemsToDelete.push_back(item);
+			delete ui.listWidget->takeItem(i);
+			delete probar;
 		}
 		else
 		{
-			newProgressVector.push_back(currentProgBar);
+			i++;
+			probarsToKeep.push_back(probar);
 		}
 	}	
-	_progressBars = newProgressVector;
-	
+	_progressBars = probarsToKeep;	
 }
 
 
