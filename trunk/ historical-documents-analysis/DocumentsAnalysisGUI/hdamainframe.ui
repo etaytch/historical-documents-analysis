@@ -23,8 +23,8 @@
    <bool>false</bool>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
+   <layout class="QVBoxLayout" name="verticalLayout_5">
+    <item>
      <widget class="QMdiArea" name="mdiArea">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -96,6 +96,7 @@
      <property name="title">
       <string>Add</string>
      </property>
+     <addaction name="actionAdd_New_Manuscript"/>
      <addaction name="actionAdd_manuscript"/>
      <addaction name="actionAdd_page"/>
     </widget>
@@ -520,8 +521,8 @@
    </property>
    <property name="minimumSize">
     <size>
-     <width>180</width>
-     <height>232</height>
+     <width>182</width>
+     <height>200</height>
     </size>
    </property>
    <property name="font">
@@ -577,9 +578,36 @@
    </attribute>
    <addaction name="actionDraw_Rectangle"/>
    <addaction name="actionDraw_Polygon"/>
+   <addaction name="actionRectToPoly"/>
+   <addaction name="actionDeletePolyPoint"/>
    <addaction name="actionDelete_Frame"/>
    <addaction name="actionShow_Frames"/>
    <addaction name="actionWord_Detector"/>
+  </widget>
+  <widget class="QDockWidget" name="PageTree_dock">
+   <property name="windowTitle">
+    <string>Page</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_5">
+    <layout class="QVBoxLayout" name="verticalLayout_4">
+     <property name="spacing">
+      <number>1</number>
+     </property>
+     <property name="margin">
+      <number>1</number>
+     </property>
+     <item>
+      <widget class="QTreeView" name="pageTreeView">
+       <property name="alternatingRowColors">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <action name="actionNewManuscript">
    <property name="icon">
@@ -668,7 +696,7 @@
      <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-tab-new-background-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-tab-new-background-icon.png</iconset>
    </property>
    <property name="text">
-    <string>Add manuscript</string>
+    <string>Add existing manuscript</string>
    </property>
   </action>
   <action name="actionRemove_manuscript">
@@ -981,15 +1009,51 @@
    </property>
   </action>
   <action name="actionWord_Detector">
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
    <property name="icon">
-    <iconset>
-     <normaloff>Resources/icons/word_detector.jpg</normaloff>Resources/icons/word_detector.jpg</iconset>
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/word_detector.jpg</normaloff>:/HdaMainFrame/Resources/icons/word_detector.jpg</iconset>
    </property>
    <property name="text">
     <string>Word Detector</string>
    </property>
    <property name="toolTip">
     <string>Word Detector</string>
+   </property>
+  </action>
+  <action name="actionAdd_New_Manuscript">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-properties-icon.png</normaloff>:/HdaMainFrame/Resources/toolBarIcons/Actions-document-properties-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add new manuscript </string>
+   </property>
+  </action>
+  <action name="actionDeletePolyPoint">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/BrickDeleteIcon.png</normaloff>:/HdaMainFrame/Resources/icons/BrickDeleteIcon.png</iconset>
+   </property>
+   <property name="text">
+    <string>deletePolyPoint</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete Polygon Point</string>
+   </property>
+  </action>
+  <action name="actionRectToPoly">
+   <property name="icon">
+    <iconset resource="hdamainframe.qrc">
+     <normaloff>:/HdaMainFrame/Resources/icons/draw-polyline-icon.png</normaloff>:/HdaMainFrame/Resources/icons/draw-polyline-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>RectToPoly</string>
+   </property>
+   <property name="toolTip">
+    <string>Transform Rect to Polygon</string>
    </property>
   </action>
  </widget>
@@ -1079,10 +1143,10 @@
    </hints>
   </connection>
   <connection>
-   <sender>actionAdd_manuscript</sender>
+   <sender>actionAdd_New_Manuscript</sender>
    <signal>triggered()</signal>
    <receiver>HdaMainFrameClass</receiver>
-   <slot>addManuscript()</slot>
+   <slot>addNewManuscript()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -1462,6 +1526,70 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionNewManuscript</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>addNewManuscript()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionNewManuscript</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>createNewManuscript()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionDeletePolyPoint</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>deletePolyPoint()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionRectToPoly</sender>
+   <signal>triggered()</signal>
+   <receiver>HdaMainFrameClass</receiver>
+   <slot>rectToPoly()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>363</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openImageWindowFromThumbView(QModelIndex)</slot>
@@ -1488,5 +1616,9 @@
   <slot>openDiff()</slot>
   <slot>binarize()</slot>
   <slot>callWordDetector()</slot>
+  <slot>createNewManuscript()</slot>
+  <slot>addNewManuscript()</slot>
+  <slot>rectToPoly()</slot>
+  <slot>deletePolyPoint()</slot>
  </slots>
 </ui>

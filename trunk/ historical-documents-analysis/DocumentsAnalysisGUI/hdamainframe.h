@@ -36,7 +36,9 @@ public slots:
 	//Actions slots 
 	void binarize();
 	void openProject();	
-	void openManuscript();	
+	void openManuscript();
+	void createNewManuscript();
+	void addNewManuscript();
 	void removeManuscript();
 	void addManuscript();
 	void addPage();
@@ -56,9 +58,9 @@ public slots:
 	void drawPolygon(bool start);
 	void deleteFrame();
 	void showFrames(bool show);
+	void rectToPoly();
+	void deletePolyPoint();
 	void saveAndReload();
-
-
 
 private:
 	Ui::HdaMainFrameClass ui;

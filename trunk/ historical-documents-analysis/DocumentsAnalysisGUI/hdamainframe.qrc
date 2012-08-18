@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="HdaMainFrame">
+    <file>Resources/icons/word_detector.jpg</file>
+    <file>Resources/icons/BrickDeleteIcon.png</file>
     <file>Resources/icons/select-by-difference-icon.png</file>
     <file>Resources/icons/Actions-view-process-all-icon.png</file>
     <file>Resources/icons/bin-icon.png</file>

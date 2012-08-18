@@ -17,6 +17,7 @@ private:
 	QString _manDirPath;
 	QString _manXmlPath;
 	QString _projectXmlPath;	
+	int _active;
 
 public:
 	ManuscriptDoc();
@@ -30,7 +31,6 @@ public:
 	void setProjectXmlPath(QString projXml);
 	QString getProjectXmlPath();
 	
-
 //manuscript getters setters
 public:	
 		
@@ -46,7 +46,8 @@ public:
 	void setLanguage(QString language)	{_language = language.toStdString();}
 	QString getFontType() const				{return _font_type.c_str();}
 	void setFontType(QString font_type)	{_font_type= font_type.toStdString();}
-	
+	void setActiveState(int active)		{_active = active;} 
+	int  isActive() const		{return _active;} 
 };
 
 

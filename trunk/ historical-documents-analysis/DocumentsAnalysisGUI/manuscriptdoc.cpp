@@ -8,8 +8,7 @@ ManuscriptDoc::ManuscriptDoc()
 }
 
 ManuscriptDoc::~ManuscriptDoc()
-{
-
+{	
 }
 
 QString ManuscriptDoc::getManDirPath()

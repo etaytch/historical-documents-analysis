@@ -14,6 +14,7 @@ HdaMainFrame::HdaMainFrame(QWidget *parent, Qt::WFlags flags)
 	_project.setName("Default Project");
 	modelsInit();
 	ui.Properties_dock->setVisible(false);
+	ui.PageTree_dock->setVisible(false);
 	_flowManager = new HdaFlowManager(this);
 	_flowSchedulerDialog=0;
 	
@@ -82,7 +83,10 @@ void HdaMainFrame::openProperties(QModelIndex index)
 		_manuscriptPropertiesDelegete = new ManuscriptPropertiesDelegate();
 		ui.propertiesTableView->setModel(_manuscriptPropertiesModel);
 		ui.propertiesTableView->setItemDelegate(_manuscriptPropertiesDelegete);
+		
+		//Page tree Model and Delegate init will be here
 		ui.Properties_dock->setVisible(true);
+		ui.PageTree_dock->setVisible(true);
 	}
 	else if (qVariantCanConvert<PageDoc> (index.data(Qt::UserRole)))
 	{
@@ -195,7 +199,17 @@ void HdaMainFrame::removePage()
 {
 
 }
-	 
+
+void HdaMainFrame::createNewManuscript()
+{
+		
+}
+
+void HdaMainFrame::addNewManuscript()
+{
+
+}
+
 void HdaMainFrame::save()
 {
 
@@ -253,18 +267,19 @@ void HdaMainFrame::saveManuscript(QString path,QString manName)
 
 void HdaMainFrame::help()
 {
-
+	
 }
 
 void HdaMainFrame::quit()
 {
-
+	close();
 }
 
 void HdaMainFrame::setChiledToOriginalSize()
 {
-	 qobject_cast<PageMdiChild*>
-		(ui.mdiArea->currentSubWindow()->widget())->setOriginalSize();
+	PageMdiChild* child = qobject_cast<PageMdiChild*>
+						(ui.mdiArea->currentSubWindow()->widget()); 
+	child->setOriginalSize();
 }
 
 
@@ -281,20 +296,25 @@ void HdaMainFrame::tilePages()
 
 void HdaMainFrame::drawRectangle()
 {
-	qobject_cast<PageMdiChild*>
-		(ui.mdiArea->currentSubWindow()->widget())->setAddRectangle();
+	if (!ui.mdiArea->currentSubWindow()) return;
+	PageMdiChild* child = qobject_cast<PageMdiChild*>
+							(ui.mdiArea->currentSubWindow()->widget()); 
+	child->setAddRectangle();
 }
 
 void HdaMainFrame::callWordDetector()
 {
-	qobject_cast<PageMdiChild*>
-		(ui.mdiArea->currentSubWindow()->widget())->setWordDetectorRectangle();
+	if (!ui.mdiArea->currentSubWindow()) return;
+	PageMdiChild* child = qobject_cast<PageMdiChild*>
+								(ui.mdiArea->currentSubWindow()->widget()); 
+	child->setWordDetectorRectangle();
 }
 
 
 
 void HdaMainFrame::drawPolygon(bool start)
 {
+	if (!ui.mdiArea->currentSubWindow()) return;
 	PageMdiChild* child = qobject_cast<PageMdiChild*>
 								(ui.mdiArea->currentSubWindow()->widget()); 
 	if (start)
@@ -309,7 +329,7 @@ void HdaMainFrame::drawPolygon(bool start)
 
 void HdaMainFrame::deleteFrame()
 {
-	
+	if (!ui.mdiArea->currentSubWindow()) return;	
 	PageMdiChild* child = qobject_cast<PageMdiChild*>
 								(ui.mdiArea->currentSubWindow()->widget());
 	child->setRemove();
@@ -318,6 +338,7 @@ void HdaMainFrame::deleteFrame()
 
 void HdaMainFrame::showFrames(bool show)
 {
+	if (!ui.mdiArea->currentSubWindow()) return;
 	PageMdiChild* child = qobject_cast<PageMdiChild*>
 								(ui.mdiArea->currentSubWindow()->widget()); 
 	if (show)
@@ -329,6 +350,23 @@ void HdaMainFrame::showFrames(bool show)
 		child->removeAllFrames();
 	}
 
+}
+
+
+void HdaMainFrame::rectToPoly()
+{
+	if (!ui.mdiArea->currentSubWindow()) return;
+	PageMdiChild* child = qobject_cast<PageMdiChild*>
+								(ui.mdiArea->currentSubWindow()->widget()); 
+	child->setChangeRectToPoly();
+}
+
+void HdaMainFrame::deletePolyPoint()
+{
+	if (!ui.mdiArea->currentSubWindow()) return;
+	PageMdiChild* child = qobject_cast<PageMdiChild*>
+								(ui.mdiArea->currentSubWindow()->widget()); 
+	child->setDeletePoint();
 }
 
 void HdaMainFrame::openDiff()
