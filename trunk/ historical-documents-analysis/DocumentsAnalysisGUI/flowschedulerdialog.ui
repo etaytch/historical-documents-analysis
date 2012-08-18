@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>701</width>
-    <height>656</height>
+    <height>665</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -398,33 +398,27 @@
                <x>0</x>
                <y>0</y>
                <width>665</width>
-               <height>69</height>
+               <height>71</height>
               </rect>
              </property>
-             <widget class="QWidget" name="widget_4" native="true">
+             <widget class="QListWidget" name="listWidget">
               <property name="geometry">
                <rect>
-                <x>0</x>
+                <x>5</x>
                 <y>0</y>
-                <width>601</width>
-                <height>121</height>
+                <width>661</width>
+                <height>192</height>
                </rect>
               </property>
-              <widget class="QWidget" name="verticalLayoutWidget">
-               <property name="geometry">
-                <rect>
-                 <x>-1</x>
-                 <y>-1</y>
-                 <width>601</width>
-                 <height>61</height>
-                </rect>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout">
-                <property name="sizeConstraint">
-                 <enum>QLayout::SetDefaultConstraint</enum>
-                </property>
-               </layout>
-              </widget>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>192</height>
+               </size>
+              </property>
+              <property name="resizeMode">
+               <enum>QListView::Adjust</enum>
+              </property>
              </widget>
             </widget>
            </widget>
