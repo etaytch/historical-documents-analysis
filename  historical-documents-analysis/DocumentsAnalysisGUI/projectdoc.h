@@ -29,6 +29,7 @@ public:
 	void removeManuscript(QString name);
 	int renameManuscript(QString oldName,QString newName);
 	QMap<QString,ManuscriptDoc>& getManuscripts();
+	QMap<QString,ManuscriptDoc> getConstManuscripts() const;
 	QMap<QString,QString>& getPaths();
 
 

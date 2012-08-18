@@ -101,11 +101,19 @@ QVariant TreeViewModel::data(const QModelIndex &index, int role) const
 			PageDoc pd = qVariantValue<PageDoc>(item->data(index.column()));
 			return QVariant(pd.getPage()->isActive());
 		}
-		else 
+		else
 		{
-			return 0;
+			if (qVariantCanConvert<QString> (item->data(index.column())))
+			{
+				QString mdName = qVariantValue<QString>(item->data(index.column()));
+				
+				return QVariant(_project.getConstManuscripts()[mdName].isActive());
+			}
+			else
+			{
+				return QVariant();
+			}
 		}
-		
 	}
 	if (role == Qt::UserRole)
 	{
@@ -134,8 +142,24 @@ bool TreeViewModel::setData(const QModelIndex &index, const QVariant &value,
 		}
 		else 
 		{
-
+			if (qVariantCanConvert<QString> (item->data(index.column())))
+			{
+				QString mdName = qVariantValue<QString>(item->data(index.column()));
+				ManuscriptDoc md = _project.getManuscriptAt(mdName);
+				vector<Page*> pages = md.getPages();
+				vector<Page*>::iterator iter;
+				md.setActiveState(qVariantValue<int>(value));
+				for (iter = pages.begin(); iter!=pages.end(); iter++)
+				{
+					PageDoc pd = PageDoc(*iter,QString(md.getTitle()),item,0);
+					emit updateThumbnails(pd,item,qVariantValue<int>(value));
+					(*iter)->setActiveState(qVariantValue<int>(value));
+				}
+				emit dataChanged(index,index);
+				return true;
+			}
 		}
+
     }
 	else if (role == Qt::EditRole)
 	{

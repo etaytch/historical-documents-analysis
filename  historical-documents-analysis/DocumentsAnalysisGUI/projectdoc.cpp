@@ -43,6 +43,11 @@ QMap<QString,ManuscriptDoc>& ProjectDoc::getManuscripts()
 	return _manuscripts;
 }
 
+QMap<QString,ManuscriptDoc> ProjectDoc::getConstManuscripts() const
+{
+	return _manuscripts;
+}
+
 ProjectDoc::~ProjectDoc()
 {
 	_manuscripts.clear();
