@@ -29,6 +29,8 @@ public:
 	RectView _frameView; 
 	RectFrame* _recentItem;
 	PageDoc _pageDoc;
+
+	// for words detection: maps rectangle to text
 	QHash<FrameDraw*,HDAQGraphicsTextItem*> _rectFrameTexts;
 };
 
