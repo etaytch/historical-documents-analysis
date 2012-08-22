@@ -26,16 +26,6 @@ public:
 	RectFrame* getRect();	
 	~HDAQGraphicsTextItem();
 
-protected:
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	/// <summary>	Catchs a keyPressEvent to save the text </summary>
-	///
-	/// <remarks>	Etay Tchechanovski and Eliav Ben Zaken, 1/8/2012. </remarks>
-	/// <param name="event">	[in] The event. </param>
-	////////////////////////////////////////////////////////////////////////////////////////////////////
-	void keyPressEvent ( QKeyEvent * event );
-
 private:
 	RectFrame* _rect;
 };

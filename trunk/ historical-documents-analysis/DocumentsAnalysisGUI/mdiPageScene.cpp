@@ -31,9 +31,10 @@ void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 		_lastPoly = this->addPolygon(_pointsForNextPoly);
 	}
 
+	// Word Detection:
 	if (_action == ADDWORDRECT)
-	{
-		//addRectangle(mouseOnPoint);
+	{		
+		// create Rectangle + Text, add to scene and to map
 		RectFrame* rct = addRectangle(mouseOnPoint, 35, 35);
 		_recentItem = rct;
 		HDAQGraphicsTextItem* txt = new HDAQGraphicsTextItem(rct,QString("Title"));
@@ -53,6 +54,7 @@ void mdiPageScene::keyPressEvent ( QKeyEvent * keyEvent )
 {
 	Qt::Key key = (Qt::Key)keyEvent->key();
 	
+	// increase / decrease rectangle's size
 	if((key==Qt::Key::Key_Left)||(key==Qt::Key::Key_Right))
 	{
 		if(_recentItem)
@@ -105,6 +107,7 @@ void mdiPageScene::removeAll()
 void mdiPageScene::removeFrame(FrameDraw* toRemove)
 {
 	this->removeItem((QGraphicsItem*) toRemove);
+	// remove from map
 	if(_rectFrameTexts.contains(toRemove))
 	{
 		QGraphicsItem* txt = _rectFrameTexts.value(toRemove);
