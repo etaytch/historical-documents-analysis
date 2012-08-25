@@ -6,6 +6,12 @@
 #include <QPolygonF>
 #include <algorithm>
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/// <summary>	Rectangle Frame. </summary>
+///
+/// <remarks>	Yair Offir, 1/8/2012. </remarks>
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 class RectFrame: public FrameDraw
 {
 	Q_OBJECT
@@ -21,12 +27,18 @@ public:
     virtual void mouseReleaseEvent (QGraphicsSceneMouseEvent * event );
 	virtual void hoverEnterEvent ( QGraphicsSceneHoverEvent * event ); 
     virtual void hoverLeaveEvent ( QGraphicsSceneHoverEvent * event ); 
+	//return true if p1 is close enough to p2
 	bool closeTo(QPointF p1, QPointF p2);
 	void movePosition(int x, int y);
+	//returns the rectangle position
 	QPointF getPos();
+	//sets the rectangle width
 	void setWidth(int width);
-	qreal getWidth();	
+	//gets the rectangle width
+	qreal getWidth();
+	//sets the rectangle height
 	void setHeight(int height);
+	//gets the rectangle height
 	qreal getHeight();
 	~RectFrame(void);
 

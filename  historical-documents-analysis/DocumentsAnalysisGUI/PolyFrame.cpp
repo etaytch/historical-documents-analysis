@@ -4,6 +4,7 @@
 
 int PolyFrame::MAXDISTANCE = 10;
 
+
 PolyFrame::PolyFrame(mdiPageScene* scene, QVector<QPointF> points) :
 	FrameDraw(scene),
 	_points(),
@@ -38,6 +39,7 @@ void PolyFrame::paint (QPainter *painter, const QStyleOptionGraphicsItem *option
 
 	painter->drawPolygon(*_poly);
 
+	//if hovered, it should look different
 	if (_hovered)
 	{
 		_borderPen.setColor(Qt::black);
@@ -56,7 +58,7 @@ void PolyFrame::mouseMoveEvent (QGraphicsSceneMouseEvent* event)
 {
 	qreal dx = event->scenePos().x() - _dragStart.x();
 	qreal dy = event->scenePos().y() - _dragStart.y();
-	//MOVING
+	//MOVING THE POLYGON
 	if (movingIndex < 0) 
 	{
 		for (int i = 0; i < _points.size() ; i++)
@@ -95,6 +97,7 @@ void PolyFrame::mousePressEvent (QGraphicsSceneMouseEvent* event)
 {
 	event->setAccepted(true);
 
+	//remove polygon
 	if (this->_scene->_action == mdiPageScene::REMOVE) 
 	{
 		this->_scene->_action = mdiPageScene::NONE;
@@ -102,11 +105,13 @@ void PolyFrame::mousePressEvent (QGraphicsSceneMouseEvent* event)
 		return;
 	}
 
+	//change to poly, unused on polygons - ignore
 	if (this->_scene->_action == mdiPageScene::CHANGETOPOLY)
 	{
 		this->_scene->_action = mdiPageScene::NONE;
 	}
 
+	//delete a point from polygon
 	if (this->_scene->_action == mdiPageScene::DELETEPOINT) 
 	{
 		if (this->_points.size() > 3)
@@ -155,6 +160,7 @@ void PolyFrame::mousePressEvent(QGraphicsSceneDragDropEvent* event){ event->setA
 
 void PolyFrame::mouseReleaseEvent (QGraphicsSceneMouseEvent* event)
 {
+	//refresh item
 	event->setAccepted(true);
 	_scene->removeItem(this);
 	_scene->addItem(this);
@@ -162,6 +168,7 @@ void PolyFrame::mouseReleaseEvent (QGraphicsSceneMouseEvent* event)
 
 void PolyFrame::hoverEnterEvent ( QGraphicsSceneHoverEvent * event )
 {
+	//change the polygon when hovered, color changes to red and shows circles aroung the points.
 	_hovered = true;
 	_borderColor = Qt::red;
 	this->update(this->boundingRect());
@@ -169,6 +176,7 @@ void PolyFrame::hoverEnterEvent ( QGraphicsSceneHoverEvent * event )
 
 void PolyFrame::hoverLeaveEvent ( QGraphicsSceneHoverEvent * event )
 {
+	//change the polygon looks back to default.
 	_hovered = false;
 	_borderColor = Qt::black;
     this->update(this->boundingRect());

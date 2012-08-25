@@ -43,6 +43,7 @@ void RectFrame::paint (QPainter *painter, const QStyleOptionGraphicsItem *option
     painter->drawRoundRect(rect,0,0);
 	setPos(_location);
 
+	//if hovered, it should look different
 	if (_hovered)
 	{
 		_borderPen.setColor(Qt::black);
@@ -101,22 +102,24 @@ void RectFrame::mouseMoveEvent (QGraphicsSceneMouseEvent* event)
 	this->_width = std::max((float)this->_width, (float)10);
 	this->_height = std::max((float)this->_height, (float)10);
 
-	//align to scene
+	//align location to scene 
 	_location.setX(std::max((float)_location.x(),(float)0));
 	_location.setY(std::max((float) _location.y(),(float)0));
 	_location.setX(std::min((float) _location.x(), (float) this->scene()->sceneRect().width()));
 	_location.setY(std::min((float) _location.y(), (float) this->scene()->sceneRect().height()));
+	//align width to scene 
 	if ((_location.x() + this->_width) > this->scene()->sceneRect().width())
 	{
 		if (action == MOVE) _location.setX(this->scene()->sceneRect().width() - this->_width - 1);
 		else this->_width = this->scene()->sceneRect().width() - _location.x();
 	}
+	//align height to scene 
 	if ((_location.y() + this->_height) > this->scene()->sceneRect().height())
 	{
 		if (action == MOVE) _location.setY(this->scene()->sceneRect().height() - this->_height - 1);
 		else this->_height = this->scene()->sceneRect().height() - _location.y();
 	}
-	//
+	//update scene
 	this->update(0,0,_width,_height);
 	this->setPos(_location);
 	this->scene()->update();
@@ -127,6 +130,7 @@ void RectFrame::mouseMoveEvent(QGraphicsSceneDragDropEvent* event){ event->setAc
 void RectFrame::mousePressEvent (QGraphicsSceneMouseEvent* event)
 {
 	event->setAccepted(true);
+	//remove rectangle
 	if (this->_scene->_action == mdiPageScene::REMOVE) 
 	{
 		this->_scene->_action = mdiPageScene::NONE;
@@ -134,6 +138,7 @@ void RectFrame::mousePressEvent (QGraphicsSceneMouseEvent* event)
 		return;
 	}
 
+	//transform this rectangle to a polygon
 	if (this->_scene->_action == mdiPageScene::CHANGETOPOLY) 
 	{
 		QVector<QPointF> points;
@@ -147,17 +152,23 @@ void RectFrame::mousePressEvent (QGraphicsSceneMouseEvent* event)
 		return;
 	}
 
+	//can't delete a point from a rectangle - ignore
 	if (this->_scene->_action == mdiPageScene::DELETEPOINT)
 	{
 		this->_scene->_action = mdiPageScene::NONE;
 	}
 
 	_dragStart = event->scenePos();
+	//if close engouth to bottom-right cornes, set RESIZEBR
 	if (closeTo(this->boundingRect().bottomRight() , event->pos()))		{ 	action = RESIZEBR;	}
+	//if close engouth to top-right cornes, set RESIZETR
 	else if (closeTo(this->boundingRect().topRight() , event->pos()))		{	action = RESIZETR;	}
+	//if close engouth to bottom-left cornes, set RESIZEBL
 	else if (closeTo(this->boundingRect().bottomLeft() , event->pos()))	{	action = RESIZEBL;	}
+	//if close engouth to top-left cornes, set RESIZETL
 	else if (closeTo(this->boundingRect().topLeft() , event->pos()))		{ 	action = RESIZETL;	}
 	else 	{	
+		//else move the whole rectangle
 		_dragStart = event->pos();
 		action = MOVE;	
 	}
@@ -181,6 +192,7 @@ void RectFrame::mouseReleaseEvent (QGraphicsSceneMouseEvent* event)
 
 void RectFrame::hoverEnterEvent ( QGraphicsSceneHoverEvent * event )
 {
+	//the rectangle is hovered on, change its color to red, and add the resizing handles
 	_hovered = true;
 	_borderColor = Qt::red;
     this->update(0,0,_width,_height);
@@ -188,6 +200,7 @@ void RectFrame::hoverEnterEvent ( QGraphicsSceneHoverEvent * event )
 
 void RectFrame::hoverLeaveEvent ( QGraphicsSceneHoverEvent * event )
 {
+	//the rectangle is not hovered any more, change it to defualt looks.
 	_hovered = false;
 	_borderColor = Qt::black;
     this->update(0,0,_width,_height);

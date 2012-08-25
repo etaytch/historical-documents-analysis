@@ -46,17 +46,51 @@ public:
 	QString getPath()			{return _path;}
     void setPath(QString path)	{ _path = path; }
 	QVector<FrameDraw*> getFrames();
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/// <summary>	shows all graphic items. </summary>
+	///
+	/// <remarks>	Yair Offir, 1/8/2012. </remarks>		
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 	void showAllFrames();
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/// <summary>	unshows all graphic items. </summary>
+	///
+	/// <remarks>	Yair Offir, 1/8/2012. </remarks>		
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 	void removeAllFrames();
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/// <summary>	creates and adds a new rectangle. </summary>
+	///
+	/// <remarks>	Yair Offir, 1/8/2012. </remarks>		
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 	void addRectangle(int x, int y, int width, int height);
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/// <summary>	creates and adds a new polygon. </summary>
+	///
+	/// <remarks>	Yair Offir, 1/8/2012. </remarks>		
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 	void addPolygon(QVector<QPointF> points);
+	//sets _action to ADDPOLY. when the next click will be performed, a new dot will be added to the poly.
 	void setAddPolygon();
+	//sets _action to DELETEPOINT. when the next click will be performed(if close enough), 
+	//one of the polygons points will be deleted.
 	void PageMdiChild::setDeletePoint();
+	//sets _action to CHANGETOPOLY. when the next click will be performed, 
+	//the clicked rectangle will be transformed into a polygon.
 	void PageMdiChild::setChangeRectToPoly();	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	/// <summary>	draws a new polygon (when one is created this function is called. </summary>
+	///
+	/// <remarks>	Yair Offir, 1/8/2012. </remarks>		
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 	void drawPolygon();
+	////sets _action to ADDRECT. when the next click will be performed, a new rectangle will be added.
 	void setAddRectangle();
 	void setWordDetectorRectangle();
+	//sets _action to REMOVE. when the next click will be performed, 
+	//the clicked graphics item will be deleted.
 	void setRemove();
+	//sets _action to NONE
 	void setNone();
 	virtual ~PageMdiChild();
 

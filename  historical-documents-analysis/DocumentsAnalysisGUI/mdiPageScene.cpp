@@ -15,12 +15,14 @@ void mdiPageScene::mousePressEvent(QGraphicsSceneMouseEvent *mouseEvent)
 {
 	QPointF mouseOnPoint = mouseEvent->scenePos();
 
+	//add rectangle
 	if (_action == ADDRECT)
 	{
 		addRectangle(mouseOnPoint, 25, 25);
 		_action = NONE;
 	}
 
+	//add polygon
 	if (_action == ADDPOLY)
 	{
 		_pointsForNextPoly.push_back(mouseOnPoint);
