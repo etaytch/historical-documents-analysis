@@ -46,7 +46,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_CORE_LIB;QT_GUI_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;$(QTDIR)\include;C:\OpenCV2.3\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\qtmain;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;..\Manuscript;..\DocumentsAnalysisGUI;..\DocumentsAnalysisGUI\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;$(QTDIR)\include;C:\OpenCV2.4\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\qtmain;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;..\Manuscript;..\DocumentsAnalysisGUI;..\DocumentsAnalysisGUI\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -56,9 +56,9 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>..\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\OpenCV2.4\lib;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;QtCored4.lib;QtGuid4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;QtCored4.lib;QtGuid4.lib;opencv_core242d.lib;opencv_highgui242d.lib;opencv_contrib242d.lib;opencv_calib3d242d.lib;opencv_objdetect242d.lib;opencv_imgproc242d.lib;opencv_features2d242d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ProgramDatabaseFile>..\$(Configuration)\$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
