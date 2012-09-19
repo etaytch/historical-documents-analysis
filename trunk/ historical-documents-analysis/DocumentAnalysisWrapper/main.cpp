@@ -2,24 +2,20 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-#include "DImage.h"
+#include "di.h" 
 #include "ConnectedComponent.h"
 #include "OtsulBinarizer.h" 
 #include "RadialBinarizer.h"
 #include "BinaryComponentExtractor.h"
 
 
-void display(std::string wname, DImage& image){
-	cv::namedWindow(wname);
-	cv::imshow(wname, image.getMat());
-}
 
 void display(std::string wname, Mat image){
 	cv::namedWindow(wname, CV_WINDOW_NORMAL|CV_GUI_EXPANDED );
 	cv::imshow(wname, image);
 }
 
-void drawConnectedComponents(DImage img, vector<ConnectedComponent*>& components){
+void drawConnectedComponents(Mat img, vector<ConnectedComponent*>& components){
 	vector<ConnectedComponent*>::iterator iter ;
 	for ( iter = components.begin(); iter != components.end(); iter++ ){
 		printf ("Area : %f \n", (*iter)->getContour().getArea());
@@ -32,25 +28,23 @@ void drawConnectedComponents(DImage img, vector<ConnectedComponent*>& components
 }
 
 int main() {
-	DImage image ;
 	Mat img ;
 	vector<ConnectedComponent*> components ;
 	Mat img_in = cv::imread("arabic.jpg") ;
 	resize(img_in, img, img_in.size()*2,  2.0, 2.0);
 	display("resized", img_in);
-	image.setMat(img);
-	image.setMat(imread("pentagon.jpg"));
-	DImage* gray = image.rgb2gray();
+	img = imread("pentagon.jpg");
+	Mat gray = di::rgb2gray(img);
 	OtsulBinarizer binarizer ;
 //	RadialBinarizer binarizer ;
-	DImage* binary = gray->binarize(binarizer);
+	Mat binary = di::binarize(binarizer, gray);
 	BinaryComponentExtractor extractor ;
-	display("Original", image);
-	display("Gray", *gray);
-	display("Binary", *binary);
-	binary->extractComponents(extractor, components);
-	drawConnectedComponents(image, components);
-	display("Components", image);
+	display("Original", img);
+	display("Gray", gray);
+	display("Binary", binary);
+	di::extractComponents(extractor, binary, components); 
+	drawConnectedComponents(img, components);
+	display("Components", img);
 	cv::waitKey();
 	return 1;
 }
