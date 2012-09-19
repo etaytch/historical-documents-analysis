@@ -10,6 +10,7 @@ TextLine::TextLine(){
 TextLine::~TextLine(){
 	delete _upper ;
 	delete _lower ;
+	
 }
 
 

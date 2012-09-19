@@ -130,8 +130,8 @@ void ConnectedComponent::fillComponentOnMat(Mat mat, char mask, char filler){
 /// <param name="line_type">	Type of the line. </param>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void ConnectedComponent::draw(DImage img, Scalar clr, bool isclosed, int thickness, int line_type){
+void ConnectedComponent::draw(Mat img, Scalar clr, bool isclosed, int thickness, int line_type){
 	vector<vector<Point>> contours ;
 	contours.push_back(_contour.getPoints());
-	polylines(img.getMat(), contours, isclosed, clr, thickness, line_type);
+	polylines(img, contours, isclosed, clr, thickness, line_type);
 }

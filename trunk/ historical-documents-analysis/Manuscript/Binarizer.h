@@ -2,8 +2,7 @@
 #define _BINARIZER_H 
 
 #include <opencv\cv.h>
-
-#include "DImage.h"
+#include "manuscript_global.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 /// <summary>	Binarizer class implements a binarization algorithm. This is a base class that each 
@@ -12,9 +11,11 @@
 /// <remarks>	El Sana, 2/9/2012. </remarks>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
+using namespace cv ;
+
 class MANUSCRIPT_EXPORT Binarizer {
 protected:
-	DImage _image ;
+	Mat _image ;
 
 public:
 	Binarizer(void){;}
@@ -28,7 +29,7 @@ public:
 	/// <param name="img">	[in] The image. </param>
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	void setImage(DImage& img){
+	void setImage(Mat& img){
 		_image = img ;
 	}
 
@@ -40,7 +41,7 @@ public:
 	/// <returns>	The image. </returns>
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	DImage& getImage(){
+	Mat& getImage(){
 		return _image ;
 	}
 
@@ -53,7 +54,7 @@ public:
 	/// <returns>	null if it fails, else. </returns>
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	virtual DImage* binarize() = 0;
+	virtual Mat binarize() = 0;
 };
 
 #endif 
