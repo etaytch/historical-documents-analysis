@@ -191,18 +191,18 @@ void XmlReader::blockParsing(tinyxml2::XMLElement* pageElement,Page* page)
 {
 	
 
-	for(tinyxml2::XMLElement* blockElement = pageElement->FirstChildElement("Block"); 
-		blockElement != NULL; blockElement = blockElement->NextSiblingElement("Block"))
+	for(tinyxml2::XMLElement* blockElement = pageElement->FirstChildElement("SubPage"); 
+		blockElement != NULL; blockElement = blockElement->NextSiblingElement("SubPage"))
 	{
-		Block* block = new Block();
+		SubPage* sub_page = new SubPage();
 		const char* typeAttr;
 		typeAttr = blockElement->Attribute("type");
 		if(typeAttr != NULL)
 		{
-			block->setType(atoi(typeAttr));
+			sub_page->setType(atoi(typeAttr));
 		}
-		textLineParsing(blockElement,block);	
-		page->addBlock(block);
+		textLineParsing(blockElement,sub_page);	
+		page->addBlock(sub_page);
 	}
 
 	

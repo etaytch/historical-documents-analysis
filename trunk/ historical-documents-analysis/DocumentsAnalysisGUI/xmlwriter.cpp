@@ -120,12 +120,12 @@ void XmlWriter::pageGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, 
 void XmlWriter::blockGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, Page* page)
 {
 	XMLElement* element;
-	vector<Block*>::iterator blockIter;
+	vector<SubPage*>::iterator blockIter;
 
-	vector<Block*> blocks = page->getBlocks();
+	vector<SubPage*> blocks = page->getBlocks();
 	for(blockIter = blocks.begin(); blockIter!=blocks.end();blockIter++)
 	{
-		element = xmlDoc.NewElement("Block");
+		element = xmlDoc.NewElement("SubPage");
 		XMLNode* blockNode = node->InsertEndChild(element);
 		element->SetAttribute("type",(int)(*blockIter)->getType());
 		textLineGen(blockNode,xmlDoc,*blockIter);

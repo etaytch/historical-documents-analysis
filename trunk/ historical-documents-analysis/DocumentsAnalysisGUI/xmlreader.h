@@ -21,7 +21,7 @@ private:
 	static void pageParsing(tinyxml2::XMLElement* element,ManuscriptDoc& manDoc);
 	static void pageParsing(tinyxml2::XMLElement* element,Page* page,ManuscriptDoc& manDoc);
 	static void blockParsing(tinyxml2::XMLElement* pageElement,Page* page);
-	static void textLineParsing(tinyxml2::XMLElement* blockElement,Block* block);
+	static void textLineParsing(tinyxml2::XMLElement* blockElement,SubPage* block);
 	static void rectParsing(tinyxml2::XMLElement* element,TextLine* textline);
 	static void upperPointsParsing(tinyxml2::XMLElement* element,TextLine* textline);
 	static void lowerPointsParsing(tinyxml2::XMLElement* element,TextLine* textline);	
