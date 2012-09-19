@@ -19,7 +19,7 @@ private:
 	static void pageGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, ManuscriptDoc& manDoc);
 	static void pageGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, Page* page);
 	static void blockGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, Page* page);
-	static void textLineGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, Block* block);
+	static void textLineGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, SubPage* block);
 	static void rectGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, TextLine* textline);
 	static void upperPointsGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, TextLine* textline);
 	static void lowerPointsGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, TextLine* textline);	

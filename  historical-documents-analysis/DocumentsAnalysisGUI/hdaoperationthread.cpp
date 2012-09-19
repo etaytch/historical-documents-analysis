@@ -13,9 +13,9 @@ HdaOperationThread::HdaOperationThread(QObject *parent,Page* page,QVector<Operat
 	connect(this,SIGNAL(finished()),this,SLOT(onDone()));
 }
 
-DImage* HdaOperationThread::doOperation(Binarizer* bin, Page* page)
+Mat HdaOperationThread::doOperation(Binarizer* bin, Page* page)
 {
-	return page->binarize(*bin);
+	return di::binarize(*bin, page->getMat());
 }
 
 Binarizer* HdaOperationThread::getOperation(OperationDO* oper)
@@ -48,7 +48,7 @@ void HdaOperationThread::run()
 		// current operation object
 		Binarizer* bin = getOperation(oper);
 		// resulted DImage
-		DImage* newImage = doOperation(bin,workingPage/*,f*/);
+		Mat newImage = doOperation(bin,workingPage/*,f*/);
 
 		// creating new page for the resulted DImage
 		Page* newPage = new Page();
