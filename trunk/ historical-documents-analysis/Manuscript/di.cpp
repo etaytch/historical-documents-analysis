@@ -1,4 +1,4 @@
-#include "DImage.h"
+#include "di.h"
 #include "Contour.h" 
 #include "Binarizer.h"
 #include "ComponentExtractor.h"
@@ -7,16 +7,6 @@
 #include "ImageOperation.h"
 #include "ImageCombiner.h"
 
-DImage::DImage(void){
-}
-
-DImage::DImage(Mat& mat){
-	_mat = mat.clone();
-}
-
-
-DImage::~DImage(void){
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 /// <summary>	Return a gray scale image of the RGB one. </summary>
@@ -26,10 +16,11 @@ DImage::~DImage(void){
 /// <returns>	null if it fails, else. </returns>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-DImage* DImage::rgb2gray(){
-	DImage *gray_image = new DImage(_mat);
-	cvtColor(_mat, gray_image->getMat(),CV_BGR2GRAY);
-	return gray_image ;
+cv::Mat di::rgb2gray(Mat mat){
+	Mat gray;
+	gray.create(mat.size(), CV_8U);
+	cvtColor(mat, gray,CV_BGR2GRAY);
+	return gray;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -44,9 +35,9 @@ DImage* DImage::rgb2gray(){
 /// <returns>	The histogram. </returns>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-cv::MatND DImage::getHistogram(int channel[], int bin[], const float* range[]) {
+cv::MatND di::getHistogram(const Mat* mat, int channel[], const int bin[], const float* range[]) {
 	MatND hist;
-	calcHist(&_mat, 1, channel, cv::Mat(), hist, 1, bin, range );
+	cv::calcHist(mat, 1, channel, cv::Mat(), hist, 1, bin, range);
 	return hist;
 }
 
@@ -60,8 +51,8 @@ cv::MatND DImage::getHistogram(int channel[], int bin[], const float* range[]) {
 /// <returns>	null if it fails, else. </returns>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-DImage* DImage::binarize(Binarizer& binarizer){
-	binarizer.setImage(*this);
+Mat di::binarize(Binarizer& binarizer, Mat mat){
+	binarizer.setImage(mat);
 	return binarizer.binarize() ;
 }
 
@@ -74,8 +65,8 @@ DImage* DImage::binarize(Binarizer& binarizer){
 /// <param name="components">	[in,out] [in,out] If non-null, the components. </param>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void DImage::extractComponents(ComponentExtractor& extractor, vector<ConnectedComponent*>& components){
-	extractor.setImage(*this);
+void di::extractComponents(ComponentExtractor& extractor, Mat mat, vector<ConnectedComponent*>& components){
+	extractor.setImage(mat);
 	extractor.extract(components);
 }
 
@@ -88,12 +79,12 @@ void DImage::extractComponents(ComponentExtractor& extractor, vector<ConnectedCo
 /// <param name="textlines">	[out] The extracted textlines in a vector </param>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void DImage::extractTextLine(TextLineExtractor& extractor, vector<TextLine*>& textlines){
-	extractor.setImage(*this) ;
+void di::extractTextLine(TextLineExtractor& extractor, Mat mat, vector<TextLine*>& textlines){
+	extractor.setImage(mat) ;
 	extractor.extract(textlines);
 }
 
-void DImage::print(Mat mat){
+void di::print(Mat mat){
 	for ( int col = 0 ; col < mat.cols ; col++ ){
 		for ( int row = 1 ; row < mat.rows ; row++ )
 			printf("%3d",mat.at<char>(row, col));
@@ -102,19 +93,19 @@ void DImage::print(Mat mat){
 
 }
 
-Mat DImage::transform(ImageTransformation& transformation, Mat mat){
+Mat di::transform(ImageTransformation& transformation, Mat mat){
 	transformation.set(mat);
 	return transformation.transform();
 }
 
 
-Mat DImage::combine(ImageCombiner& combiner, Mat a, Mat b){
+Mat di::combine(ImageCombiner& combiner, Mat a, Mat b){
 	Mat result ;
 	combiner.combine(a,b, result);
 	return result ;
 }
 
-MatND DImage::project(ImageOperation& operation, Mat mat){
+MatND di::project(ImageOperation& operation, Mat mat){
 	operation.set(mat);
 	return operation.project();
 }
