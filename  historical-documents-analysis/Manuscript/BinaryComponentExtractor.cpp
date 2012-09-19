@@ -55,6 +55,6 @@ void  BinaryComponentExtractor::extract(vector<ConnectedComponent*>& components)
 	vector<vector<Point>> contours;
 	vector<Vec4i> hierarchy;
 
-	findContours(_image.getMat(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_NONE, Point(0, 0) );
+	findContours(_image, contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_NONE, Point(0, 0) );
 	collectComponents(contours, hierarchy, components);
 }

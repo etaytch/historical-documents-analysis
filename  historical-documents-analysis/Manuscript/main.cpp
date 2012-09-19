@@ -8,6 +8,7 @@
 #include "RadialBinarizer.h"
 #include "BinaryComponentExtractor.h"
 #include "SignedDistanceTransform.h"
+#include "ShiftDistance.h" 
 
 void display(std::string wname, DImage& image){
 	cv::namedWindow(wname);
@@ -33,6 +34,7 @@ void drawConnectedComponents(DImage img, vector<ConnectedComponent*>& components
 
 int main() {
 
+	ShiftDistance dtw ;
 	DImage image ;
 	Mat img ;
 	vector<ConnectedComponent*> components ;
@@ -59,4 +61,3 @@ int main() {
 	cv::waitKey();
 	return 1;
 }
-

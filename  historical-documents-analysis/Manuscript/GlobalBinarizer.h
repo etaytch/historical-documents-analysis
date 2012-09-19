@@ -21,7 +21,7 @@ public:
 		_thershold = threshold ;
 	}
 
-	DImage* binarize();
+	Mat binarize();
 };
 
 #endif 

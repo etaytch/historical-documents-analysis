@@ -20,8 +20,9 @@ GlobalBinarizer::~GlobalBinarizer(void)
 /// <returns>	null if it fails, else. </returns>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-DImage* GlobalBinarizer::binarize(){
-	DImage* bin_image = new DImage(_image.getMat());
-	cv::threshold(_image.getMat(), bin_image->getMat(), _thershold,255,cv::THRESH_BINARY);
+Mat GlobalBinarizer::binarize(){
+	Mat bin_image;
+	bin_image.create(_image.rows, _image.cols, CV_8U);
+	cv::threshold(_image, bin_image, _thershold,255,cv::THRESH_BINARY);
 	return bin_image ;
 }

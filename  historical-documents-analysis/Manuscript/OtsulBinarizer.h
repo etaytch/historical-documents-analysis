@@ -15,7 +15,7 @@ public:
 	OtsulBinarizer(void);
 	~OtsulBinarizer(void);
 
-	DImage* binarize();
+	Mat binarize();
 };
 
 #endif 

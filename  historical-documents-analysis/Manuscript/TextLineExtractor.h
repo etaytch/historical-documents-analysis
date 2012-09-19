@@ -4,8 +4,6 @@
 #include <opencv/cv.h>
 #include <opencv2/core/core.hpp>
 
-#include "DImage.h"
-
 using namespace cv ;
 
 class TextLine ;
@@ -19,13 +17,13 @@ class TextLine ;
 
 class TextLineExtractor {
 protected :
-	DImage _image ;
+	Mat _image ;
 
 public:
 	TextLineExtractor(void)  {;}
 	~TextLineExtractor(void) {;}
 
-	void setImage(DImage& img) { _image = img ;}
+	void setImage(Mat& img) { _image = img ;}
 	virtual void extract(vector<TextLine*>& ) = 0;
 };
 

@@ -18,8 +18,9 @@ OtsulBinarizer::~OtsulBinarizer(void)
 /// <returns>	null if it fails, else. </returns>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-DImage* OtsulBinarizer::binarize(){
-	DImage* bin_image = new DImage(_image.getMat());
-	cv::threshold(_image.getMat(), bin_image->getMat(),0 ,255,cv::THRESH_BINARY|cv::THRESH_OTSU);
+Mat OtsulBinarizer::binarize(){
+	Mat bin_image;
+	bin_image.create(_image.rows, _image.cols, CV_8U);
+	cv::threshold(_image, bin_image,0 ,255,cv::THRESH_BINARY|cv::THRESH_OTSU);
 	return bin_image ;
 }

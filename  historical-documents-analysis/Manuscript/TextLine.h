@@ -1,7 +1,10 @@
 #ifndef _TEXTLINE_H 
 #define _TEXTLINE_H 
 
-#include "DImage.h"
+#include <opencv/cv.h>
+#include <opencv2/core/core.hpp>
+
+#include "manuscript_global.h"
 
 using namespace cv ;
 
@@ -11,16 +14,18 @@ using namespace cv ;
 /// <remarks>	El Sana, 2/9/2012. </remarks>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class MANUSCRIPT_EXPORT TextLine : public DImage {
+class MANUSCRIPT_EXPORT TextLine {
 
 protected:
-	Rect   _rect ;
+	Mat             _image ;
+	Rect            _rect ;
 	vector<Point>* _upper;
 	vector<Point>* _lower;
 
 public:
 	TextLine();
 	~TextLine();
+
 	Point getUpper(int index);
 	Point getLower(int index);
 	void setPoints(Point upper,Point lower);

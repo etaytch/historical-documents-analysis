@@ -1,7 +1,8 @@
 #ifndef _CONNECTEDCOMPONENT_H 
 #define _CONNECTEDCOMPONENT_H
 
-#include "DImage.h"
+#include <vector>
+#include <string>
 #include "Contour.h" 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,19 +18,19 @@ class MANUSCRIPT_EXPORT ConnectedComponent {
 	const static int VERTEX = 2 ;
 	const static int ON_EDGE = 3 ;
 protected:
-	DImage                _image   ;
+	Mat                    _image   ;
 	ConnectedComponent*   _parent  ;
 	Contour               _contour ;
+	String                _string  ;
 	vector<ConnectedComponent*> _children ;
 public:
 	ConnectedComponent(vector<Point>& contour);
 	ConnectedComponent(void);
 	~ConnectedComponent(void);
 
-	void    setMat(Mat& mat)       { /*_image.setMat(mat(_contour.getBoundRect()))*/ ; }
-	void    setMat(DImage& img)    { /*_image.setMat(img.getMat()(_contour.getBoundRect()))*/ ; }
+	void    setMat(Mat& mat)       { _image = mat(_contour.getBoundRect()) ; }
 
-	DImage& getImage()             { return _image ; } 
+	Mat& getImage()                { return _image ; } 
 	Contour& getContour() {
 		return _contour ;
 	}
@@ -42,7 +43,7 @@ public:
 	int  borderType(Mat mat, int row, int col, char mask, int& trace );
 	void setParent(ConnectedComponent* parent)        { _parent   = parent; }
 	void fillComponentOnMat(Mat mat, char mask, char filler);
-	void draw(DImage img, Scalar clr, bool isclosed, int thickness, int line_type);
+	void draw(Mat img, Scalar clr, bool isclosed, int thickness, int line_type);
 };
 
 #endif 

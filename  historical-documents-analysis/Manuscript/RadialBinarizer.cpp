@@ -9,19 +9,18 @@ RadialBinarizer::~RadialBinarizer(void){
 bool RadialBinarizer::getRadialLevel(int row, int col, int radius){
 	int   threshold ;
 	uchar hist[255] ;
-	Mat mat = _image.getMat() ;
 	
 	memset(hist,0,255);
 	for ( int i = row - radius; i <=  row + radius; i++ )
 		for ( int j = col - radius; j <= col + radius ; j++ )
-			hist[(int)mat.at<uchar>(i, j)]++ ;
+			hist[(int)_image.at<uchar>(i, j)]++ ;
 
 	int area = (2*radius+1)*(2*radius+1) ;
 	int sum = 0 ;
 	for ( threshold = 0 ; threshold < 255 && sum < area/2 ; threshold++ ){
 		sum += (int)hist[threshold] ;
 	}
-	return (int)mat.at<uchar>(row, col) >= threshold ;
+	return (int)_image.at<uchar>(row, col) >= threshold ;
 
 	
 	//_image.getMat().adjustROI(row-radius, row+radius, col - radius, col+radius);
@@ -33,7 +32,7 @@ bool RadialBinarizer::getRadialLevel(int row, int col, int radius){
 }
 
 void RadialBinarizer::computeRadialMap(){
-	_radial_map.create(_image.getMat().size(), CV_8U);
+	_radial_map.create(_image.size(), CV_8U);
 	for (int row = 10 ; row < _radial_map.rows -10; row++ ){
 		for ( int col = 10 ; col < _radial_map.cols -10; col++)
 			//for ( int chan = 0; chan < 3 ; chan++ )
@@ -65,10 +64,10 @@ int RadialBinarizer::getOneCount(uchar b){
 }
 
 
-DImage* RadialBinarizer::binarize(){
+Mat RadialBinarizer::binarize(){
 	Mat bin_img ;
 	computeRadialMap();
-	bin_img.create(_image.getMat().size(), CV_8U);
+	bin_img.create(_image.size(), CV_8U);
 	for (int row = 10 ; row < _radial_map.rows -10; row++ )
 		for ( int col = 10 ; col < _radial_map.cols -10; col++){
 			int count = getOneCount(_radial_map.at<uchar>(row, col));
@@ -77,5 +76,5 @@ DImage* RadialBinarizer::binarize(){
 			else
 				bin_img.at<uchar>(row, col) = 0 ;
 		}
-	return new DImage(bin_img) ;
+	return bin_img ;
 }

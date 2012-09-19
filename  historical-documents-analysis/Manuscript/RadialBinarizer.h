@@ -13,7 +13,7 @@ public:
 	bool getRadialLevel(int row, int col, int radius);
 	int  getOneCount(uchar by);
 	void computeRadialMap();
-	virtual DImage* binarize() ;
+	virtual Mat binarize() ;
 };
 
 #endif 

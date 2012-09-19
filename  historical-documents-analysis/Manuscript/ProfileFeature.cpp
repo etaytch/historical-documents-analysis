@@ -13,7 +13,7 @@ float ProfileFeature::distance(FeatureVector* f){
 
 void ProfileFeature::extract(ConnectedComponent& com) {
 	cv::Rect rect = com.getBoundRect() ;
-	cv::Mat mat = com.getImage().getMat() ;
+	cv::Mat mat = com.getImage() ;
 	for ( int col = rect.x ; col < rect.width ; col++ ){
 		byte sum = 0 ;
 		for ( int row = rect.y ; row < rect.height ; row++ ){
