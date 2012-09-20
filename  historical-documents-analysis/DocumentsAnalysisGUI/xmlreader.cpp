@@ -202,13 +202,13 @@ void XmlReader::blockParsing(tinyxml2::XMLElement* pageElement,Page* page)
 			sub_page->setType(atoi(typeAttr));
 		}
 		textLineParsing(blockElement,sub_page);	
-		page->addBlock(sub_page);
+		page->addSubPage(sub_page);
 	}
 
 	
 }
 
-void XmlReader::textLineParsing(tinyxml2::XMLElement* blockElement,Block* block)
+void XmlReader::textLineParsing(tinyxml2::XMLElement* blockElement,SubPage* block)
 {
 	for(tinyxml2::XMLElement* textLineElement = blockElement->FirstChildElement("TextLine"); 
 		textLineElement != NULL; textLineElement = textLineElement->NextSiblingElement("TextLine"))

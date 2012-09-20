@@ -122,7 +122,7 @@ void XmlWriter::blockGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc,
 	XMLElement* element;
 	vector<SubPage*>::iterator blockIter;
 
-	vector<SubPage*> blocks = page->getBlocks();
+	vector<SubPage*> blocks = page->getSubPages();
 	for(blockIter = blocks.begin(); blockIter!=blocks.end();blockIter++)
 	{
 		element = xmlDoc.NewElement("SubPage");
@@ -132,13 +132,13 @@ void XmlWriter::blockGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc,
 	}
 }
 
-void XmlWriter::textLineGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, Block* block)
+void XmlWriter::textLineGen(tinyxml2::XMLNode* node, tinyxml2::XMLDocument& xmlDoc, SubPage* subpage)
 {
 
 	XMLElement* element;
 	vector<TextLine*>::iterator textLineIter;
 
-	vector<TextLine*> tLines = block->getTextLines();
+	vector<TextLine*> tLines = subpage->getTextLines();
 	for(textLineIter = tLines.begin(); textLineIter!=tLines.end();textLineIter++)
 	{
 		element = xmlDoc.NewElement("TextLine");
