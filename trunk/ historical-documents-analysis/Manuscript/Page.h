@@ -34,8 +34,8 @@ public:
 	string getName()           { return _name;}
 	void setName(string name)  { _name = name;}
 
-	void             setSubImages(vector<SubPage*> subpages)   { _subpages = subpages;}
-	vector<SubPage*> getSubImages()                            { return _subpages;}
+	void             setSubPages(vector<SubPage*> subpages)   { _subpages = subpages;}
+	vector<SubPage*> getSubPages()                            { return _subpages;}
 	
 	void addSubPage(SubPage* b)                                { _subpages.push_back(b);}
 	void removeSubPage(int index);

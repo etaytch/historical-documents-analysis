@@ -53,7 +53,7 @@ void HdaOperationThread::run()
 		// creating new page for the resulted DImage
 		Page* newPage = new Page();
 		newPage->setIndex(1);
-		newPage->setMat(newImage->getMat());
+		newPage->setMat(newImage);
 
 		// saving to file
 		QFileInfo fi(workingPage->getName().c_str());	
